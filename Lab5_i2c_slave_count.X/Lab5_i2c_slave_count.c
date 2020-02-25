@@ -1,8 +1,8 @@
 /*
- * File:   Lab5_i2c_slave_pot_v1.c
+ * File:   Lab5_i2c_slave_count.c
  * Author: Peter
  *
- * Created on February 25, 2020, 2:19 PM
+ * Created on February 25, 2020, 2:55 PM
  */
 
 // PIC16F887 Configuration Bit Settings
@@ -31,34 +31,34 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "lib_osccon.h"
-#include "lib_adc.h"
 
-#define _XTAL_FREQ 4000000
-
-unsigned char pot = 0;
+unsigned char i = 0;
+unsigned char j = 0;
 
 void setup(void);
-void globalAdcIntEnable(void);
-
-void __interrupt() isr(){
-    if (PIR1bits.ADIF == 1){
-        pot = ADRESH;
-        PORTB = pot;
-    }
-}
 
 void main(void) {
     setup();
-    oscInit(1);
-    adcSetup();
-    analogInSel(5);
-    adcFoscSel(1);
-    globalAdcIntEnable();
-    adcInterrupt(1);
     while(1){
-        if (ADCON0bits.GO_DONE == 0){
-            ADCON0bits.GO_DONE = 1;
+        if (PORTEbits.RE0 == 1){
+            i = 1;
+            if (PORTEbits.RE0 == 0 && i == 1){
+                PORTA += PORTA;
+                i = 0;
+                if (PORTA == 16){
+                    PORTA = 0;
+                }
+            }
+        }
+        else if (PORTEbits.RE1 == 1){
+            j = 1;
+            if (PORTEbits.RE1 == 0 && j == 1){
+                PORTA -= PORTA;
+                j = 0;
+            }
+            else if (PORTA == 0){
+                j = 0;
+            }
         }
     }
     return;
@@ -66,12 +66,9 @@ void main(void) {
 
 void setup(void){
     TRISEbits.TRISE0 = 1;
-    ANSELbits.ANS5 = 1;
-    TRISA = 0;
+    TRISEbits.TRISE1 = 1;
+    TRISA = 0xFF;
+    ANSEL = 0;
+    ANSELH = 0;
     PORTA = 0;
-}
-
-void globalAdcIntEnable(void){
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
 }

@@ -1,4 +1,4 @@
-# 1 "Lab5_i2c_slave_pot_v1.c"
+# 1 "Lab5_i2c_slave_count.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "Lab5_i2c_slave_pot_v1.c" 2
-# 13 "Lab5_i2c_slave_pot_v1.c"
+# 1 "Lab5_i2c_slave_count.c" 2
+# 13 "Lab5_i2c_slave_count.c"
 #pragma config FOSC = INTRC_NOCLKOUT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
@@ -2511,7 +2511,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 31 "Lab5_i2c_slave_pot_v1.c" 2
+# 31 "Lab5_i2c_slave_count.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 1 3
 
@@ -2610,7 +2610,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 32 "Lab5_i2c_slave_pot_v1.c" 2
+# 32 "Lab5_i2c_slave_count.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
@@ -2745,47 +2745,36 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 33 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "./lib_osccon.h" 1
-# 36 "./lib_osccon.h"
-unsigned char oscInit(unsigned char freq);
-# 34 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "./lib_adc.h" 1
-# 36 "./lib_adc.h"
-void adcSetup(void);
-void adcInterrupt(unsigned char en);
-unsigned char analogInSel(unsigned char analogIn);
-unsigned char adcFoscSel(unsigned char fosc);
-# 35 "Lab5_i2c_slave_pot_v1.c" 2
+# 33 "Lab5_i2c_slave_count.c" 2
 
 
-
-
-unsigned char pot = 0;
+unsigned char i = 0;
+unsigned char j = 0;
 
 void setup(void);
-void globalAdcIntEnable(void);
-
-void __attribute__((picinterrupt(("")))) isr(){
-    if (PIR1bits.ADIF == 1){
-        pot = ADRESH;
-        PORTB = pot;
-    }
-}
 
 void main(void) {
     setup();
-    oscInit(1);
-    adcSetup();
-    analogInSel(5);
-    adcFoscSel(1);
-    globalAdcIntEnable();
-    adcInterrupt(1);
     while(1){
-        if (ADCON0bits.GO_DONE == 0){
-            ADCON0bits.GO_DONE = 1;
+        if (PORTEbits.RE0 == 1){
+            i = 1;
+            if (PORTEbits.RE0 == 0 && i == 1){
+                PORTA += PORTA;
+                i = 0;
+                if (PORTA == 16){
+                    PORTA = 0;
+                }
+            }
+        }
+        else if (PORTEbits.RE1 == 1){
+            j = 1;
+            if (PORTEbits.RE1 == 0 && j == 1){
+                PORTA -= PORTA;
+                j = 0;
+            }
+            else if (PORTA == 0){
+                j = 0;
+            }
         }
     }
     return;
@@ -2793,12 +2782,9 @@ void main(void) {
 
 void setup(void){
     TRISEbits.TRISE0 = 1;
-    ANSELbits.ANS5 = 1;
-    TRISA = 0;
+    TRISEbits.TRISE1 = 1;
+    TRISA = 0xFF;
+    ANSEL = 0;
+    ANSELH = 0;
     PORTA = 0;
-}
-
-void globalAdcIntEnable(void){
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
 }

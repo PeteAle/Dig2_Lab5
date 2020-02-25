@@ -14,6 +14,7 @@ ___sp 0 0 STACK 2
 btemp 7E 0 ABS 0
 start C 0 CODE 0
 _TRISA 85 0 ABS 0
+_PORTA 5 0 ABS 0
 reset_vec 0 0 CODE 0
 _PORTB 6 0 ABS 0
 analogInSel@analogIn 75 0 COMMON 1
@@ -26,7 +27,6 @@ __Hram 0 0 ABS 0
 __Lram 0 0 ABS 0
 __size_of_isr 0 0 ABS 0
 _setup 1AD 0 CODE 0
-__size_of_globalIntEnable 0 0 ABS 0
 __Hfunctab 0 0 ENTRY 0
 __Lfunctab 0 0 ENTRY 0
 __Hcommon 0 0 ABS 0
@@ -37,7 +37,7 @@ __Heeprom_data 0 0 EEDATA 3
 __Leeprom_data 0 0 EEDATA 3
 _PIR1bits C 0 ABS 0
 ___int_sp 0 0 STACK 2
-_adcSetup 1B7 0 CODE 0
+_adcSetup 1BA 0 CODE 0
 _ADRESH 1E 0 ABS 0
 __Habs1 0 0 ABS 0
 __Labs1 0 0 ABS 0
@@ -57,14 +57,12 @@ saved_w 7E 0 ABS 0
 __Hinit C 0 CODE 0
 __Linit C 0 CODE 0
 __end_of_main 154 0 CODE 0
-__end_of_globalIntEnable 1C3 0 CODE 0
 __Htext 0 0 ABS 0
 __Ltext 0 0 ABS 0
 __end_of_adcFoscSel 179 0 CODE 0
 end_of_initialization 10 0 CODE 0
 ___stacklo 0 0 ABS 0
 adcFoscSel@fosc 75 0 COMMON 1
-_globalIntEnable 1C0 0 CODE 0
 _TRISEbits 89 0 ABS 0
 _ANSELbits 188 0 ABS 0
 __Hstrings 0 0 ABS 0
@@ -81,14 +79,14 @@ __Lbank2 0 0 ABS 0
 __Hbank3 0 0 ABS 0
 __Lbank3 0 0 ABS 0
 ___latbits 2 0 ABS 0
-__end_of_adcSetup 1C0 0 CODE 0
+__end_of_adcSetup 1C3 0 CODE 0
 __Hpowerup 0 0 CODE 0
 __Lpowerup 0 0 CODE 0
 __ptext1 1AD 0 CODE 0
 __ptext2 AD 0 CODE 0
-__ptext3 1C0 0 CODE 0
+__ptext3 1C3 0 CODE 0
 __ptext4 14 0 CODE 0
-__ptext5 1B7 0 CODE 0
+__ptext5 1BA 0 CODE 0
 __ptext6 179 0 CODE 0
 __ptext7 154 0 CODE 0
 __ptext8 19A 0 CODE 0
@@ -116,6 +114,7 @@ __Lspace_3 0 0 ABS 0
 __size_of_main 0 0 ABS 0
 __size_of_oscInit 0 0 ABS 0
 __CFG_MCLRE$OFF 0 0 ABS 0
+__end_of_globalAdcIntEnable 1C6 0 CODE 0
 __CFG_FCMEN$OFF 0 0 ABS 0
 _adcInterrupt 179 0 CODE 0
 __end_of_analogInSel AD 0 CODE 0
@@ -131,11 +130,13 @@ _INTCONbits B 0 ABS 0
 __Hend_init F 0 CODE 0
 __Lend_init C 0 CODE 0
 _analogInSel 14 0 CODE 0
-__end_of_setup 1B7 0 CODE 0
+__end_of_setup 1BA 0 CODE 0
+_globalAdcIntEnable 1C3 0 CODE 0
 __Hreset_vec 3 0 CODE 0
 __Lreset_vec 0 0 CODE 0
 intlevel0 0 0 ENTRY 0
 __CFG_WDTE$OFF 0 0 ABS 0
+__size_of_globalAdcIntEnable 0 0 ABS 0
 intlevel1 0 0 ENTRY 0
 __CFG_FOSC$INTRC_NOCLKOUT 0 0 ABS 0
 intlevel2 0 0 ENTRY 0
@@ -158,18 +159,18 @@ __size_of_analogInSel 0 0 ABS 0
 __CFG_LVP$OFF 0 0 ABS 0
 %segments
 reset_vec 0 5 CODE 0 0
-intentry 8 385 CODE 8 0
+intentry 8 38B CODE 8 0
 config 400E 4011 CONFIG 400E 0
 cstackCOMMON 70 76 COMMON 70 1
 %locals
 dist/default/production\Lab5_i2c_slave_pot.X.production.o
-C:\Users\Peter\AppData\Local\Temp\s5sk.s
-775 F 0 CODE 0
-778 F 0 CODE 0
-789 F 0 CODE 0
-795 10 0 CODE 0
+C:\Users\Peter\AppData\Local\Temp\sios.s
+777 F 0 CODE 0
+780 F 0 CODE 0
+791 F 0 CODE 0
 797 10 0 CODE 0
-798 11 0 CODE 0
+799 10 0 CODE 0
+800 11 0 CODE 0
 Lab5_i2c_slave_pot_v1.c
 51 122 0 CODE 0
 52 122 0 CODE 0
@@ -186,6 +187,7 @@ Lab5_i2c_slave_pot_v1.c
 69 1B0 0 CODE 0
 70 1B3 0 CODE 0
 71 1B6 0 CODE 0
+72 1B9 0 CODE 0
 lib_osccon.c
 11 AD 0 CODE 0
 12 AE 0 CODE 0
@@ -264,10 +266,10 @@ lib_osccon.c
 85 FF 0 CODE 0
 87 121 0 CODE 0
 Lab5_i2c_slave_pot_v1.c
-73 1C0 0 CODE 0
-74 1C0 0 CODE 0
-75 1C1 0 CODE 0
-76 1C2 0 CODE 0
+74 1C3 0 CODE 0
+75 1C3 0 CODE 0
+76 1C4 0 CODE 0
+77 1C5 0 CODE 0
 lib_adc.c
 32 14 0 CODE 0
 33 15 0 CODE 0
@@ -357,12 +359,12 @@ lib_adc.c
 117 77 0 CODE 0
 118 78 0 CODE 0
 120 AC 0 CODE 0
-12 1B7 0 CODE 0
-13 1B7 0 CODE 0
-14 1BA 0 CODE 0
-15 1BD 0 CODE 0
-16 1BE 0 CODE 0
-17 1BF 0 CODE 0
+12 1BA 0 CODE 0
+13 1BA 0 CODE 0
+14 1BD 0 CODE 0
+15 1C0 0 CODE 0
+16 1C1 0 CODE 0
+17 1C2 0 CODE 0
 19 179 0 CODE 0
 20 17A 0 CODE 0
 21 17B 0 CODE 0

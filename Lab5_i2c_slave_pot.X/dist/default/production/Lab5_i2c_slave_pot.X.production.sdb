@@ -17,8 +17,8 @@
 [v _main main `(v  1 e 1 0 ]
 "67
 [v _setup setup `(v  1 e 1 0 ]
-"73
-[v _globalIntEnable globalIntEnable `(v  1 e 1 0 ]
+"74
+[v _globalAdcIntEnable globalAdcIntEnable `(v  1 e 1 0 ]
 "12 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\lib_adc.c
 [v _adcSetup adcSetup `(v  1 e 1 0 ]
 "19
@@ -29,9 +29,11 @@
 [v _adcFoscSel adcFoscSel `(uc  1 e 1 0 ]
 "11 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\lib_osccon.c
 [v _oscInit oscInit `(uc  1 e 1 0 ]
-"228 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f887.h
+"166 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f887.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"228
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-[s S283 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S284 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -41,13 +43,13 @@
 `uc 1 GIE 1 0 :1:7 
 ]
 "482
-[s S292 . 1 `uc 1 . 1 0 :2:0 
+[s S293 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 TMR0IE 1 0 :1:5 
 ]
-[u S297 . 1 `S283 1 . 1 0 `S292 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES297  1 e 1 @11 ]
+[u S298 . 1 `S284 1 . 1 0 `S293 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES298  1 e 1 @11 ]
 [s S102 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
@@ -150,7 +152,7 @@
 "67
 [v _setup setup `(v  1 e 1 0 ]
 {
-"71
+"72
 } 0
 "11 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\lib_osccon.c
 [v _oscInit oscInit `(uc  1 e 1 0 ]
@@ -160,10 +162,10 @@
 [v oscInit@freq freq `uc  1 a 1 5 ]
 "87
 } 0
-"73 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\Lab5_i2c_slave_pot_v1.c
-[v _globalIntEnable globalIntEnable `(v  1 e 1 0 ]
+"74 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\Lab5_i2c_slave_pot_v1.c
+[v _globalAdcIntEnable globalAdcIntEnable `(v  1 e 1 0 ]
 {
-"76
+"77
 } 0
 "32 C:\Users\Peter\Documents\GitHub\Dig2_Lab5\Lab5_i2c_slave_pot.X\lib_adc.c
 [v _analogInSel analogInSel `(uc  1 e 1 0 ]
