@@ -31,9 +31,19 @@
 #ifndef __I2CV1_H_
 #define	__I2CV1_H_
 
-#include <xc.h> // include processor files - each processor file is guarded.  
+#include <xc.h> // include processor files - each processor file is guarded. 
 
+#ifndef _XTAL_FREQ
+#define _XTAL_FREQ 4000000
+#endif
 
+void i2c_master_init(unsigned long c);
+void i2c_masterWait(void);
+void i2c_masterStart(void);
+void i2c_masterRStart(void);
+void i2c_masterStop(void);
+void i2c_masterWrite(unsigned int data);
+unsigned short  i2c_masterRead(unsigned short a);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 
