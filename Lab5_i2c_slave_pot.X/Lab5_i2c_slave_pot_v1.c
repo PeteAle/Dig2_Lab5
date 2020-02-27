@@ -33,9 +33,11 @@
 #include <stdint.h>
 #include "lib_osccon.h"
 #include "lib_adc.h"
+#include "I2C.h"
 
 #define _XTAL_FREQ 4000000
 
+short x = 0;
 unsigned char pot = 0;
 
 void setup(void);
@@ -56,10 +58,12 @@ void main(void) {
     adcFoscSel(1);
     globalAdcIntEnable();
     adcInterrupt(1);
+    i2c_slave_init(0x10);
     while(1){
         if (ADCON0bits.GO_DONE == 0){
             ADCON0bits.GO_DONE = 1;
         }
+        if (SSPIF ==)
     }
     return;
 }

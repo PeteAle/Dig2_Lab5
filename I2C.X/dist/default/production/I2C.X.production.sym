@@ -9,7 +9,6 @@ ___sp 0 0 STACK 2
 btemp 7E 0 ABS 0
 start 0 0 CODE 0
 reset_vec 0 0 CODE 0
-_ACKEN 48C 0 ABS 0
 wtemp0 7E 0 ABS 0
 __Hconfig 0 0 CONFIG 0
 __Lconfig 0 0 CONFIG 0
@@ -107,12 +106,12 @@ cinit FF8 FFF CODE FF8 0
 maintext FF2 FF7 CODE FF2 0
 %locals
 dist/default/production\I2C.X.production.o
-C:\Users\Peter\AppData\Local\Temp\s27c.s
-584 7FC 0 CODE 0
-587 7FC 0 CODE 0
+C:\Users\Peter\AppData\Local\Temp\sdhk.s
+582 7FC 0 CODE 0
+585 7FC 0 CODE 0
+591 7FC 0 CODE 0
 593 7FC 0 CODE 0
-595 7FC 0 CODE 0
-596 7FD 0 CODE 0
+594 7FD 0 CODE 0
 main.c
 11 7F9 0 CODE 0
 12 7F9 0 CODE 0

@@ -33,8 +33,8 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 
-void delay_1ms2(void);
-void lcd8_init2(void);
+void delay_1ms(void);
+void lcd8_init(void);
 void lcd8_cmd(unsigned char cmd);
 void lcd8_write(unsigned int dat);
 void lcd8_dispChar(char *value);

@@ -31,6 +31,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdint.h>
+#include "I2C.h"
 
 unsigned char i = 0;
 unsigned char j = 0;
@@ -40,23 +41,23 @@ void setup(void);
 void main(void) {
     setup();
     while(1){
-        if (PORTEbits.RE0 == 1){
+        if (PORTDbits.RD2 == 1){
             i = 1;
-            if (PORTEbits.RE0 == 0 && i == 1){
-                PORTA += PORTA;
+            if (PORTDbits.RD2 == 0 && i == 1){
+                PORTB += PORTB;
                 i = 0;
-                if (PORTA == 16){
-                    PORTA = 0;
+                if (PORTB >= 16){
+                    PORTB = 0;
                 }
             }
         }
-        else if (PORTEbits.RE1 == 1){
+        else if (PORTDbits.RD1 == 1){
             j = 1;
-            if (PORTEbits.RE1 == 0 && j == 1){
-                PORTA -= PORTA;
+            if (PORTDbits.RD1 == 0 && j == 1){
+                PORTB -= PORTB;
                 j = 0;
             }
-            else if (PORTA == 0){
+            else if (PORTB == 0){
                 j = 0;
             }
         }
@@ -65,10 +66,10 @@ void main(void) {
 }
 
 void setup(void){
-    TRISEbits.TRISE0 = 1;
-    TRISEbits.TRISE1 = 1;
-    TRISA = 0xFF;
+    TRISDbits.TRISD2 = 1;
+    TRISDbits.TRISD1 = 1;
+    TRISB = 0x00;
     ANSEL = 0;
     ANSELH = 0;
-    PORTA = 0;
+    PORTB = 0;
 }

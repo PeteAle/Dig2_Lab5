@@ -5,9 +5,9 @@
  * Created on February 9, 2020, 5:31 PM
  */
 
-#define rs PORTCbits.RC0
-#define rw PORTCbits.RC1
-#define en PORTCbits.RC2
+#define rs PORTEbits.RE0
+#define rw PORTEbits.RE1
+#define en PORTEbits.RE2
 #define data PORTA
 
 #define _XTAL_FREQ 4000000
@@ -15,7 +15,7 @@
 #include <xc.h>
 #include "LCDv1.h"
 
-void lcd8_init2(){
+void lcd8_init(){
     __delay_ms(20);
     lcd8_cmd(0x30);
     __delay_ms(5);
@@ -36,7 +36,7 @@ void lcd8_cmd(unsigned char cmd){
     rs = 0;
     rw = 0;
     en = 1;
-    delay_1ms2();
+    delay_1ms();
     en = 0;
 }
 
@@ -45,7 +45,7 @@ void lcd8_write(unsigned int dat){
     rs = 1;
     rw = 0;
     en = 1;
-    delay_1ms2();
+    delay_1ms();
     en = 0;
 }
 
@@ -68,6 +68,9 @@ void lcd8_setCursor(unsigned char fila, unsigned char columna){
     }
 }
 
-void delay_1ms2(void){
+void delay_1ms(void){
     for (int i = 0; i < 50; i++);
+    // _XTAL_FREQ 8000000
+    // _XTAL_FREQ/80000
+    // Con esto, resulta en cambiar i < 50 a i < 100 para 1 ms.
 }

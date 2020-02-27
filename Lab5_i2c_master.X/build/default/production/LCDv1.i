@@ -1,4 +1,4 @@
-# 1 "I2C.c"
+# 1 "LCDv1.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,15 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "I2C.c" 2
-
-
-
-
-
-
-
-
+# 1 "LCDv1.c" 2
+# 15 "LCDv1.c"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2473,7 +2466,7 @@ extern void __nop(void);
 # 78 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\pic.h" 3
 __attribute__((__unsupported__("The " "FLASH_READ" " macro function is no longer supported. Please use the MPLAB X MCC."))) unsigned char __flash_read(unsigned short addr);
 
-__attribute__((__unsupported__("The " "FLASH_WRITE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_write(unsigned short addr, unsigned short data);
+__attribute__((__unsupported__("The " "FLASH_WRITE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_write(unsigned short addr, unsigned short PORTA);
 
 __attribute__((__unsupported__("The " "FLASH_ERASE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_erase(unsigned short addr);
 
@@ -2499,79 +2492,76 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 9 "I2C.c" 2
+# 15 "LCDv1.c" 2
 
-# 1 "./I2C.h" 1
-# 40 "./I2C.h"
-void i2c_master_init(unsigned long c);
-void i2c_masterWait(void);
-void i2c_masterStart(void);
-void i2c_masterRStart(void);
-void i2c_masterStop(void);
-void i2c_masterWrite(unsigned int data);
-unsigned short i2c_masterRead(unsigned short a);
-# 10 "I2C.c" 2
+# 1 "./LCDv1.h" 1
+# 36 "./LCDv1.h"
+void delay_1ms(void);
+void lcd8_init(void);
+void lcd8_cmd(unsigned char cmd);
+void lcd8_write(unsigned int dat);
+void lcd8_dispChar(char *value);
+void lcd8_dispNum(int val_num);
+void lcd8_setCursor(unsigned char fila, unsigned char columna);
+# 16 "LCDv1.c" 2
 
 
-void i2c_master_init(unsigned long c){
-    SSPCON = 0b00101000;
-    SSPCON2 = 0;
-    SSPADD = (4000000/(4*c))-1;
-    SSPSTAT = 0;
-    TRISCbits.TRISC3 = 1;
-    TRISCbits.TRISC4 = 1;
+void lcd8_init(){
+    _delay((unsigned long)((20)*(4000000/4000.0)));
+    lcd8_cmd(0x30);
+    _delay((unsigned long)((5)*(4000000/4000.0)));
+    lcd8_cmd(0x30);
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+    lcd8_cmd(0x30);
+    _delay((unsigned long)((1)*(4000000/4000.0)));
+    lcd8_cmd(0x38);
+    lcd8_cmd(0x10);
+    lcd8_cmd(0x01);
+    lcd8_cmd(0x06);
+    lcd8_cmd(0x0C);
+    lcd8_cmd(0x80);
 }
 
-void i2c_masterWait(void){
-    while ((SSPSTAT & 0x04) || (SSPCON2 & 0x1F));
+void lcd8_cmd(unsigned char cmd){
+    PORTA = cmd;
+    PORTEbits.RE0 = 0;
+    PORTEbits.RE1 = 0;
+    PORTEbits.RE2 = 1;
+    delay_1ms();
+    PORTEbits.RE2 = 0;
 }
 
-void i2c_masterStart(void){
-    i2c_masterWait();
-    SSPCON2bits.SEN = 1;
+void lcd8_write(unsigned int dat){
+    PORTA = dat;
+    PORTEbits.RE0 = 1;
+    PORTEbits.RE1 = 0;
+    PORTEbits.RE2 = 1;
+    delay_1ms();
+    PORTEbits.RE2 = 0;
 }
 
-void i2c_master_RStart(void){
-    i2c_masterWait();
-    SSPCON2bits.RSEN = 1;
-}
-
-void i2c_masterStop(void){
-    i2c_masterWait();
-    SSPCON2bits.PEN = 1;
-}
-
-void i2c_masterWrite(unsigned int data){
-    i2c_masterWait();
-    SSPBUF = data;
-}
-
-unsigned short i2c_masterRead(unsigned short a){
-    unsigned short temp;
-    i2c_masterWait();
-    SSPCON2bits.RCEN = 1;
-    i2c_masterWait();
-    temp = SSPBUF;
-    i2c_masterWait();
-    if (a == 0){
-        SSPCON2bits.ACKDT = 1;
+void lcd8_dispChar(char *value){
+    while(*value){
+        lcd8_write(*value++);
     }
-    else if (a == 1){
-        SSPCON2bits.ACKDT = 0;
-    }
-    SSPCON2bits.ACKEN = 1;
-    return temp;
 }
 
-void i2c_slave_init(short address){
-    SSPSTAT = 0x80;
-    SSPADD = address;
-    SSPCON = 0x36;
-    SSPCON2 = 0x01;
-    TRISCbits.TRISC3 = 1;
-    TRISCbits.TRISC4 = 1;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIR1bits.SSPIF = 0;
-    PIE1bits.SSPIE = 1;
+void lcd8_dispNum(int val_num){
+    lcd8_write(val_num + 0x30);
+}
+
+void lcd8_setCursor(unsigned char fila, unsigned char columna){
+    if (fila == 1){
+        lcd8_cmd(0x80 + columna);
+    }
+    else if (fila == 2){
+        lcd8_cmd(0xC0 + columna);
+    }
+}
+
+void delay_1ms(void){
+    for (int i = 0; i < 50; i++);
+
+
+
 }

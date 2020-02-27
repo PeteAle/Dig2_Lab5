@@ -55,7 +55,7 @@ unsigned short  i2c_masterRead(unsigned short a){
     else if (a == 1){
         SSPCON2bits.ACKDT = 0;
     }
-    ACKEN = 1;          //Acknowledge sequence
+    SSPCON2bits.ACKEN = 1;          //Acknowledge sequence
     return temp;
 }
 
