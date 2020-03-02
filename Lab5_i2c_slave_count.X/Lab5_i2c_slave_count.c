@@ -73,8 +73,7 @@ void main(void) {
     setup();
     i2c_slave_init(0x20);
     while(1){
-        while (PORTDbits.RD2 == 1){
-            di();
+        if (PORTDbits.RD2 == 1){
             i = 1;
             if (PORTDbits.RD2 == 0 && i == 1){
                 PORTB++;
@@ -83,10 +82,8 @@ void main(void) {
                     PORTB = 0;
                 }
             }
-            ei();
         }
-        while (PORTDbits.RD1 == 1){
-            di();
+        else if (PORTDbits.RD1 == 1){
             j = 1;
             if (PORTDbits.RD1 == 0 && j == 1){
                 if (PORTB == 0){
@@ -97,7 +94,6 @@ void main(void) {
                     j = 0;   
                 }
             }
-            ei();
         }
     }
     return;
