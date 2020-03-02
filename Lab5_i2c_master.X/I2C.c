@@ -7,9 +7,10 @@
 
 
 #include <xc.h>
+#include <stdint.h>
 #include "I2C.h"
 
-void i2c_master_init(unsigned long c){
+void i2c_master_init(const unsigned long c){
     SSPCON = 0b00101000;
     SSPCON2 = 0;
     SSPADD = (_XTAL_FREQ/(4*c))-1;
@@ -37,7 +38,7 @@ void i2c_masterStop(void){
     SSPCON2bits.PEN = 1;           //Initiate stop condition
 }
 
-void i2c_masterWrite(unsigned int data){
+void i2c_masterWrite(unsigned data){
     i2c_masterWait();
     SSPBUF = data;         //Write data to SSPBUF
 }
@@ -49,17 +50,17 @@ unsigned short  i2c_masterRead(unsigned short a){
     i2c_masterWait();
     temp = SSPBUF;      //Read data from SSPBUF
     i2c_masterWait();
-    if (a == 0){
-        SSPCON2bits.ACKDT = 1;
-    }
-    else if (a == 1){
+    if (a == 1){
         SSPCON2bits.ACKDT = 0;
+    }
+    else{
+        SSPCON2bits.ACKDT = 1;
     }
     SSPCON2bits.ACKEN = 1;          //Acknowledge sequence
     return temp;
 }
 
-void i2c_slave_init(short address){
+void i2c_slave_init(uint8_t address){
     SSPSTAT = 0x80;    
     SSPADD = address; //Setting address
     SSPCON = 0x36;    //As a slave device

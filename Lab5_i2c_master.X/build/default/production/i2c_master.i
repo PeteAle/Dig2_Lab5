@@ -2747,6 +2747,11 @@ extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 # 33 "i2c_master.c" 2
 
+# 1 "./lib_osccon.h" 1
+# 36 "./lib_osccon.h"
+unsigned char oscInit(unsigned char freq);
+# 34 "i2c_master.c" 2
+
 # 1 "./LCDv1.h" 1
 # 36 "./LCDv1.h"
 void delay_1ms(void);
@@ -2756,30 +2761,60 @@ void lcd8_write(unsigned int dat);
 void lcd8_dispChar(char *value);
 void lcd8_dispNum(int val_num);
 void lcd8_setCursor(unsigned char fila, unsigned char columna);
-# 34 "i2c_master.c" 2
+# 35 "i2c_master.c" 2
 
 # 1 "./I2C.h" 1
-# 40 "./I2C.h"
-void i2c_master_init(unsigned long c);
+# 35 "./I2C.h"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 1 3
+# 35 "./I2C.h" 2
+
+
+
+
+
+
+void i2c_master_init(const unsigned long c);
 void i2c_masterWait(void);
 void i2c_masterStart(void);
 void i2c_masterRStart(void);
 void i2c_masterStop(void);
-void i2c_masterWrite(unsigned int data);
+void i2c_masterWrite(unsigned data);
 unsigned short i2c_masterRead(unsigned short a);
-# 35 "i2c_master.c" 2
+void i2c_slave_init(uint8_t address);
+# 36 "i2c_master.c" 2
+
+
 
 
 float temp_pot1 = 0;
-uint16_t centenas = 0, decenas = 0, unidades = 0;
+uint16_t centenas = 0, decenas = 0, unidades = 0, counter = 0;
 
 void setup(void);
 
 void main(void) {
     setup();
-    lcd8_init();
     i2c_master_init(100000);
+    lcd8_init();
     while(1){
+
+        i2c_masterStart();
+        i2c_masterWrite(0x11);
+        temp_pot1 = i2c_masterRead(0);
+        i2c_masterStop();
+        _delay((unsigned long)((1)*(4000000/4000.0)));
+
+        i2c_masterStart();
+        i2c_masterWrite(0x21);
+        counter = i2c_masterRead(0);
+        i2c_masterStop();
+        _delay((unsigned long)((1)*(4000000/4000.0)));
+
+        temp_pot1 = (temp_pot1*5.0)/255.0;
+        temp_pot1 = temp_pot1*100;
+        centenas = temp_pot1/100;
+        temp_pot1 = temp_pot1 - (centenas*100);
+        decenas = temp_pot1/10;
+        unidades = temp_pot1 - (decenas*10);
 
         lcd8_setCursor(1,1);
         delay_1ms();
@@ -2794,17 +2829,6 @@ void main(void) {
         lcd8_dispChar("S3:");
         delay_1ms();
 
-        i2c_masterStart();
-        i2c_masterWrite(0x11);
-        temp_pot1 = i2c_masterRead(1);
-        i2c_masterStop();
-        temp_pot1 = (temp_pot1*5.0)/255.0;
-        temp_pot1 = temp_pot1*100;
-        centenas = temp_pot1/100;
-        temp_pot1 = temp_pot1 - (centenas*100);
-        decenas = temp_pot1/10;
-        unidades = temp_pot1 - (decenas*10);
-
         lcd8_setCursor(2,1);
         delay_1ms();
         lcd8_dispNum(centenas);
@@ -2814,13 +2838,22 @@ void main(void) {
         lcd8_dispNum(decenas);
         delay_1ms();
         lcd8_dispNum(unidades);
+        delay_1ms();
+
+        lcd8_setCursor(2,6);
+        delay_1ms();
+        lcd8_dispNum(counter);
+        delay_1ms();
     }
     return;
 }
 
 void setup(void){
     TRISA = 0x00;
-    TRISE = 0xFF;
+    TRISEbits.TRISE0 = 0;
+    TRISEbits.TRISE1 = 0;
+    TRISEbits.TRISE2 = 0;
     ANSEL = 0x00;
     ANSELH = 0x00;
+    PORTA = 0x00;
 }

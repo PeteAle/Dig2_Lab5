@@ -32,18 +32,20 @@
 #define	__I2C_H_
 
 #include <xc.h> // include processor files - each processor file is guarded. 
+#include <stdint.h>
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ 4000000
 #endif
 
-void i2c_master_init(unsigned long c);
+void i2c_master_init(const unsigned long c);
 void i2c_masterWait(void);
 void i2c_masterStart(void);
 void i2c_masterRStart(void);
 void i2c_masterStop(void);
-void i2c_masterWrite(unsigned int data);
+void i2c_masterWrite(unsigned data);
 unsigned short  i2c_masterRead(unsigned short a);
+void i2c_slave_init(uint8_t address);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

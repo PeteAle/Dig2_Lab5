@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.10 build 88905656 
-                                                                                               Tue Feb 25 14:59:30 2020
+                                                                                               Sun Mar 01 23:49:15 2020
 
 Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1 
      1                           	processor	16F887
@@ -376,1458 +376,1797 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
    362  0189                     	;# 
    363  018C                     	;# 
    364  018D                     	;# 
-   365  000B                     _INTCONbits	set	11
-   366  0005                     _PORTA	set	5
-   367  0006                     _PORTB	set	6
-   368  001E                     _ADRESH	set	30
-   369  000C                     _PIR1bits	set	12
-   370  001F                     _ADCON0bits	set	31
-   371  0085                     _TRISA	set	133
-   372  0089                     _TRISEbits	set	137
-   373  008F                     _OSCCONbits	set	143
-   374  008C                     _PIE1bits	set	140
-   375  009F                     _ADCON1bits	set	159
-   376  0188                     _ANSELbits	set	392
-   377                           
-   378                           ; #config settings
-   379  0000                     
-   380                           	psect	cinit
-   381  000F                     start_initialization:	
-   382  000F                     __initialization:	
-   383                           
-   384                           ; Clear objects allocated to COMMON
-   385  000F  01F6               	clrf	__pbssCOMMON& (0+127)
-   386  0010                     end_of_initialization:	
-   387                           ;End of C runtime variable initialization code
-   388                           
-   389  0010                     __end_of__initialization:	
-   390  0010  0183               	clrf	3
-   391  0011  120A  118A  2922   	ljmp	_main	;jump to C main() function
-   392                           
-   393                           	psect	bssCOMMON
-   394  0076                     __pbssCOMMON:	
-   395  0076                     _pot:	
-   396  0076                     	ds	1
-   397                           
-   398                           	psect	cstackCOMMON
-   399  0070                     __pcstackCOMMON:	
-   400  0070                     ?_setup:	
-   401  0070                     ?_globalAdcIntEnable:	
-   402                           ; 1 bytes @ 0x0
-   403                           
-   404  0070                     ?_adcSetup:	
-   405                           ; 1 bytes @ 0x0
-   406                           
-   407  0070                     ?_adcInterrupt:	
-   408                           ; 1 bytes @ 0x0
-   409                           
-   410  0070                     ?_analogInSel:	
-   411                           ; 1 bytes @ 0x0
-   412                           
-   413  0070                     ?_adcFoscSel:	
-   414                           ; 1 bytes @ 0x0
-   415                           
-   416  0070                     ?_oscInit:	
-   417                           ; 1 bytes @ 0x0
-   418                           
-   419  0070                     ?_isr:	
-   420                           ; 1 bytes @ 0x0
-   421                           
-   422  0070                     ??_isr:	
-   423                           ; 1 bytes @ 0x0
-   424                           
-   425  0070                     ?_main:	
-   426                           ; 1 bytes @ 0x0
-   427                           
-   428                           
-   429                           ; 1 bytes @ 0x0
-   430  0070                     	ds	3
-   431  0073                     ??_setup:	
-   432  0073                     ??_globalAdcIntEnable:	
-   433                           ; 1 bytes @ 0x3
-   434                           
-   435  0073                     ??_adcSetup:	
-   436                           ; 1 bytes @ 0x3
-   437                           
-   438  0073                     ??_adcInterrupt:	
-   439                           ; 1 bytes @ 0x3
-   440                           
-   441  0073                     ??_analogInSel:	
-   442                           ; 1 bytes @ 0x3
-   443                           
-   444  0073                     ??_adcFoscSel:	
-   445                           ; 1 bytes @ 0x3
-   446                           
-   447  0073                     ??_oscInit:	
-   448                           ; 1 bytes @ 0x3
-   449                           
-   450                           
-   451                           ; 1 bytes @ 0x3
-   452  0073                     	ds	2
-   453  0075                     adcInterrupt@en:	
-   454  0075                     analogInSel@analogIn:	
-   455                           ; 1 bytes @ 0x5
-   456                           
-   457  0075                     adcFoscSel@fosc:	
-   458                           ; 1 bytes @ 0x5
-   459                           
-   460  0075                     oscInit@freq:	
-   461                           ; 1 bytes @ 0x5
-   462                           
+   365  0000                     	;# 
+   366  0001                     	;# 
+   367  0002                     	;# 
+   368  0003                     	;# 
+   369  0004                     	;# 
+   370  0005                     	;# 
+   371  0006                     	;# 
+   372  0007                     	;# 
+   373  0008                     	;# 
+   374  0009                     	;# 
+   375  000A                     	;# 
+   376  000B                     	;# 
+   377  000C                     	;# 
+   378  000D                     	;# 
+   379  000E                     	;# 
+   380  000E                     	;# 
+   381  000F                     	;# 
+   382  0010                     	;# 
+   383  0011                     	;# 
+   384  0012                     	;# 
+   385  0013                     	;# 
+   386  0014                     	;# 
+   387  0015                     	;# 
+   388  0015                     	;# 
+   389  0016                     	;# 
+   390  0017                     	;# 
+   391  0018                     	;# 
+   392  0019                     	;# 
+   393  001A                     	;# 
+   394  001B                     	;# 
+   395  001B                     	;# 
+   396  001C                     	;# 
+   397  001D                     	;# 
+   398  001E                     	;# 
+   399  001F                     	;# 
+   400  0081                     	;# 
+   401  0085                     	;# 
+   402  0086                     	;# 
+   403  0087                     	;# 
+   404  0088                     	;# 
+   405  0089                     	;# 
+   406  008C                     	;# 
+   407  008D                     	;# 
+   408  008E                     	;# 
+   409  008F                     	;# 
+   410  0090                     	;# 
+   411  0091                     	;# 
+   412  0092                     	;# 
+   413  0093                     	;# 
+   414  0093                     	;# 
+   415  0093                     	;# 
+   416  0094                     	;# 
+   417  0095                     	;# 
+   418  0096                     	;# 
+   419  0097                     	;# 
+   420  0098                     	;# 
+   421  0099                     	;# 
+   422  009A                     	;# 
+   423  009B                     	;# 
+   424  009C                     	;# 
+   425  009D                     	;# 
+   426  009E                     	;# 
+   427  009F                     	;# 
+   428  0105                     	;# 
+   429  0107                     	;# 
+   430  0108                     	;# 
+   431  0109                     	;# 
+   432  010C                     	;# 
+   433  010C                     	;# 
+   434  010D                     	;# 
+   435  010E                     	;# 
+   436  010F                     	;# 
+   437  0185                     	;# 
+   438  0187                     	;# 
+   439  0188                     	;# 
+   440  0189                     	;# 
+   441  018C                     	;# 
+   442  018D                     	;# 
+   443  0014                     _SSPCON	set	20
+   444  000B                     _INTCONbits	set	11
+   445  0013                     _SSPBUF	set	19
+   446  0014                     _SSPCONbits	set	20
+   447  0006                     _PORTB	set	6
+   448  001E                     _ADRESH	set	30
+   449  000C                     _PIR1bits	set	12
+   450  001F                     _ADCON0bits	set	31
+   451  0091                     _SSPCON2bits	set	145
+   452  0087                     _TRISCbits	set	135
+   453  0094                     _SSPSTAT	set	148
+   454  0093                     _SSPADD	set	147
+   455  0091                     _SSPCON2	set	145
+   456  0086                     _TRISB	set	134
+   457  0089                     _TRISEbits	set	137
+   458  0094                     _SSPSTATbits	set	148
+   459  008F                     _OSCCONbits	set	143
+   460  008C                     _PIE1bits	set	140
+   461  009F                     _ADCON1bits	set	159
+   462  0188                     _ANSELbits	set	392
    463                           
-   464                           ; 1 bytes @ 0x5
-   465  0075                     	ds	1
-   466  0076                     ??_main:	
-   467                           
-   468                           	psect	maintext
-   469  0122                     __pmaintext:	
-   470                           ; 1 bytes @ 0x6
-   471 ;;
-   472 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
-   473 ;;
-   474 ;; *************** function _main *****************
-   475 ;; Defined at:
-   476 ;;		line 51 in file "Lab5_i2c_slave_pot_v1.c"
-   477 ;; Parameters:    Size  Location     Type
-   478 ;;		None
-   479 ;; Auto vars:     Size  Location     Type
-   480 ;;		None
-   481 ;; Return value:  Size  Location     Type
-   482 ;;                  1    wreg      void 
-   483 ;; Registers used:
-   484 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
-   485 ;; Tracked objects:
-   486 ;;		On entry : B00/0
-   487 ;;		On exit  : 0/0
-   488 ;;		Unchanged: 0/0
-   489 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   490 ;;      Params:         0       0       0       0       0
-   491 ;;      Locals:         0       0       0       0       0
-   492 ;;      Temps:          0       0       0       0       0
-   493 ;;      Totals:         0       0       0       0       0
-   494 ;;Total ram usage:        0 bytes
-   495 ;; Hardware stack levels required when called:    2
-   496 ;; This function calls:
-   497 ;;		_adcFoscSel
-   498 ;;		_adcInterrupt
-   499 ;;		_adcSetup
-   500 ;;		_analogInSel
-   501 ;;		_globalAdcIntEnable
-   502 ;;		_oscInit
-   503 ;;		_setup
-   504 ;; This function is called by:
-   505 ;;		Startup code after reset
-   506 ;; This function uses a non-reentrant model
-   507 ;;
-   508                           
+   464                           ; #config settings
+   465  0000                     
+   466                           	psect	cinit
+   467  000F                     start_initialization:	
+   468  000F                     __initialization:	
+   469                           
+   470                           ; Clear objects allocated to COMMON
+   471  000F  01F7               	clrf	__pbssCOMMON& (0+127)
+   472  0010  01F8               	clrf	(__pbssCOMMON+1)& (0+127)
+   473  0011  01F9               	clrf	(__pbssCOMMON+2)& (0+127)
+   474  0012  01FA               	clrf	(__pbssCOMMON+3)& (0+127)
+   475  0013  01FB               	clrf	(__pbssCOMMON+4)& (0+127)
+   476  0014                     end_of_initialization:	
+   477                           ;End of C runtime variable initialization code
+   478                           
+   479  0014                     __end_of__initialization:	
+   480  0014  0183               	clrf	3
+   481  0015  120A  118A  29A0   	ljmp	_main	;jump to C main() function
+   482                           
+   483                           	psect	bssCOMMON
+   484  0077                     __pbssCOMMON:	
+   485  0077                     _z:	
+   486  0077                     	ds	2
+   487  0079                     _x:	
+   488  0079                     	ds	2
+   489  007B                     _pot:	
+   490  007B                     	ds	1
+   491                           
+   492                           	psect	cstackCOMMON
+   493  0070                     __pcstackCOMMON:	
+   494  0070                     ?_setup:	
+   495  0070                     ?_i2c_slave_init:	
+   496                           ; 1 bytes @ 0x0
+   497                           
+   498  0070                     ?_adcSetup:	
+   499                           ; 1 bytes @ 0x0
+   500                           
+   501  0070                     ?_adcInterrupt:	
+   502                           ; 1 bytes @ 0x0
+   503                           
+   504  0070                     ?_analogInSel:	
+   505                           ; 1 bytes @ 0x0
+   506                           
+   507  0070                     ?_adcFoscSel:	
+   508                           ; 1 bytes @ 0x0
    509                           
-   510                           ;psect for function _main
-   511  0122                     _main:	
-   512  0122                     l759:	
-   513                           ;incstack = 0
-   514                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+   510  0070                     ?_oscInit:	
+   511                           ; 1 bytes @ 0x0
+   512                           
+   513  0070                     ?_isr:	
+   514                           ; 1 bytes @ 0x0
    515                           
-   516                           
-   517                           ;Lab5_i2c_slave_pot_v1.c: 52:     setup();
-   518  0122  120A  118A  21AD  120A  118A  	fcall	_setup
-   519  0127                     l761:	
-   520                           
-   521                           ;Lab5_i2c_slave_pot_v1.c: 53:     oscInit(1);
-   522  0127  3001               	movlw	1
-   523  0128  120A  118A  20AD  120A  118A  	fcall	_oscInit
-   524  012D                     l763:	
-   525                           
-   526                           ;Lab5_i2c_slave_pot_v1.c: 54:     adcSetup();
-   527  012D  120A  118A  21BA  120A  118A  	fcall	_adcSetup
+   516  0070                     ??_isr:	
+   517                           ; 1 bytes @ 0x0
+   518                           
+   519  0070                     ?_main:	
+   520                           ; 1 bytes @ 0x0
+   521                           
+   522                           
+   523                           ; 1 bytes @ 0x0
+   524  0070                     	ds	4
+   525  0074                     ??_setup:	
+   526  0074                     ??_i2c_slave_init:	
+   527                           ; 1 bytes @ 0x4
    528                           
-   529                           ;Lab5_i2c_slave_pot_v1.c: 55:     analogInSel(5);
-   530  0132  3005               	movlw	5
-   531  0133  120A  118A  2014  120A  118A  	fcall	_analogInSel
-   532                           
-   533                           ;Lab5_i2c_slave_pot_v1.c: 56:     adcFoscSel(1);
-   534  0138  3001               	movlw	1
-   535  0139  120A  118A  2154  120A  118A  	fcall	_adcFoscSel
-   536  013E                     l765:	
+   529  0074                     ??_adcSetup:	
+   530                           ; 1 bytes @ 0x4
+   531                           
+   532  0074                     ??_adcInterrupt:	
+   533                           ; 1 bytes @ 0x4
+   534                           
+   535  0074                     ??_analogInSel:	
+   536                           ; 1 bytes @ 0x4
    537                           
-   538                           ;Lab5_i2c_slave_pot_v1.c: 57:     globalAdcIntEnable();
-   539  013E  120A  118A  21C3  120A  118A  	fcall	_globalAdcIntEnable
-   540  0143                     l767:	
-   541                           
-   542                           ;Lab5_i2c_slave_pot_v1.c: 58:     adcInterrupt(1);
-   543  0143  3001               	movlw	1
-   544  0144  120A  118A  2179  120A  118A  	fcall	_adcInterrupt
-   545  0149                     l769:	
+   538  0074                     ??_adcFoscSel:	
+   539                           ; 1 bytes @ 0x4
+   540                           
+   541  0074                     ??_oscInit:	
+   542                           ; 1 bytes @ 0x4
+   543                           
+   544  0074                     i2c_slave_init@address:	
+   545                           ; 1 bytes @ 0x4
    546                           
-   547                           ;Lab5_i2c_slave_pot_v1.c: 60:         if (ADCON0bits.GO_DONE == 0){
-   548  0149  1283               	bcf	3,5	;RP0=0, select bank0
-   549  014A  1303               	bcf	3,6	;RP1=0, select bank0
-   550  014B  189F               	btfsc	31,1	;volatile
-   551  014C  294E               	goto	u21
-   552  014D  294F               	goto	u20
-   553  014E                     u21:	
-   554  014E  2949               	goto	l769
-   555  014F                     u20:	
-   556  014F                     l771:	
-   557                           
-   558                           ;Lab5_i2c_slave_pot_v1.c: 61:             ADCON0bits.GO_DONE = 1;
-   559  014F  149F               	bsf	31,1	;volatile
-   560  0150  2949               	goto	l769
-   561  0151  120A  118A  280C   	ljmp	start
-   562  0154                     __end_of_main:	
-   563                           
-   564                           	psect	text1
-   565  01AD                     __ptext1:	
-   566 ;; *************** function _setup *****************
-   567 ;; Defined at:
-   568 ;;		line 67 in file "Lab5_i2c_slave_pot_v1.c"
-   569 ;; Parameters:    Size  Location     Type
-   570 ;;		None
-   571 ;; Auto vars:     Size  Location     Type
-   572 ;;		None
-   573 ;; Return value:  Size  Location     Type
-   574 ;;                  1    wreg      void 
-   575 ;; Registers used:
-   576 ;;		status,2
-   577 ;; Tracked objects:
-   578 ;;		On entry : 0/0
-   579 ;;		On exit  : 0/0
-   580 ;;		Unchanged: 0/0
-   581 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   582 ;;      Params:         0       0       0       0       0
-   583 ;;      Locals:         0       0       0       0       0
-   584 ;;      Temps:          0       0       0       0       0
-   585 ;;      Totals:         0       0       0       0       0
-   586 ;;Total ram usage:        0 bytes
-   587 ;; Hardware stack levels used:    1
-   588 ;; Hardware stack levels required when called:    1
-   589 ;; This function calls:
-   590 ;;		Nothing
-   591 ;; This function is called by:
-   592 ;;		_main
-   593 ;; This function uses a non-reentrant model
-   594 ;;
-   595                           
-   596                           
-   597                           ;psect for function _setup
-   598  01AD                     _setup:	
-   599  01AD                     l749:	
-   600                           ;incstack = 0
-   601                           ; Regs used in _setup: [status,2]
-   602                           
-   603                           
-   604                           ;Lab5_i2c_slave_pot_v1.c: 68:     TRISEbits.TRISE0 = 1;
-   605  01AD  1683               	bsf	3,5	;RP0=1, select bank1
-   606  01AE  1303               	bcf	3,6	;RP1=0, select bank1
-   607  01AF  1409               	bsf	9,0	;volatile
-   608                           
-   609                           ;Lab5_i2c_slave_pot_v1.c: 69:     ANSELbits.ANS5 = 1;
-   610  01B0  1683               	bsf	3,5	;RP0=1, select bank3
-   611  01B1  1703               	bsf	3,6	;RP1=1, select bank3
-   612  01B2  1688               	bsf	8,5	;volatile
-   613  01B3                     l751:	
-   614                           
-   615                           ;Lab5_i2c_slave_pot_v1.c: 70:     TRISA = 0;
-   616  01B3  1683               	bsf	3,5	;RP0=1, select bank1
-   617  01B4  1303               	bcf	3,6	;RP1=0, select bank1
-   618  01B5  0185               	clrf	5	;volatile
-   619                           
-   620                           ;Lab5_i2c_slave_pot_v1.c: 71:     PORTA = 0;
-   621  01B6  1283               	bcf	3,5	;RP0=0, select bank0
-   622  01B7  1303               	bcf	3,6	;RP1=0, select bank0
-   623  01B8  0185               	clrf	5	;volatile
-   624  01B9                     l112:	
-   625  01B9  0008               	return
-   626  01BA                     __end_of_setup:	
-   627                           
-   628                           	psect	text2
-   629  00AD                     __ptext2:	
-   630 ;; *************** function _oscInit *****************
-   631 ;; Defined at:
-   632 ;;		line 11 in file "lib_osccon.c"
-   633 ;; Parameters:    Size  Location     Type
-   634 ;;  freq            1    wreg     unsigned char 
-   635 ;; Auto vars:     Size  Location     Type
-   636 ;;  freq            1    5[COMMON] unsigned char 
-   637 ;; Return value:  Size  Location     Type
-   638 ;;                  1    wreg      unsigned char 
-   639 ;; Registers used:
-   640 ;;		wreg, fsr0l, fsr0h, status,2, status,0
-   641 ;; Tracked objects:
-   642 ;;		On entry : 0/0
-   643 ;;		On exit  : 0/0
-   644 ;;		Unchanged: 0/0
-   645 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   646 ;;      Params:         0       0       0       0       0
-   647 ;;      Locals:         1       0       0       0       0
-   648 ;;      Temps:          2       0       0       0       0
-   649 ;;      Totals:         3       0       0       0       0
-   650 ;;Total ram usage:        3 bytes
-   651 ;; Hardware stack levels used:    1
-   652 ;; Hardware stack levels required when called:    1
-   653 ;; This function calls:
-   654 ;;		Nothing
-   655 ;; This function is called by:
-   656 ;;		_main
-   657 ;; This function uses a non-reentrant model
-   658 ;;
-   659                           
+   547                           
+   548                           ; 1 bytes @ 0x4
+   549  0074                     	ds	2
+   550  0076                     adcInterrupt@en:	
+   551  0076                     analogInSel@analogIn:	
+   552                           ; 1 bytes @ 0x6
+   553                           
+   554  0076                     adcFoscSel@fosc:	
+   555                           ; 1 bytes @ 0x6
+   556                           
+   557  0076                     oscInit@freq:	
+   558                           ; 1 bytes @ 0x6
+   559                           
+   560                           
+   561                           ; 1 bytes @ 0x6
+   562  0076                     	ds	1
+   563  0077                     ??_main:	
+   564                           
+   565                           	psect	maintext
+   566  01A0                     __pmaintext:	
+   567                           ; 1 bytes @ 0x7
+   568 ;;
+   569 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   570 ;;
+   571 ;; *************** function _main *****************
+   572 ;; Defined at:
+   573 ;;		line 82 in file "Lab5_i2c_slave_pot_v1.c"
+   574 ;; Parameters:    Size  Location     Type
+   575 ;;		None
+   576 ;; Auto vars:     Size  Location     Type
+   577 ;;		None
+   578 ;; Return value:  Size  Location     Type
+   579 ;;                  1    wreg      void 
+   580 ;; Registers used:
+   581 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+   582 ;; Tracked objects:
+   583 ;;		On entry : B00/0
+   584 ;;		On exit  : 0/0
+   585 ;;		Unchanged: 0/0
+   586 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   587 ;;      Params:         0       0       0       0       0
+   588 ;;      Locals:         0       0       0       0       0
+   589 ;;      Temps:          0       0       0       0       0
+   590 ;;      Totals:         0       0       0       0       0
+   591 ;;Total ram usage:        0 bytes
+   592 ;; Hardware stack levels required when called:    2
+   593 ;; This function calls:
+   594 ;;		_adcFoscSel
+   595 ;;		_adcInterrupt
+   596 ;;		_adcSetup
+   597 ;;		_analogInSel
+   598 ;;		_i2c_slave_init
+   599 ;;		_oscInit
+   600 ;;		_setup
+   601 ;; This function is called by:
+   602 ;;		Startup code after reset
+   603 ;; This function uses a non-reentrant model
+   604 ;;
+   605                           
+   606                           
+   607                           ;psect for function _main
+   608  01A0                     _main:	
+   609  01A0                     l883:	
+   610                           ;incstack = 0
+   611                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+   612                           
+   613                           
+   614                           ;Lab5_i2c_slave_pot_v1.c: 83:     setup();
+   615  01A0  120A  118A  2233  120A  118A  	fcall	_setup
+   616  01A5                     l885:	
+   617                           
+   618                           ;Lab5_i2c_slave_pot_v1.c: 84:     oscInit(1);
+   619  01A5  3001               	movlw	1
+   620  01A6  120A  118A  212B  120A  118A  	fcall	_oscInit
+   621  01AB                     l887:	
+   622                           
+   623                           ;Lab5_i2c_slave_pot_v1.c: 85:     adcSetup();
+   624  01AB  120A  118A  2240  120A  118A  	fcall	_adcSetup
+   625                           
+   626                           ;Lab5_i2c_slave_pot_v1.c: 86:     analogInSel(5);
+   627  01B0  3005               	movlw	5
+   628  01B1  120A  118A  2018  120A  118A  	fcall	_analogInSel
+   629                           
+   630                           ;Lab5_i2c_slave_pot_v1.c: 87:     adcFoscSel(1);
+   631  01B6  3001               	movlw	1
+   632  01B7  120A  118A  21D3  120A  118A  	fcall	_adcFoscSel
+   633                           
+   634                           ;Lab5_i2c_slave_pot_v1.c: 88:     adcInterrupt(1);
+   635  01BC  3001               	movlw	1
+   636  01BD  120A  118A  21F8  120A  118A  	fcall	_adcInterrupt
+   637  01C2                     l889:	
+   638                           
+   639                           ;Lab5_i2c_slave_pot_v1.c: 89:     i2c_slave_init(0x10);
+   640  01C2  3010               	movlw	16
+   641  01C3  120A  118A  2219  120A  118A  	fcall	_i2c_slave_init
+   642  01C8                     l891:	
+   643                           
+   644                           ;Lab5_i2c_slave_pot_v1.c: 91:         if (ADCON0bits.GO_DONE == 0){
+   645  01C8  1283               	bcf	3,5	;RP0=0, select bank0
+   646  01C9  1303               	bcf	3,6	;RP1=0, select bank0
+   647  01CA  189F               	btfsc	31,1	;volatile
+   648  01CB  29CD               	goto	u131
+   649  01CC  29CE               	goto	u130
+   650  01CD                     u131:	
+   651  01CD  29C8               	goto	l891
+   652  01CE                     u130:	
+   653  01CE                     l893:	
+   654                           
+   655                           ;Lab5_i2c_slave_pot_v1.c: 92:             ADCON0bits.GO_DONE = 1;
+   656  01CE  149F               	bsf	31,1	;volatile
+   657  01CF  29C8               	goto	l891
+   658  01D0  120A  118A  280C   	ljmp	start
+   659  01D3                     __end_of_main:	
    660                           
-   661                           ;psect for function _oscInit
-   662  00AD                     _oscInit:	
-   663                           
-   664                           ;incstack = 0
-   665                           ; Regs used in _oscInit: [wreg-fsr0h+status,2+status,0]
-   666                           ;oscInit@freq stored from wreg
-   667  00AD  00F5               	movwf	oscInit@freq
-   668  00AE                     l739:	
-   669                           
-   670                           ;lib_osccon.c: 12:     switch(freq){
-   671  00AE  28FF               	goto	l743
-   672  00AF                     l51:	
-   673                           ;lib_osccon.c: 13:         case 0:
-   674                           
-   675                           
-   676                           ;lib_osccon.c: 14:             OSCCONbits.IRCF2 = 1;
-   677  00AF  1683               	bsf	3,5	;RP0=1, select bank1
-   678  00B0  1303               	bcf	3,6	;RP1=0, select bank1
-   679  00B1  170F               	bsf	15,6	;volatile
-   680                           
-   681                           ;lib_osccon.c: 15:             OSCCONbits.IRCF1 = 1;
-   682  00B2  168F               	bsf	15,5	;volatile
-   683                           
-   684                           ;lib_osccon.c: 16:             OSCCONbits.IRCF0 = 1;
-   685  00B3  160F               	bsf	15,4	;volatile
-   686                           
-   687                           ;lib_osccon.c: 17:             OSCCONbits.OSTS = 0;
-   688  00B4  118F               	bcf	15,3	;volatile
-   689                           
-   690                           ;lib_osccon.c: 18:             OSCCONbits.HTS = 1;
-   691  00B5  150F               	bsf	15,2	;volatile
+   661                           	psect	text1
+   662  0233                     __ptext1:	
+   663 ;; *************** function _setup *****************
+   664 ;; Defined at:
+   665 ;;		line 98 in file "Lab5_i2c_slave_pot_v1.c"
+   666 ;; Parameters:    Size  Location     Type
+   667 ;;		None
+   668 ;; Auto vars:     Size  Location     Type
+   669 ;;		None
+   670 ;; Return value:  Size  Location     Type
+   671 ;;                  1    wreg      void 
+   672 ;; Registers used:
+   673 ;;		status,2
+   674 ;; Tracked objects:
+   675 ;;		On entry : 0/0
+   676 ;;		On exit  : 0/0
+   677 ;;		Unchanged: 0/0
+   678 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   679 ;;      Params:         0       0       0       0       0
+   680 ;;      Locals:         0       0       0       0       0
+   681 ;;      Temps:          0       0       0       0       0
+   682 ;;      Totals:         0       0       0       0       0
+   683 ;;Total ram usage:        0 bytes
+   684 ;; Hardware stack levels used:    1
+   685 ;; Hardware stack levels required when called:    1
+   686 ;; This function calls:
+   687 ;;		Nothing
+   688 ;; This function is called by:
+   689 ;;		_main
+   690 ;; This function uses a non-reentrant model
+   691 ;;
    692                           
-   693                           ;lib_osccon.c: 19:             OSCCONbits.LTS = 0;
-   694  00B6  108F               	bcf	15,1	;volatile
-   695                           
-   696                           ;lib_osccon.c: 20:             OSCCONbits.SCS = 1;
-   697  00B7  140F               	bsf	15,0	;volatile
-   698                           
-   699                           ;lib_osccon.c: 21:             break;
-   700  00B8  2921               	goto	l60
-   701  00B9                     l53:	
-   702                           ;lib_osccon.c: 22:         case 1:
-   703                           
-   704                           
-   705                           ;lib_osccon.c: 23:             OSCCONbits.IRCF2 = 1;
-   706  00B9  1683               	bsf	3,5	;RP0=1, select bank1
-   707  00BA  1303               	bcf	3,6	;RP1=0, select bank1
-   708  00BB  170F               	bsf	15,6	;volatile
-   709                           
-   710                           ;lib_osccon.c: 24:             OSCCONbits.IRCF1 = 1;
-   711  00BC  168F               	bsf	15,5	;volatile
-   712                           
-   713                           ;lib_osccon.c: 25:             OSCCONbits.IRCF0 = 0;
-   714  00BD  120F               	bcf	15,4	;volatile
-   715                           
-   716                           ;lib_osccon.c: 26:             OSCCONbits.OSTS = 0;
-   717  00BE  118F               	bcf	15,3	;volatile
-   718                           
-   719                           ;lib_osccon.c: 27:             OSCCONbits.HTS = 1;
-   720  00BF  150F               	bsf	15,2	;volatile
-   721                           
-   722                           ;lib_osccon.c: 28:             OSCCONbits.LTS = 0;
-   723  00C0  108F               	bcf	15,1	;volatile
+   693                           
+   694                           ;psect for function _setup
+   695  0233                     _setup:	
+   696  0233                     l821:	
+   697                           ;incstack = 0
+   698                           ; Regs used in _setup: [status,2]
+   699                           
+   700                           
+   701                           ;Lab5_i2c_slave_pot_v1.c: 99:     TRISEbits.TRISE0 = 1;
+   702  0233  1683               	bsf	3,5	;RP0=1, select bank1
+   703  0234  1303               	bcf	3,6	;RP1=0, select bank1
+   704  0235  1409               	bsf	9,0	;volatile
+   705                           
+   706                           ;Lab5_i2c_slave_pot_v1.c: 100:     ANSELbits.ANS5 = 1;
+   707  0236  1683               	bsf	3,5	;RP0=1, select bank3
+   708  0237  1703               	bsf	3,6	;RP1=1, select bank3
+   709  0238  1688               	bsf	8,5	;volatile
+   710  0239                     l823:	
+   711                           
+   712                           ;Lab5_i2c_slave_pot_v1.c: 101:     TRISB = 0;
+   713  0239  1683               	bsf	3,5	;RP0=1, select bank1
+   714  023A  1303               	bcf	3,6	;RP1=0, select bank1
+   715  023B  0186               	clrf	6	;volatile
+   716                           
+   717                           ;Lab5_i2c_slave_pot_v1.c: 102:     PORTB = 0;
+   718  023C  1283               	bcf	3,5	;RP0=0, select bank0
+   719  023D  1303               	bcf	3,6	;RP1=0, select bank0
+   720  023E  0186               	clrf	6	;volatile
+   721  023F                     l135:	
+   722  023F  0008               	return
+   723  0240                     __end_of_setup:	
    724                           
-   725                           ;lib_osccon.c: 29:             OSCCONbits.SCS = 1;
-   726  00C1  140F               	bsf	15,0	;volatile
-   727                           
-   728                           ;lib_osccon.c: 30:             break;
-   729  00C2  2921               	goto	l60
-   730  00C3                     l54:	
-   731                           ;lib_osccon.c: 31:         case 2:
-   732                           
-   733                           
-   734                           ;lib_osccon.c: 32:             OSCCONbits.IRCF2 = 1;
-   735  00C3  1683               	bsf	3,5	;RP0=1, select bank1
-   736  00C4  1303               	bcf	3,6	;RP1=0, select bank1
-   737  00C5  170F               	bsf	15,6	;volatile
-   738                           
-   739                           ;lib_osccon.c: 33:             OSCCONbits.IRCF1 = 0;
-   740  00C6  128F               	bcf	15,5	;volatile
-   741                           
-   742                           ;lib_osccon.c: 34:             OSCCONbits.IRCF0 = 1;
-   743  00C7  160F               	bsf	15,4	;volatile
-   744                           
-   745                           ;lib_osccon.c: 35:             OSCCONbits.OSTS = 0;
-   746  00C8  118F               	bcf	15,3	;volatile
-   747                           
-   748                           ;lib_osccon.c: 36:             OSCCONbits.HTS = 1;
-   749  00C9  150F               	bsf	15,2	;volatile
-   750                           
-   751                           ;lib_osccon.c: 37:             OSCCONbits.LTS = 0;
-   752  00CA  108F               	bcf	15,1	;volatile
-   753                           
-   754                           ;lib_osccon.c: 38:             OSCCONbits.SCS = 1;
-   755  00CB  140F               	bsf	15,0	;volatile
+   725                           	psect	text2
+   726  012B                     __ptext2:	
+   727 ;; *************** function _oscInit *****************
+   728 ;; Defined at:
+   729 ;;		line 11 in file "lib_osccon.c"
+   730 ;; Parameters:    Size  Location     Type
+   731 ;;  freq            1    wreg     unsigned char 
+   732 ;; Auto vars:     Size  Location     Type
+   733 ;;  freq            1    6[COMMON] unsigned char 
+   734 ;; Return value:  Size  Location     Type
+   735 ;;                  1    wreg      unsigned char 
+   736 ;; Registers used:
+   737 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+   738 ;; Tracked objects:
+   739 ;;		On entry : 0/0
+   740 ;;		On exit  : 0/0
+   741 ;;		Unchanged: 0/0
+   742 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   743 ;;      Params:         0       0       0       0       0
+   744 ;;      Locals:         1       0       0       0       0
+   745 ;;      Temps:          2       0       0       0       0
+   746 ;;      Totals:         3       0       0       0       0
+   747 ;;Total ram usage:        3 bytes
+   748 ;; Hardware stack levels used:    1
+   749 ;; Hardware stack levels required when called:    1
+   750 ;; This function calls:
+   751 ;;		Nothing
+   752 ;; This function is called by:
+   753 ;;		_main
+   754 ;; This function uses a non-reentrant model
+   755 ;;
    756                           
-   757                           ;lib_osccon.c: 39:             break;
-   758  00CC  2921               	goto	l60
-   759  00CD                     l55:	
-   760                           ;lib_osccon.c: 40:         case 3:
-   761                           
-   762                           
-   763                           ;lib_osccon.c: 41:             OSCCONbits.IRCF2 = 1;
-   764  00CD  1683               	bsf	3,5	;RP0=1, select bank1
-   765  00CE  1303               	bcf	3,6	;RP1=0, select bank1
-   766  00CF  170F               	bsf	15,6	;volatile
-   767                           
-   768                           ;lib_osccon.c: 42:             OSCCONbits.IRCF1 = 0;
-   769  00D0  128F               	bcf	15,5	;volatile
-   770                           
-   771                           ;lib_osccon.c: 43:             OSCCONbits.IRCF0 = 0;
-   772  00D1  120F               	bcf	15,4	;volatile
-   773                           
-   774                           ;lib_osccon.c: 44:             OSCCONbits.OSTS = 0;
-   775  00D2  118F               	bcf	15,3	;volatile
-   776                           
-   777                           ;lib_osccon.c: 45:             OSCCONbits.HTS = 1;
-   778  00D3  150F               	bsf	15,2	;volatile
-   779                           
-   780                           ;lib_osccon.c: 46:             OSCCONbits.LTS = 0;
-   781  00D4  108F               	bcf	15,1	;volatile
-   782                           
-   783                           ;lib_osccon.c: 47:             OSCCONbits.SCS = 1;
-   784  00D5  140F               	bsf	15,0	;volatile
-   785                           
-   786                           ;lib_osccon.c: 48:             break;
-   787  00D6  2921               	goto	l60
-   788  00D7                     l56:	
-   789                           ;lib_osccon.c: 49:         case 4:
-   790                           
-   791                           
-   792                           ;lib_osccon.c: 50:             OSCCONbits.IRCF2 = 0;
-   793  00D7  1683               	bsf	3,5	;RP0=1, select bank1
-   794  00D8  1303               	bcf	3,6	;RP1=0, select bank1
-   795  00D9  130F               	bcf	15,6	;volatile
-   796                           
-   797                           ;lib_osccon.c: 51:             OSCCONbits.IRCF1 = 1;
-   798  00DA  168F               	bsf	15,5	;volatile
-   799                           
-   800                           ;lib_osccon.c: 52:             OSCCONbits.IRCF0 = 1;
-   801  00DB  160F               	bsf	15,4	;volatile
-   802                           
-   803                           ;lib_osccon.c: 53:             OSCCONbits.OSTS = 0;
-   804  00DC  118F               	bcf	15,3	;volatile
-   805                           
-   806                           ;lib_osccon.c: 54:             OSCCONbits.HTS = 1;
-   807  00DD  150F               	bsf	15,2	;volatile
-   808                           
-   809                           ;lib_osccon.c: 55:             OSCCONbits.LTS = 0;
-   810  00DE  108F               	bcf	15,1	;volatile
-   811                           
-   812                           ;lib_osccon.c: 56:             OSCCONbits.SCS = 1;
-   813  00DF  140F               	bsf	15,0	;volatile
-   814                           
-   815                           ;lib_osccon.c: 57:             break;
-   816  00E0  2921               	goto	l60
-   817  00E1                     l57:	
-   818                           ;lib_osccon.c: 58:         case 5:
-   819                           
-   820                           
-   821                           ;lib_osccon.c: 59:             OSCCONbits.IRCF2 = 0;
-   822  00E1  1683               	bsf	3,5	;RP0=1, select bank1
-   823  00E2  1303               	bcf	3,6	;RP1=0, select bank1
-   824  00E3  130F               	bcf	15,6	;volatile
-   825                           
-   826                           ;lib_osccon.c: 60:             OSCCONbits.IRCF1 = 1;
-   827  00E4  168F               	bsf	15,5	;volatile
-   828                           
-   829                           ;lib_osccon.c: 61:             OSCCONbits.IRCF0 = 0;
-   830  00E5  120F               	bcf	15,4	;volatile
-   831                           
-   832                           ;lib_osccon.c: 62:             OSCCONbits.OSTS = 0;
-   833  00E6  118F               	bcf	15,3	;volatile
-   834                           
-   835                           ;lib_osccon.c: 63:             OSCCONbits.HTS = 1;
-   836  00E7  150F               	bsf	15,2	;volatile
-   837                           
-   838                           ;lib_osccon.c: 64:             OSCCONbits.LTS = 0;
-   839  00E8  108F               	bcf	15,1	;volatile
-   840                           
-   841                           ;lib_osccon.c: 65:             OSCCONbits.SCS = 1;
-   842  00E9  140F               	bsf	15,0	;volatile
-   843                           
-   844                           ;lib_osccon.c: 66:             break;
-   845  00EA  2921               	goto	l60
-   846  00EB                     l58:	
-   847                           ;lib_osccon.c: 67:         case 6:
-   848                           
-   849                           
-   850                           ;lib_osccon.c: 68:             OSCCONbits.IRCF2 = 0;
-   851  00EB  1683               	bsf	3,5	;RP0=1, select bank1
-   852  00EC  1303               	bcf	3,6	;RP1=0, select bank1
-   853  00ED  130F               	bcf	15,6	;volatile
-   854                           
-   855                           ;lib_osccon.c: 69:             OSCCONbits.IRCF1 = 0;
-   856  00EE  128F               	bcf	15,5	;volatile
-   857                           
-   858                           ;lib_osccon.c: 70:             OSCCONbits.IRCF0 = 1;
-   859  00EF  160F               	bsf	15,4	;volatile
-   860                           
-   861                           ;lib_osccon.c: 71:             OSCCONbits.OSTS = 0;
-   862  00F0  118F               	bcf	15,3	;volatile
-   863                           
-   864                           ;lib_osccon.c: 72:             OSCCONbits.HTS = 1;
-   865  00F1  150F               	bsf	15,2	;volatile
-   866                           
-   867                           ;lib_osccon.c: 73:             OSCCONbits.LTS = 0;
-   868  00F2  108F               	bcf	15,1	;volatile
-   869                           
-   870                           ;lib_osccon.c: 74:             OSCCONbits.SCS = 1;
-   871  00F3  140F               	bsf	15,0	;volatile
-   872                           
-   873                           ;lib_osccon.c: 75:             break;
-   874  00F4  2921               	goto	l60
-   875  00F5                     l59:	
-   876                           ;lib_osccon.c: 76:         case 7:
-   877                           
-   878                           
-   879                           ;lib_osccon.c: 77:             OSCCONbits.IRCF2 = 0;
-   880  00F5  1683               	bsf	3,5	;RP0=1, select bank1
-   881  00F6  1303               	bcf	3,6	;RP1=0, select bank1
-   882  00F7  130F               	bcf	15,6	;volatile
-   883                           
-   884                           ;lib_osccon.c: 78:             OSCCONbits.IRCF1 = 0;
-   885  00F8  128F               	bcf	15,5	;volatile
-   886                           
-   887                           ;lib_osccon.c: 79:             OSCCONbits.IRCF0 = 0;
-   888  00F9  120F               	bcf	15,4	;volatile
-   889                           
-   890                           ;lib_osccon.c: 80:             OSCCONbits.OSTS = 0;
-   891  00FA  118F               	bcf	15,3	;volatile
-   892                           
-   893                           ;lib_osccon.c: 81:             OSCCONbits.HTS = 0;
-   894  00FB  110F               	bcf	15,2	;volatile
-   895                           
-   896                           ;lib_osccon.c: 82:             OSCCONbits.LTS = 1;
-   897  00FC  148F               	bsf	15,1	;volatile
-   898                           
-   899                           ;lib_osccon.c: 83:             OSCCONbits.SCS = 1;
-   900  00FD  140F               	bsf	15,0	;volatile
-   901                           
-   902                           ;lib_osccon.c: 84:             break;
-   903  00FE  2921               	goto	l60
-   904  00FF                     l743:	
-   905  00FF  0875               	movf	oscInit@freq,w
-   906  0100  00F3               	movwf	??_oscInit
-   907  0101  01F4               	clrf	??_oscInit+1
+   757                           
+   758                           ;psect for function _oscInit
+   759  012B                     _oscInit:	
+   760                           
+   761                           ;incstack = 0
+   762                           ; Regs used in _oscInit: [wreg-fsr0h+status,2+status,0]
+   763                           ;oscInit@freq stored from wreg
+   764  012B  00F6               	movwf	oscInit@freq
+   765  012C                     l811:	
+   766                           
+   767                           ;lib_osccon.c: 12:     switch(freq){
+   768  012C  297D               	goto	l815
+   769  012D                     l51:	
+   770                           ;lib_osccon.c: 13:         case 0:
+   771                           
+   772                           
+   773                           ;lib_osccon.c: 14:             OSCCONbits.IRCF2 = 1;
+   774  012D  1683               	bsf	3,5	;RP0=1, select bank1
+   775  012E  1303               	bcf	3,6	;RP1=0, select bank1
+   776  012F  170F               	bsf	15,6	;volatile
+   777                           
+   778                           ;lib_osccon.c: 15:             OSCCONbits.IRCF1 = 1;
+   779  0130  168F               	bsf	15,5	;volatile
+   780                           
+   781                           ;lib_osccon.c: 16:             OSCCONbits.IRCF0 = 1;
+   782  0131  160F               	bsf	15,4	;volatile
+   783                           
+   784                           ;lib_osccon.c: 17:             OSCCONbits.OSTS = 0;
+   785  0132  118F               	bcf	15,3	;volatile
+   786                           
+   787                           ;lib_osccon.c: 18:             OSCCONbits.HTS = 1;
+   788  0133  150F               	bsf	15,2	;volatile
+   789                           
+   790                           ;lib_osccon.c: 19:             OSCCONbits.LTS = 0;
+   791  0134  108F               	bcf	15,1	;volatile
+   792                           
+   793                           ;lib_osccon.c: 20:             OSCCONbits.SCS = 1;
+   794  0135  140F               	bsf	15,0	;volatile
+   795                           
+   796                           ;lib_osccon.c: 21:             break;
+   797  0136  299F               	goto	l60
+   798  0137                     l53:	
+   799                           ;lib_osccon.c: 22:         case 1:
+   800                           
+   801                           
+   802                           ;lib_osccon.c: 23:             OSCCONbits.IRCF2 = 1;
+   803  0137  1683               	bsf	3,5	;RP0=1, select bank1
+   804  0138  1303               	bcf	3,6	;RP1=0, select bank1
+   805  0139  170F               	bsf	15,6	;volatile
+   806                           
+   807                           ;lib_osccon.c: 24:             OSCCONbits.IRCF1 = 1;
+   808  013A  168F               	bsf	15,5	;volatile
+   809                           
+   810                           ;lib_osccon.c: 25:             OSCCONbits.IRCF0 = 0;
+   811  013B  120F               	bcf	15,4	;volatile
+   812                           
+   813                           ;lib_osccon.c: 26:             OSCCONbits.OSTS = 0;
+   814  013C  118F               	bcf	15,3	;volatile
+   815                           
+   816                           ;lib_osccon.c: 27:             OSCCONbits.HTS = 1;
+   817  013D  150F               	bsf	15,2	;volatile
+   818                           
+   819                           ;lib_osccon.c: 28:             OSCCONbits.LTS = 0;
+   820  013E  108F               	bcf	15,1	;volatile
+   821                           
+   822                           ;lib_osccon.c: 29:             OSCCONbits.SCS = 1;
+   823  013F  140F               	bsf	15,0	;volatile
+   824                           
+   825                           ;lib_osccon.c: 30:             break;
+   826  0140  299F               	goto	l60
+   827  0141                     l54:	
+   828                           ;lib_osccon.c: 31:         case 2:
+   829                           
+   830                           
+   831                           ;lib_osccon.c: 32:             OSCCONbits.IRCF2 = 1;
+   832  0141  1683               	bsf	3,5	;RP0=1, select bank1
+   833  0142  1303               	bcf	3,6	;RP1=0, select bank1
+   834  0143  170F               	bsf	15,6	;volatile
+   835                           
+   836                           ;lib_osccon.c: 33:             OSCCONbits.IRCF1 = 0;
+   837  0144  128F               	bcf	15,5	;volatile
+   838                           
+   839                           ;lib_osccon.c: 34:             OSCCONbits.IRCF0 = 1;
+   840  0145  160F               	bsf	15,4	;volatile
+   841                           
+   842                           ;lib_osccon.c: 35:             OSCCONbits.OSTS = 0;
+   843  0146  118F               	bcf	15,3	;volatile
+   844                           
+   845                           ;lib_osccon.c: 36:             OSCCONbits.HTS = 1;
+   846  0147  150F               	bsf	15,2	;volatile
+   847                           
+   848                           ;lib_osccon.c: 37:             OSCCONbits.LTS = 0;
+   849  0148  108F               	bcf	15,1	;volatile
+   850                           
+   851                           ;lib_osccon.c: 38:             OSCCONbits.SCS = 1;
+   852  0149  140F               	bsf	15,0	;volatile
+   853                           
+   854                           ;lib_osccon.c: 39:             break;
+   855  014A  299F               	goto	l60
+   856  014B                     l55:	
+   857                           ;lib_osccon.c: 40:         case 3:
+   858                           
+   859                           
+   860                           ;lib_osccon.c: 41:             OSCCONbits.IRCF2 = 1;
+   861  014B  1683               	bsf	3,5	;RP0=1, select bank1
+   862  014C  1303               	bcf	3,6	;RP1=0, select bank1
+   863  014D  170F               	bsf	15,6	;volatile
+   864                           
+   865                           ;lib_osccon.c: 42:             OSCCONbits.IRCF1 = 0;
+   866  014E  128F               	bcf	15,5	;volatile
+   867                           
+   868                           ;lib_osccon.c: 43:             OSCCONbits.IRCF0 = 0;
+   869  014F  120F               	bcf	15,4	;volatile
+   870                           
+   871                           ;lib_osccon.c: 44:             OSCCONbits.OSTS = 0;
+   872  0150  118F               	bcf	15,3	;volatile
+   873                           
+   874                           ;lib_osccon.c: 45:             OSCCONbits.HTS = 1;
+   875  0151  150F               	bsf	15,2	;volatile
+   876                           
+   877                           ;lib_osccon.c: 46:             OSCCONbits.LTS = 0;
+   878  0152  108F               	bcf	15,1	;volatile
+   879                           
+   880                           ;lib_osccon.c: 47:             OSCCONbits.SCS = 1;
+   881  0153  140F               	bsf	15,0	;volatile
+   882                           
+   883                           ;lib_osccon.c: 48:             break;
+   884  0154  299F               	goto	l60
+   885  0155                     l56:	
+   886                           ;lib_osccon.c: 49:         case 4:
+   887                           
+   888                           
+   889                           ;lib_osccon.c: 50:             OSCCONbits.IRCF2 = 0;
+   890  0155  1683               	bsf	3,5	;RP0=1, select bank1
+   891  0156  1303               	bcf	3,6	;RP1=0, select bank1
+   892  0157  130F               	bcf	15,6	;volatile
+   893                           
+   894                           ;lib_osccon.c: 51:             OSCCONbits.IRCF1 = 1;
+   895  0158  168F               	bsf	15,5	;volatile
+   896                           
+   897                           ;lib_osccon.c: 52:             OSCCONbits.IRCF0 = 1;
+   898  0159  160F               	bsf	15,4	;volatile
+   899                           
+   900                           ;lib_osccon.c: 53:             OSCCONbits.OSTS = 0;
+   901  015A  118F               	bcf	15,3	;volatile
+   902                           
+   903                           ;lib_osccon.c: 54:             OSCCONbits.HTS = 1;
+   904  015B  150F               	bsf	15,2	;volatile
+   905                           
+   906                           ;lib_osccon.c: 55:             OSCCONbits.LTS = 0;
+   907  015C  108F               	bcf	15,1	;volatile
    908                           
-   909                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
-      +                          itches
-   910                           ; Switch size 1, requested type "simple"
-   911                           ; Number of cases is 1, Range of values is 0 to 0
-   912                           ; switch strategies available:
-   913                           ; Name         Instructions Cycles
-   914                           ; simple_byte            4     3 (average)
-   915                           ; direct_byte           11     8 (fixed)
-   916                           ; jumptable            260     6 (fixed)
-   917                           ;	Chosen strategy is simple_byte
-   918  0102  0874               	movf	??_oscInit+1,w
-   919  0103  3A00               	xorlw	0	; case 0
-   920  0104  1903               	skipnz
-   921  0105  2907               	goto	l853
-   922  0106  2921               	goto	l60
-   923  0107                     l853:	
-   924                           
-   925                           ; Switch size 1, requested type "simple"
-   926                           ; Number of cases is 8, Range of values is 0 to 7
-   927                           ; switch strategies available:
-   928                           ; Name         Instructions Cycles
-   929                           ; simple_byte           25    13 (average)
-   930                           ; direct_byte           32     8 (fixed)
-   931                           ; jumptable            260     6 (fixed)
-   932                           ;	Chosen strategy is simple_byte
-   933  0107  0873               	movf	??_oscInit,w
-   934  0108  3A00               	xorlw	0	; case 0
-   935  0109  1903               	skipnz
-   936  010A  28AF               	goto	l51
-   937  010B  3A01               	xorlw	1	; case 1
-   938  010C  1903               	skipnz
-   939  010D  28B9               	goto	l53
-   940  010E  3A03               	xorlw	3	; case 2
-   941  010F  1903               	skipnz
-   942  0110  28C3               	goto	l54
-   943  0111  3A01               	xorlw	1	; case 3
-   944  0112  1903               	skipnz
-   945  0113  28CD               	goto	l55
-   946  0114  3A07               	xorlw	7	; case 4
-   947  0115  1903               	skipnz
-   948  0116  28D7               	goto	l56
-   949  0117  3A01               	xorlw	1	; case 5
-   950  0118  1903               	skipnz
-   951  0119  28E1               	goto	l57
-   952  011A  3A03               	xorlw	3	; case 6
-   953  011B  1903               	skipnz
-   954  011C  28EB               	goto	l58
-   955  011D  3A01               	xorlw	1	; case 7
-   956  011E  1903               	skipnz
-   957  011F  28F5               	goto	l59
-   958  0120  2921               	goto	l60
-   959  0121                     l60:	
-   960  0121  0008               	return
-   961  0122                     __end_of_oscInit:	
-   962                           
-   963                           	psect	text3
-   964  01C3                     __ptext3:	
-   965 ;; *************** function _globalAdcIntEnable *****************
-   966 ;; Defined at:
-   967 ;;		line 74 in file "Lab5_i2c_slave_pot_v1.c"
-   968 ;; Parameters:    Size  Location     Type
-   969 ;;		None
-   970 ;; Auto vars:     Size  Location     Type
-   971 ;;		None
-   972 ;; Return value:  Size  Location     Type
-   973 ;;                  1    wreg      void 
-   974 ;; Registers used:
-   975 ;;		None
-   976 ;; Tracked objects:
-   977 ;;		On entry : 0/0
-   978 ;;		On exit  : 0/0
-   979 ;;		Unchanged: 0/0
-   980 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   981 ;;      Params:         0       0       0       0       0
-   982 ;;      Locals:         0       0       0       0       0
-   983 ;;      Temps:          0       0       0       0       0
-   984 ;;      Totals:         0       0       0       0       0
-   985 ;;Total ram usage:        0 bytes
-   986 ;; Hardware stack levels used:    1
-   987 ;; Hardware stack levels required when called:    1
-   988 ;; This function calls:
-   989 ;;		Nothing
-   990 ;; This function is called by:
-   991 ;;		_main
-   992 ;; This function uses a non-reentrant model
-   993 ;;
-   994                           
+   909                           ;lib_osccon.c: 56:             OSCCONbits.SCS = 1;
+   910  015D  140F               	bsf	15,0	;volatile
+   911                           
+   912                           ;lib_osccon.c: 57:             break;
+   913  015E  299F               	goto	l60
+   914  015F                     l57:	
+   915                           ;lib_osccon.c: 58:         case 5:
+   916                           
+   917                           
+   918                           ;lib_osccon.c: 59:             OSCCONbits.IRCF2 = 0;
+   919  015F  1683               	bsf	3,5	;RP0=1, select bank1
+   920  0160  1303               	bcf	3,6	;RP1=0, select bank1
+   921  0161  130F               	bcf	15,6	;volatile
+   922                           
+   923                           ;lib_osccon.c: 60:             OSCCONbits.IRCF1 = 1;
+   924  0162  168F               	bsf	15,5	;volatile
+   925                           
+   926                           ;lib_osccon.c: 61:             OSCCONbits.IRCF0 = 0;
+   927  0163  120F               	bcf	15,4	;volatile
+   928                           
+   929                           ;lib_osccon.c: 62:             OSCCONbits.OSTS = 0;
+   930  0164  118F               	bcf	15,3	;volatile
+   931                           
+   932                           ;lib_osccon.c: 63:             OSCCONbits.HTS = 1;
+   933  0165  150F               	bsf	15,2	;volatile
+   934                           
+   935                           ;lib_osccon.c: 64:             OSCCONbits.LTS = 0;
+   936  0166  108F               	bcf	15,1	;volatile
+   937                           
+   938                           ;lib_osccon.c: 65:             OSCCONbits.SCS = 1;
+   939  0167  140F               	bsf	15,0	;volatile
+   940                           
+   941                           ;lib_osccon.c: 66:             break;
+   942  0168  299F               	goto	l60
+   943  0169                     l58:	
+   944                           ;lib_osccon.c: 67:         case 6:
+   945                           
+   946                           
+   947                           ;lib_osccon.c: 68:             OSCCONbits.IRCF2 = 0;
+   948  0169  1683               	bsf	3,5	;RP0=1, select bank1
+   949  016A  1303               	bcf	3,6	;RP1=0, select bank1
+   950  016B  130F               	bcf	15,6	;volatile
+   951                           
+   952                           ;lib_osccon.c: 69:             OSCCONbits.IRCF1 = 0;
+   953  016C  128F               	bcf	15,5	;volatile
+   954                           
+   955                           ;lib_osccon.c: 70:             OSCCONbits.IRCF0 = 1;
+   956  016D  160F               	bsf	15,4	;volatile
+   957                           
+   958                           ;lib_osccon.c: 71:             OSCCONbits.OSTS = 0;
+   959  016E  118F               	bcf	15,3	;volatile
+   960                           
+   961                           ;lib_osccon.c: 72:             OSCCONbits.HTS = 1;
+   962  016F  150F               	bsf	15,2	;volatile
+   963                           
+   964                           ;lib_osccon.c: 73:             OSCCONbits.LTS = 0;
+   965  0170  108F               	bcf	15,1	;volatile
+   966                           
+   967                           ;lib_osccon.c: 74:             OSCCONbits.SCS = 1;
+   968  0171  140F               	bsf	15,0	;volatile
+   969                           
+   970                           ;lib_osccon.c: 75:             break;
+   971  0172  299F               	goto	l60
+   972  0173                     l59:	
+   973                           ;lib_osccon.c: 76:         case 7:
+   974                           
+   975                           
+   976                           ;lib_osccon.c: 77:             OSCCONbits.IRCF2 = 0;
+   977  0173  1683               	bsf	3,5	;RP0=1, select bank1
+   978  0174  1303               	bcf	3,6	;RP1=0, select bank1
+   979  0175  130F               	bcf	15,6	;volatile
+   980                           
+   981                           ;lib_osccon.c: 78:             OSCCONbits.IRCF1 = 0;
+   982  0176  128F               	bcf	15,5	;volatile
+   983                           
+   984                           ;lib_osccon.c: 79:             OSCCONbits.IRCF0 = 0;
+   985  0177  120F               	bcf	15,4	;volatile
+   986                           
+   987                           ;lib_osccon.c: 80:             OSCCONbits.OSTS = 0;
+   988  0178  118F               	bcf	15,3	;volatile
+   989                           
+   990                           ;lib_osccon.c: 81:             OSCCONbits.HTS = 0;
+   991  0179  110F               	bcf	15,2	;volatile
+   992                           
+   993                           ;lib_osccon.c: 82:             OSCCONbits.LTS = 1;
+   994  017A  148F               	bsf	15,1	;volatile
    995                           
-   996                           ;psect for function _globalAdcIntEnable
-   997  01C3                     _globalAdcIntEnable:	
-   998  01C3                     l753:	
-   999                           ;incstack = 0
-  1000                           ; Regs used in _globalAdcIntEnable: []
-  1001                           
-  1002                           
-  1003                           ;Lab5_i2c_slave_pot_v1.c: 75:     INTCONbits.GIE = 1;
-  1004  01C3  178B               	bsf	11,7	;volatile
+   996                           ;lib_osccon.c: 83:             OSCCONbits.SCS = 1;
+   997  017B  140F               	bsf	15,0	;volatile
+   998                           
+   999                           ;lib_osccon.c: 84:             break;
+  1000  017C  299F               	goto	l60
+  1001  017D                     l815:	
+  1002  017D  0876               	movf	oscInit@freq,w
+  1003  017E  00F4               	movwf	??_oscInit
+  1004  017F  01F5               	clrf	??_oscInit+1
   1005                           
-  1006                           ;Lab5_i2c_slave_pot_v1.c: 76:     INTCONbits.PEIE = 1;
-  1007  01C4  170B               	bsf	11,6	;volatile
-  1008  01C5                     l115:	
-  1009  01C5  0008               	return
-  1010  01C6                     __end_of_globalAdcIntEnable:	
-  1011                           
-  1012                           	psect	text4
-  1013  0014                     __ptext4:	
-  1014 ;; *************** function _analogInSel *****************
-  1015 ;; Defined at:
-  1016 ;;		line 32 in file "lib_adc.c"
-  1017 ;; Parameters:    Size  Location     Type
-  1018 ;;  analogIn        1    wreg     unsigned char 
-  1019 ;; Auto vars:     Size  Location     Type
-  1020 ;;  analogIn        1    5[COMMON] unsigned char 
-  1021 ;; Return value:  Size  Location     Type
-  1022 ;;                  1    wreg      unsigned char 
-  1023 ;; Registers used:
-  1024 ;;		wreg, fsr0l, fsr0h, status,2, status,0
-  1025 ;; Tracked objects:
-  1026 ;;		On entry : 0/0
-  1027 ;;		On exit  : 0/0
-  1028 ;;		Unchanged: 0/0
-  1029 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1030 ;;      Params:         0       0       0       0       0
-  1031 ;;      Locals:         1       0       0       0       0
-  1032 ;;      Temps:          2       0       0       0       0
-  1033 ;;      Totals:         3       0       0       0       0
-  1034 ;;Total ram usage:        3 bytes
-  1035 ;; Hardware stack levels used:    1
-  1036 ;; Hardware stack levels required when called:    1
-  1037 ;; This function calls:
-  1038 ;;		Nothing
-  1039 ;; This function is called by:
-  1040 ;;		_main
-  1041 ;; This function uses a non-reentrant model
-  1042 ;;
-  1043                           
-  1044                           
-  1045                           ;psect for function _analogInSel
-  1046  0014                     _analogInSel:	
-  1047                           
-  1048                           ;incstack = 0
-  1049                           ; Regs used in _analogInSel: [wreg-fsr0h+status,2+status,0]
-  1050                           ;analogInSel@analogIn stored from wreg
-  1051  0014  00F5               	movwf	analogInSel@analogIn
-  1052  0015                     l719:	
-  1053                           
-  1054                           ;lib_adc.c: 33:     switch(analogIn){
-  1055  0015  2878               	goto	l723
-  1056  0016                     l22:	
-  1057                           ;lib_adc.c: 34:         case 0:
-  1058                           
+  1006                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+      +                          itches
+  1007                           ; Switch size 1, requested type "simple"
+  1008                           ; Number of cases is 1, Range of values is 0 to 0
+  1009                           ; switch strategies available:
+  1010                           ; Name         Instructions Cycles
+  1011                           ; simple_byte            4     3 (average)
+  1012                           ; direct_byte           11     8 (fixed)
+  1013                           ; jumptable            260     6 (fixed)
+  1014                           ;	Chosen strategy is simple_byte
+  1015  0180  0875               	movf	??_oscInit+1,w
+  1016  0181  3A00               	xorlw	0	; case 0
+  1017  0182  1903               	skipnz
+  1018  0183  2985               	goto	l1017
+  1019  0184  299F               	goto	l60
+  1020  0185                     l1017:	
+  1021                           
+  1022                           ; Switch size 1, requested type "simple"
+  1023                           ; Number of cases is 8, Range of values is 0 to 7
+  1024                           ; switch strategies available:
+  1025                           ; Name         Instructions Cycles
+  1026                           ; simple_byte           25    13 (average)
+  1027                           ; direct_byte           32     8 (fixed)
+  1028                           ; jumptable            260     6 (fixed)
+  1029                           ;	Chosen strategy is simple_byte
+  1030  0185  0874               	movf	??_oscInit,w
+  1031  0186  3A00               	xorlw	0	; case 0
+  1032  0187  1903               	skipnz
+  1033  0188  292D               	goto	l51
+  1034  0189  3A01               	xorlw	1	; case 1
+  1035  018A  1903               	skipnz
+  1036  018B  2937               	goto	l53
+  1037  018C  3A03               	xorlw	3	; case 2
+  1038  018D  1903               	skipnz
+  1039  018E  2941               	goto	l54
+  1040  018F  3A01               	xorlw	1	; case 3
+  1041  0190  1903               	skipnz
+  1042  0191  294B               	goto	l55
+  1043  0192  3A07               	xorlw	7	; case 4
+  1044  0193  1903               	skipnz
+  1045  0194  2955               	goto	l56
+  1046  0195  3A01               	xorlw	1	; case 5
+  1047  0196  1903               	skipnz
+  1048  0197  295F               	goto	l57
+  1049  0198  3A03               	xorlw	3	; case 6
+  1050  0199  1903               	skipnz
+  1051  019A  2969               	goto	l58
+  1052  019B  3A01               	xorlw	1	; case 7
+  1053  019C  1903               	skipnz
+  1054  019D  2973               	goto	l59
+  1055  019E  299F               	goto	l60
+  1056  019F                     l60:	
+  1057  019F  0008               	return
+  1058  01A0                     __end_of_oscInit:	
   1059                           
-  1060                           ;lib_adc.c: 35:             ADCON0bits.CHS3 = 0;
-  1061  0016  1283               	bcf	3,5	;RP0=0, select bank0
-  1062  0017  1303               	bcf	3,6	;RP1=0, select bank0
-  1063  0018  129F               	bcf	31,5	;volatile
-  1064                           
-  1065                           ;lib_adc.c: 36:             ADCON0bits.CHS2 = 0;
-  1066  0019  121F               	bcf	31,4	;volatile
-  1067                           
-  1068                           ;lib_adc.c: 37:             ADCON0bits.CHS1 = 0;
-  1069  001A  119F               	bcf	31,3	;volatile
-  1070                           
-  1071                           ;lib_adc.c: 38:             ADCON0bits.CHS0 = 0;
-  1072  001B  111F               	bcf	31,2	;volatile
-  1073                           
-  1074                           ;lib_adc.c: 39:             break;
-  1075  001C  28AC               	goto	l37
-  1076  001D                     l24:	
-  1077                           ;lib_adc.c: 40:         case 1:
-  1078                           
-  1079                           
-  1080                           ;lib_adc.c: 41:             ADCON0bits.CHS3 = 0;
-  1081  001D  1283               	bcf	3,5	;RP0=0, select bank0
-  1082  001E  1303               	bcf	3,6	;RP1=0, select bank0
-  1083  001F  129F               	bcf	31,5	;volatile
-  1084                           
-  1085                           ;lib_adc.c: 42:             ADCON0bits.CHS2 = 0;
-  1086  0020  121F               	bcf	31,4	;volatile
-  1087                           
-  1088                           ;lib_adc.c: 43:             ADCON0bits.CHS1 = 0;
-  1089  0021  119F               	bcf	31,3	;volatile
-  1090                           
-  1091                           ;lib_adc.c: 44:             ADCON0bits.CHS0 = 1;
-  1092  0022  151F               	bsf	31,2	;volatile
-  1093                           
-  1094                           ;lib_adc.c: 45:             break;
-  1095  0023  28AC               	goto	l37
-  1096  0024                     l25:	
-  1097                           ;lib_adc.c: 46:         case 2:
-  1098                           
-  1099                           
-  1100                           ;lib_adc.c: 47:             ADCON0bits.CHS3 = 0;
-  1101  0024  1283               	bcf	3,5	;RP0=0, select bank0
-  1102  0025  1303               	bcf	3,6	;RP1=0, select bank0
-  1103  0026  129F               	bcf	31,5	;volatile
-  1104                           
-  1105                           ;lib_adc.c: 48:             ADCON0bits.CHS2 = 0;
-  1106  0027  121F               	bcf	31,4	;volatile
+  1060                           	psect	text3
+  1061  0219                     __ptext3:	
+  1062 ;; *************** function _i2c_slave_init *****************
+  1063 ;; Defined at:
+  1064 ;;		line 63 in file "I2C.c"
+  1065 ;; Parameters:    Size  Location     Type
+  1066 ;;  address         1    wreg     unsigned char 
+  1067 ;; Auto vars:     Size  Location     Type
+  1068 ;;  address         1    4[COMMON] unsigned char 
+  1069 ;; Return value:  Size  Location     Type
+  1070 ;;                  1    wreg      void 
+  1071 ;; Registers used:
+  1072 ;;		wreg
+  1073 ;; Tracked objects:
+  1074 ;;		On entry : 0/0
+  1075 ;;		On exit  : 0/0
+  1076 ;;		Unchanged: 0/0
+  1077 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1078 ;;      Params:         0       0       0       0       0
+  1079 ;;      Locals:         1       0       0       0       0
+  1080 ;;      Temps:          0       0       0       0       0
+  1081 ;;      Totals:         1       0       0       0       0
+  1082 ;;Total ram usage:        1 bytes
+  1083 ;; Hardware stack levels used:    1
+  1084 ;; Hardware stack levels required when called:    1
+  1085 ;; This function calls:
+  1086 ;;		Nothing
+  1087 ;; This function is called by:
+  1088 ;;		_main
+  1089 ;; This function uses a non-reentrant model
+  1090 ;;
+  1091                           
+  1092                           
+  1093                           ;psect for function _i2c_slave_init
+  1094  0219                     _i2c_slave_init:	
+  1095                           
+  1096                           ;incstack = 0
+  1097                           ; Regs used in _i2c_slave_init: [wreg]
+  1098                           ;i2c_slave_init@address stored from wreg
+  1099  0219  00F4               	movwf	i2c_slave_init@address
+  1100  021A                     l825:	
+  1101                           
+  1102                           ;I2C.c: 64:     SSPSTAT = 0x80;
+  1103  021A  3080               	movlw	128
+  1104  021B  1683               	bsf	3,5	;RP0=1, select bank1
+  1105  021C  1303               	bcf	3,6	;RP1=0, select bank1
+  1106  021D  0094               	movwf	20	;volatile
   1107                           
-  1108                           ;lib_adc.c: 49:             ADCON0bits.CHS1 = 1;
-  1109  0028  159F               	bsf	31,3	;volatile
-  1110                           
-  1111                           ;lib_adc.c: 50:             ADCON0bits.CHS0 = 0;
-  1112  0029  111F               	bcf	31,2	;volatile
-  1113                           
-  1114                           ;lib_adc.c: 51:             break;
-  1115  002A  28AC               	goto	l37
-  1116  002B                     l26:	
-  1117                           ;lib_adc.c: 52:         case 3:
-  1118                           
-  1119                           
-  1120                           ;lib_adc.c: 53:             ADCON0bits.CHS3 = 0;
-  1121  002B  1283               	bcf	3,5	;RP0=0, select bank0
-  1122  002C  1303               	bcf	3,6	;RP1=0, select bank0
-  1123  002D  129F               	bcf	31,5	;volatile
+  1108                           ;I2C.c: 65:     SSPADD = address;
+  1109  021E  0874               	movf	i2c_slave_init@address,w
+  1110  021F  0093               	movwf	19	;volatile
+  1111                           
+  1112                           ;I2C.c: 66:     SSPCON = 0x36;
+  1113  0220  3036               	movlw	54
+  1114  0221  1283               	bcf	3,5	;RP0=0, select bank0
+  1115  0222  1303               	bcf	3,6	;RP1=0, select bank0
+  1116  0223  0094               	movwf	20	;volatile
+  1117                           
+  1118                           ;I2C.c: 67:     SSPCON2 = 0x01;
+  1119  0224  3001               	movlw	1
+  1120  0225  1683               	bsf	3,5	;RP0=1, select bank1
+  1121  0226  1303               	bcf	3,6	;RP1=0, select bank1
+  1122  0227  0091               	movwf	17	;volatile
+  1123  0228                     l827:	
   1124                           
-  1125                           ;lib_adc.c: 54:             ADCON0bits.CHS2 = 0;
-  1126  002E  121F               	bcf	31,4	;volatile
-  1127                           
-  1128                           ;lib_adc.c: 55:             ADCON0bits.CHS1 = 1;
-  1129  002F  159F               	bsf	31,3	;volatile
-  1130                           
-  1131                           ;lib_adc.c: 56:             ADCON0bits.CHS0 = 1;
-  1132  0030  151F               	bsf	31,2	;volatile
-  1133                           
-  1134                           ;lib_adc.c: 57:             break;
-  1135  0031  28AC               	goto	l37
-  1136  0032                     l27:	
-  1137                           ;lib_adc.c: 58:         case 4:
-  1138                           
-  1139                           
-  1140                           ;lib_adc.c: 59:             ADCON0bits.CHS3 = 0;
-  1141  0032  1283               	bcf	3,5	;RP0=0, select bank0
-  1142  0033  1303               	bcf	3,6	;RP1=0, select bank0
-  1143  0034  129F               	bcf	31,5	;volatile
-  1144                           
-  1145                           ;lib_adc.c: 60:             ADCON0bits.CHS2 = 1;
-  1146  0035  161F               	bsf	31,4	;volatile
-  1147                           
-  1148                           ;lib_adc.c: 61:             ADCON0bits.CHS1 = 0;
-  1149  0036  119F               	bcf	31,3	;volatile
-  1150                           
-  1151                           ;lib_adc.c: 62:             ADCON0bits.CHS0 = 0;
-  1152  0037  111F               	bcf	31,2	;volatile
-  1153                           
-  1154                           ;lib_adc.c: 63:             break;
-  1155  0038  28AC               	goto	l37
-  1156  0039                     l28:	
-  1157                           ;lib_adc.c: 64:         case 5:
-  1158                           
-  1159                           
-  1160                           ;lib_adc.c: 65:             ADCON0bits.CHS3 = 0;
-  1161  0039  1283               	bcf	3,5	;RP0=0, select bank0
-  1162  003A  1303               	bcf	3,6	;RP1=0, select bank0
-  1163  003B  129F               	bcf	31,5	;volatile
-  1164                           
-  1165                           ;lib_adc.c: 66:             ADCON0bits.CHS2 = 1;
-  1166  003C  161F               	bsf	31,4	;volatile
-  1167                           
-  1168                           ;lib_adc.c: 67:             ADCON0bits.CHS1 = 0;
-  1169  003D  119F               	bcf	31,3	;volatile
-  1170                           
-  1171                           ;lib_adc.c: 68:             ADCON0bits.CHS0 = 1;
-  1172  003E  151F               	bsf	31,2	;volatile
-  1173                           
-  1174                           ;lib_adc.c: 69:             break;
-  1175  003F  28AC               	goto	l37
-  1176  0040                     l29:	
-  1177                           ;lib_adc.c: 70:         case 6:
-  1178                           
-  1179                           
-  1180                           ;lib_adc.c: 71:             ADCON0bits.CHS3 = 0;
-  1181  0040  1283               	bcf	3,5	;RP0=0, select bank0
-  1182  0041  1303               	bcf	3,6	;RP1=0, select bank0
-  1183  0042  129F               	bcf	31,5	;volatile
-  1184                           
-  1185                           ;lib_adc.c: 72:             ADCON0bits.CHS2 = 1;
-  1186  0043  161F               	bsf	31,4	;volatile
+  1125                           ;I2C.c: 68:     TRISCbits.TRISC3 = 1;
+  1126  0228  1587               	bsf	7,3	;volatile
+  1127  0229                     l829:	
+  1128                           
+  1129                           ;I2C.c: 69:     TRISCbits.TRISC4 = 1;
+  1130  0229  1607               	bsf	7,4	;volatile
+  1131  022A                     l831:	
+  1132                           
+  1133                           ;I2C.c: 70:     INTCONbits.GIE = 1;
+  1134  022A  178B               	bsf	11,7	;volatile
+  1135  022B                     l833:	
+  1136                           
+  1137                           ;I2C.c: 71:     INTCONbits.PEIE = 1;
+  1138  022B  170B               	bsf	11,6	;volatile
+  1139  022C                     l835:	
+  1140                           
+  1141                           ;I2C.c: 72:     PIR1bits.SSPIF = 0;
+  1142  022C  1283               	bcf	3,5	;RP0=0, select bank0
+  1143  022D  1303               	bcf	3,6	;RP1=0, select bank0
+  1144  022E  118C               	bcf	12,3	;volatile
+  1145  022F                     l837:	
+  1146                           
+  1147                           ;I2C.c: 73:     PIE1bits.SSPIE = 1;
+  1148  022F  1683               	bsf	3,5	;RP0=1, select bank1
+  1149  0230  1303               	bcf	3,6	;RP1=0, select bank1
+  1150  0231  158C               	bsf	12,3	;volatile
+  1151  0232                     l187:	
+  1152  0232  0008               	return
+  1153  0233                     __end_of_i2c_slave_init:	
+  1154                           
+  1155                           	psect	text4
+  1156  0018                     __ptext4:	
+  1157 ;; *************** function _analogInSel *****************
+  1158 ;; Defined at:
+  1159 ;;		line 32 in file "lib_adc.c"
+  1160 ;; Parameters:    Size  Location     Type
+  1161 ;;  analogIn        1    wreg     unsigned char 
+  1162 ;; Auto vars:     Size  Location     Type
+  1163 ;;  analogIn        1    6[COMMON] unsigned char 
+  1164 ;; Return value:  Size  Location     Type
+  1165 ;;                  1    wreg      unsigned char 
+  1166 ;; Registers used:
+  1167 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+  1168 ;; Tracked objects:
+  1169 ;;		On entry : 0/0
+  1170 ;;		On exit  : 0/0
+  1171 ;;		Unchanged: 0/0
+  1172 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1173 ;;      Params:         0       0       0       0       0
+  1174 ;;      Locals:         1       0       0       0       0
+  1175 ;;      Temps:          2       0       0       0       0
+  1176 ;;      Totals:         3       0       0       0       0
+  1177 ;;Total ram usage:        3 bytes
+  1178 ;; Hardware stack levels used:    1
+  1179 ;; Hardware stack levels required when called:    1
+  1180 ;; This function calls:
+  1181 ;;		Nothing
+  1182 ;; This function is called by:
+  1183 ;;		_main
+  1184 ;; This function uses a non-reentrant model
+  1185 ;;
+  1186                           
   1187                           
-  1188                           ;lib_adc.c: 73:             ADCON0bits.CHS1 = 1;
-  1189  0044  159F               	bsf	31,3	;volatile
+  1188                           ;psect for function _analogInSel
+  1189  0018                     _analogInSel:	
   1190                           
-  1191                           ;lib_adc.c: 74:             ADCON0bits.CHS0 = 0;
-  1192  0045  111F               	bcf	31,2	;volatile
-  1193                           
-  1194                           ;lib_adc.c: 75:             break;
-  1195  0046  28AC               	goto	l37
-  1196  0047                     l30:	
-  1197                           ;lib_adc.c: 76:         case 7:
-  1198                           
-  1199                           
-  1200                           ;lib_adc.c: 77:             ADCON0bits.CHS3 = 0;
-  1201  0047  1283               	bcf	3,5	;RP0=0, select bank0
-  1202  0048  1303               	bcf	3,6	;RP1=0, select bank0
-  1203  0049  129F               	bcf	31,5	;volatile
-  1204                           
-  1205                           ;lib_adc.c: 78:             ADCON0bits.CHS2 = 1;
-  1206  004A  161F               	bsf	31,4	;volatile
+  1191                           ;incstack = 0
+  1192                           ; Regs used in _analogInSel: [wreg-fsr0h+status,2+status,0]
+  1193                           ;analogInSel@analogIn stored from wreg
+  1194  0018  00F6               	movwf	analogInSel@analogIn
+  1195  0019                     l791:	
+  1196                           
+  1197                           ;lib_adc.c: 33:     switch(analogIn){
+  1198  0019  287C               	goto	l795
+  1199  001A                     l22:	
+  1200                           ;lib_adc.c: 34:         case 0:
+  1201                           
+  1202                           
+  1203                           ;lib_adc.c: 35:             ADCON0bits.CHS3 = 0;
+  1204  001A  1283               	bcf	3,5	;RP0=0, select bank0
+  1205  001B  1303               	bcf	3,6	;RP1=0, select bank0
+  1206  001C  129F               	bcf	31,5	;volatile
   1207                           
-  1208                           ;lib_adc.c: 79:             ADCON0bits.CHS1 = 1;
-  1209  004B  159F               	bsf	31,3	;volatile
+  1208                           ;lib_adc.c: 36:             ADCON0bits.CHS2 = 0;
+  1209  001D  121F               	bcf	31,4	;volatile
   1210                           
-  1211                           ;lib_adc.c: 80:             ADCON0bits.CHS0 = 1;
-  1212  004C  151F               	bsf	31,2	;volatile
+  1211                           ;lib_adc.c: 37:             ADCON0bits.CHS1 = 0;
+  1212  001E  119F               	bcf	31,3	;volatile
   1213                           
-  1214                           ;lib_adc.c: 81:             break;
-  1215  004D  28AC               	goto	l37
-  1216  004E                     l31:	
-  1217                           ;lib_adc.c: 82:         case 8:
-  1218                           
-  1219                           
-  1220                           ;lib_adc.c: 83:             ADCON0bits.CHS3 = 1;
-  1221  004E  1283               	bcf	3,5	;RP0=0, select bank0
-  1222  004F  1303               	bcf	3,6	;RP1=0, select bank0
-  1223  0050  169F               	bsf	31,5	;volatile
-  1224                           
-  1225                           ;lib_adc.c: 84:             ADCON0bits.CHS2 = 0;
-  1226  0051  121F               	bcf	31,4	;volatile
+  1214                           ;lib_adc.c: 38:             ADCON0bits.CHS0 = 0;
+  1215  001F  111F               	bcf	31,2	;volatile
+  1216                           
+  1217                           ;lib_adc.c: 39:             break;
+  1218  0020  28B0               	goto	l37
+  1219  0021                     l24:	
+  1220                           ;lib_adc.c: 40:         case 1:
+  1221                           
+  1222                           
+  1223                           ;lib_adc.c: 41:             ADCON0bits.CHS3 = 0;
+  1224  0021  1283               	bcf	3,5	;RP0=0, select bank0
+  1225  0022  1303               	bcf	3,6	;RP1=0, select bank0
+  1226  0023  129F               	bcf	31,5	;volatile
   1227                           
-  1228                           ;lib_adc.c: 85:             ADCON0bits.CHS1 = 0;
-  1229  0052  119F               	bcf	31,3	;volatile
+  1228                           ;lib_adc.c: 42:             ADCON0bits.CHS2 = 0;
+  1229  0024  121F               	bcf	31,4	;volatile
   1230                           
-  1231                           ;lib_adc.c: 86:             ADCON0bits.CHS0 = 0;
-  1232  0053  111F               	bcf	31,2	;volatile
+  1231                           ;lib_adc.c: 43:             ADCON0bits.CHS1 = 0;
+  1232  0025  119F               	bcf	31,3	;volatile
   1233                           
-  1234                           ;lib_adc.c: 87:             break;
-  1235  0054  28AC               	goto	l37
-  1236  0055                     l32:	
-  1237                           ;lib_adc.c: 88:         case 9:
-  1238                           
-  1239                           
-  1240                           ;lib_adc.c: 89:             ADCON0bits.CHS3 = 1;
-  1241  0055  1283               	bcf	3,5	;RP0=0, select bank0
-  1242  0056  1303               	bcf	3,6	;RP1=0, select bank0
-  1243  0057  169F               	bsf	31,5	;volatile
-  1244                           
-  1245                           ;lib_adc.c: 90:             ADCON0bits.CHS2 = 0;
-  1246  0058  121F               	bcf	31,4	;volatile
+  1234                           ;lib_adc.c: 44:             ADCON0bits.CHS0 = 1;
+  1235  0026  151F               	bsf	31,2	;volatile
+  1236                           
+  1237                           ;lib_adc.c: 45:             break;
+  1238  0027  28B0               	goto	l37
+  1239  0028                     l25:	
+  1240                           ;lib_adc.c: 46:         case 2:
+  1241                           
+  1242                           
+  1243                           ;lib_adc.c: 47:             ADCON0bits.CHS3 = 0;
+  1244  0028  1283               	bcf	3,5	;RP0=0, select bank0
+  1245  0029  1303               	bcf	3,6	;RP1=0, select bank0
+  1246  002A  129F               	bcf	31,5	;volatile
   1247                           
-  1248                           ;lib_adc.c: 91:             ADCON0bits.CHS1 = 0;
-  1249  0059  119F               	bcf	31,3	;volatile
+  1248                           ;lib_adc.c: 48:             ADCON0bits.CHS2 = 0;
+  1249  002B  121F               	bcf	31,4	;volatile
   1250                           
-  1251                           ;lib_adc.c: 92:             ADCON0bits.CHS0 = 1;
-  1252  005A  151F               	bsf	31,2	;volatile
+  1251                           ;lib_adc.c: 49:             ADCON0bits.CHS1 = 1;
+  1252  002C  159F               	bsf	31,3	;volatile
   1253                           
-  1254                           ;lib_adc.c: 93:             break;
-  1255  005B  28AC               	goto	l37
-  1256  005C                     l33:	
-  1257                           ;lib_adc.c: 94:         case 10:
-  1258                           
-  1259                           
-  1260                           ;lib_adc.c: 95:             ADCON0bits.CHS3 = 1;
-  1261  005C  1283               	bcf	3,5	;RP0=0, select bank0
-  1262  005D  1303               	bcf	3,6	;RP1=0, select bank0
-  1263  005E  169F               	bsf	31,5	;volatile
-  1264                           
-  1265                           ;lib_adc.c: 96:             ADCON0bits.CHS2 = 0;
-  1266  005F  121F               	bcf	31,4	;volatile
+  1254                           ;lib_adc.c: 50:             ADCON0bits.CHS0 = 0;
+  1255  002D  111F               	bcf	31,2	;volatile
+  1256                           
+  1257                           ;lib_adc.c: 51:             break;
+  1258  002E  28B0               	goto	l37
+  1259  002F                     l26:	
+  1260                           ;lib_adc.c: 52:         case 3:
+  1261                           
+  1262                           
+  1263                           ;lib_adc.c: 53:             ADCON0bits.CHS3 = 0;
+  1264  002F  1283               	bcf	3,5	;RP0=0, select bank0
+  1265  0030  1303               	bcf	3,6	;RP1=0, select bank0
+  1266  0031  129F               	bcf	31,5	;volatile
   1267                           
-  1268                           ;lib_adc.c: 97:             ADCON0bits.CHS1 = 1;
-  1269  0060  159F               	bsf	31,3	;volatile
+  1268                           ;lib_adc.c: 54:             ADCON0bits.CHS2 = 0;
+  1269  0032  121F               	bcf	31,4	;volatile
   1270                           
-  1271                           ;lib_adc.c: 98:             ADCON0bits.CHS0 = 0;
-  1272  0061  111F               	bcf	31,2	;volatile
+  1271                           ;lib_adc.c: 55:             ADCON0bits.CHS1 = 1;
+  1272  0033  159F               	bsf	31,3	;volatile
   1273                           
-  1274                           ;lib_adc.c: 99:             break;
-  1275  0062  28AC               	goto	l37
-  1276  0063                     l34:	
-  1277                           ;lib_adc.c: 100:         case 11:
-  1278                           
-  1279                           
-  1280                           ;lib_adc.c: 101:             ADCON0bits.CHS3 = 1;
-  1281  0063  1283               	bcf	3,5	;RP0=0, select bank0
-  1282  0064  1303               	bcf	3,6	;RP1=0, select bank0
-  1283  0065  169F               	bsf	31,5	;volatile
-  1284                           
-  1285                           ;lib_adc.c: 102:             ADCON0bits.CHS2 = 0;
-  1286  0066  121F               	bcf	31,4	;volatile
+  1274                           ;lib_adc.c: 56:             ADCON0bits.CHS0 = 1;
+  1275  0034  151F               	bsf	31,2	;volatile
+  1276                           
+  1277                           ;lib_adc.c: 57:             break;
+  1278  0035  28B0               	goto	l37
+  1279  0036                     l27:	
+  1280                           ;lib_adc.c: 58:         case 4:
+  1281                           
+  1282                           
+  1283                           ;lib_adc.c: 59:             ADCON0bits.CHS3 = 0;
+  1284  0036  1283               	bcf	3,5	;RP0=0, select bank0
+  1285  0037  1303               	bcf	3,6	;RP1=0, select bank0
+  1286  0038  129F               	bcf	31,5	;volatile
   1287                           
-  1288                           ;lib_adc.c: 103:             ADCON0bits.CHS1 = 1;
-  1289  0067  159F               	bsf	31,3	;volatile
+  1288                           ;lib_adc.c: 60:             ADCON0bits.CHS2 = 1;
+  1289  0039  161F               	bsf	31,4	;volatile
   1290                           
-  1291                           ;lib_adc.c: 104:             ADCON0bits.CHS0 = 1;
-  1292  0068  151F               	bsf	31,2	;volatile
+  1291                           ;lib_adc.c: 61:             ADCON0bits.CHS1 = 0;
+  1292  003A  119F               	bcf	31,3	;volatile
   1293                           
-  1294                           ;lib_adc.c: 105:             break;
-  1295  0069  28AC               	goto	l37
-  1296  006A                     l35:	
-  1297                           ;lib_adc.c: 106:         case 12:
-  1298                           
-  1299                           
-  1300                           ;lib_adc.c: 107:             ADCON0bits.CHS3 = 1;
-  1301  006A  1283               	bcf	3,5	;RP0=0, select bank0
-  1302  006B  1303               	bcf	3,6	;RP1=0, select bank0
-  1303  006C  169F               	bsf	31,5	;volatile
-  1304                           
-  1305                           ;lib_adc.c: 108:             ADCON0bits.CHS2 = 1;
-  1306  006D  161F               	bsf	31,4	;volatile
+  1294                           ;lib_adc.c: 62:             ADCON0bits.CHS0 = 0;
+  1295  003B  111F               	bcf	31,2	;volatile
+  1296                           
+  1297                           ;lib_adc.c: 63:             break;
+  1298  003C  28B0               	goto	l37
+  1299  003D                     l28:	
+  1300                           ;lib_adc.c: 64:         case 5:
+  1301                           
+  1302                           
+  1303                           ;lib_adc.c: 65:             ADCON0bits.CHS3 = 0;
+  1304  003D  1283               	bcf	3,5	;RP0=0, select bank0
+  1305  003E  1303               	bcf	3,6	;RP1=0, select bank0
+  1306  003F  129F               	bcf	31,5	;volatile
   1307                           
-  1308                           ;lib_adc.c: 109:             ADCON0bits.CHS1 = 0;
-  1309  006E  119F               	bcf	31,3	;volatile
+  1308                           ;lib_adc.c: 66:             ADCON0bits.CHS2 = 1;
+  1309  0040  161F               	bsf	31,4	;volatile
   1310                           
-  1311                           ;lib_adc.c: 110:             ADCON0bits.CHS0 = 0;
-  1312  006F  111F               	bcf	31,2	;volatile
+  1311                           ;lib_adc.c: 67:             ADCON0bits.CHS1 = 0;
+  1312  0041  119F               	bcf	31,3	;volatile
   1313                           
-  1314                           ;lib_adc.c: 111:             break;
-  1315  0070  28AC               	goto	l37
-  1316  0071                     l36:	
-  1317                           ;lib_adc.c: 112:         case 13:
-  1318                           
-  1319                           
-  1320                           ;lib_adc.c: 113:             ADCON0bits.CHS3 = 1;
-  1321  0071  1283               	bcf	3,5	;RP0=0, select bank0
-  1322  0072  1303               	bcf	3,6	;RP1=0, select bank0
-  1323  0073  169F               	bsf	31,5	;volatile
-  1324                           
-  1325                           ;lib_adc.c: 114:             ADCON0bits.CHS2 = 1;
-  1326  0074  161F               	bsf	31,4	;volatile
+  1314                           ;lib_adc.c: 68:             ADCON0bits.CHS0 = 1;
+  1315  0042  151F               	bsf	31,2	;volatile
+  1316                           
+  1317                           ;lib_adc.c: 69:             break;
+  1318  0043  28B0               	goto	l37
+  1319  0044                     l29:	
+  1320                           ;lib_adc.c: 70:         case 6:
+  1321                           
+  1322                           
+  1323                           ;lib_adc.c: 71:             ADCON0bits.CHS3 = 0;
+  1324  0044  1283               	bcf	3,5	;RP0=0, select bank0
+  1325  0045  1303               	bcf	3,6	;RP1=0, select bank0
+  1326  0046  129F               	bcf	31,5	;volatile
   1327                           
-  1328                           ;lib_adc.c: 115:             ADCON0bits.CHS1 = 0;
-  1329  0075  119F               	bcf	31,3	;volatile
+  1328                           ;lib_adc.c: 72:             ADCON0bits.CHS2 = 1;
+  1329  0047  161F               	bsf	31,4	;volatile
   1330                           
-  1331                           ;lib_adc.c: 116:             ADCON0bits.CHS0 = 1;
-  1332  0076  151F               	bsf	31,2	;volatile
+  1331                           ;lib_adc.c: 73:             ADCON0bits.CHS1 = 1;
+  1332  0048  159F               	bsf	31,3	;volatile
   1333                           
-  1334                           ;lib_adc.c: 117:             break;
-  1335  0077  28AC               	goto	l37
-  1336  0078                     l723:	
-  1337  0078  0875               	movf	analogInSel@analogIn,w
-  1338  0079  00F3               	movwf	??_analogInSel
-  1339  007A  01F4               	clrf	??_analogInSel+1
-  1340                           
-  1341                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
-      +                          itches
-  1342                           ; Switch size 1, requested type "simple"
-  1343                           ; Number of cases is 1, Range of values is 0 to 0
-  1344                           ; switch strategies available:
-  1345                           ; Name         Instructions Cycles
-  1346                           ; simple_byte            4     3 (average)
-  1347                           ; direct_byte           11     8 (fixed)
-  1348                           ; jumptable            260     6 (fixed)
-  1349                           ;	Chosen strategy is simple_byte
-  1350  007B  0874               	movf	??_analogInSel+1,w
-  1351  007C  3A00               	xorlw	0	; case 0
-  1352  007D  1903               	skipnz
-  1353  007E  2880               	goto	l855
-  1354  007F  28AC               	goto	l37
-  1355  0080                     l855:	
+  1334                           ;lib_adc.c: 74:             ADCON0bits.CHS0 = 0;
+  1335  0049  111F               	bcf	31,2	;volatile
+  1336                           
+  1337                           ;lib_adc.c: 75:             break;
+  1338  004A  28B0               	goto	l37
+  1339  004B                     l30:	
+  1340                           ;lib_adc.c: 76:         case 7:
+  1341                           
+  1342                           
+  1343                           ;lib_adc.c: 77:             ADCON0bits.CHS3 = 0;
+  1344  004B  1283               	bcf	3,5	;RP0=0, select bank0
+  1345  004C  1303               	bcf	3,6	;RP1=0, select bank0
+  1346  004D  129F               	bcf	31,5	;volatile
+  1347                           
+  1348                           ;lib_adc.c: 78:             ADCON0bits.CHS2 = 1;
+  1349  004E  161F               	bsf	31,4	;volatile
+  1350                           
+  1351                           ;lib_adc.c: 79:             ADCON0bits.CHS1 = 1;
+  1352  004F  159F               	bsf	31,3	;volatile
+  1353                           
+  1354                           ;lib_adc.c: 80:             ADCON0bits.CHS0 = 1;
+  1355  0050  151F               	bsf	31,2	;volatile
   1356                           
-  1357                           ; Switch size 1, requested type "simple"
-  1358                           ; Number of cases is 14, Range of values is 0 to 13
-  1359                           ; switch strategies available:
-  1360                           ; Name         Instructions Cycles
-  1361                           ; simple_byte           43    22 (average)
-  1362                           ; direct_byte           50     8 (fixed)
-  1363                           ; jumptable            260     6 (fixed)
-  1364                           ;	Chosen strategy is simple_byte
-  1365  0080  0873               	movf	??_analogInSel,w
-  1366  0081  3A00               	xorlw	0	; case 0
-  1367  0082  1903               	skipnz
-  1368  0083  2816               	goto	l22
-  1369  0084  3A01               	xorlw	1	; case 1
-  1370  0085  1903               	skipnz
-  1371  0086  281D               	goto	l24
-  1372  0087  3A03               	xorlw	3	; case 2
-  1373  0088  1903               	skipnz
-  1374  0089  2824               	goto	l25
-  1375  008A  3A01               	xorlw	1	; case 3
-  1376  008B  1903               	skipnz
-  1377  008C  282B               	goto	l26
-  1378  008D  3A07               	xorlw	7	; case 4
-  1379  008E  1903               	skipnz
-  1380  008F  2832               	goto	l27
-  1381  0090  3A01               	xorlw	1	; case 5
-  1382  0091  1903               	skipnz
-  1383  0092  2839               	goto	l28
-  1384  0093  3A03               	xorlw	3	; case 6
-  1385  0094  1903               	skipnz
-  1386  0095  2840               	goto	l29
-  1387  0096  3A01               	xorlw	1	; case 7
-  1388  0097  1903               	skipnz
-  1389  0098  2847               	goto	l30
-  1390  0099  3A0F               	xorlw	15	; case 8
-  1391  009A  1903               	skipnz
-  1392  009B  284E               	goto	l31
-  1393  009C  3A01               	xorlw	1	; case 9
-  1394  009D  1903               	skipnz
-  1395  009E  2855               	goto	l32
-  1396  009F  3A03               	xorlw	3	; case 10
-  1397  00A0  1903               	skipnz
-  1398  00A1  285C               	goto	l33
-  1399  00A2  3A01               	xorlw	1	; case 11
-  1400  00A3  1903               	skipnz
-  1401  00A4  2863               	goto	l34
-  1402  00A5  3A07               	xorlw	7	; case 12
-  1403  00A6  1903               	skipnz
-  1404  00A7  286A               	goto	l35
-  1405  00A8  3A01               	xorlw	1	; case 13
-  1406  00A9  1903               	skipnz
-  1407  00AA  2871               	goto	l36
-  1408  00AB  28AC               	goto	l37
-  1409  00AC                     l37:	
-  1410  00AC  0008               	return
-  1411  00AD                     __end_of_analogInSel:	
-  1412                           
-  1413                           	psect	text5
-  1414  01BA                     __ptext5:	
-  1415 ;; *************** function _adcSetup *****************
-  1416 ;; Defined at:
-  1417 ;;		line 12 in file "lib_adc.c"
-  1418 ;; Parameters:    Size  Location     Type
-  1419 ;;		None
-  1420 ;; Auto vars:     Size  Location     Type
-  1421 ;;		None
-  1422 ;; Return value:  Size  Location     Type
-  1423 ;;                  1    wreg      void 
-  1424 ;; Registers used:
-  1425 ;;		None
-  1426 ;; Tracked objects:
-  1427 ;;		On entry : 0/0
-  1428 ;;		On exit  : 0/0
-  1429 ;;		Unchanged: 0/0
-  1430 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1431 ;;      Params:         0       0       0       0       0
-  1432 ;;      Locals:         0       0       0       0       0
-  1433 ;;      Temps:          0       0       0       0       0
-  1434 ;;      Totals:         0       0       0       0       0
-  1435 ;;Total ram usage:        0 bytes
-  1436 ;; Hardware stack levels used:    1
-  1437 ;; Hardware stack levels required when called:    1
-  1438 ;; This function calls:
-  1439 ;;		Nothing
-  1440 ;; This function is called by:
-  1441 ;;		_main
-  1442 ;; This function uses a non-reentrant model
-  1443 ;;
-  1444                           
-  1445                           
-  1446                           ;psect for function _adcSetup
-  1447  01BA                     _adcSetup:	
-  1448  01BA                     l707:	
-  1449                           ;incstack = 0
-  1450                           ; Regs used in _adcSetup: []
-  1451                           
-  1452                           
-  1453                           ;lib_adc.c: 13:     ADCON0bits.ADON = 1;
-  1454  01BA  1283               	bcf	3,5	;RP0=0, select bank0
-  1455  01BB  1303               	bcf	3,6	;RP1=0, select bank0
-  1456  01BC  141F               	bsf	31,0	;volatile
-  1457                           
-  1458                           ;lib_adc.c: 14:     ADCON1bits.ADFM = 0;
-  1459  01BD  1683               	bsf	3,5	;RP0=1, select bank1
-  1460  01BE  1303               	bcf	3,6	;RP1=0, select bank1
-  1461  01BF  139F               	bcf	31,7	;volatile
+  1357                           ;lib_adc.c: 81:             break;
+  1358  0051  28B0               	goto	l37
+  1359  0052                     l31:	
+  1360                           ;lib_adc.c: 82:         case 8:
+  1361                           
+  1362                           
+  1363                           ;lib_adc.c: 83:             ADCON0bits.CHS3 = 1;
+  1364  0052  1283               	bcf	3,5	;RP0=0, select bank0
+  1365  0053  1303               	bcf	3,6	;RP1=0, select bank0
+  1366  0054  169F               	bsf	31,5	;volatile
+  1367                           
+  1368                           ;lib_adc.c: 84:             ADCON0bits.CHS2 = 0;
+  1369  0055  121F               	bcf	31,4	;volatile
+  1370                           
+  1371                           ;lib_adc.c: 85:             ADCON0bits.CHS1 = 0;
+  1372  0056  119F               	bcf	31,3	;volatile
+  1373                           
+  1374                           ;lib_adc.c: 86:             ADCON0bits.CHS0 = 0;
+  1375  0057  111F               	bcf	31,2	;volatile
+  1376                           
+  1377                           ;lib_adc.c: 87:             break;
+  1378  0058  28B0               	goto	l37
+  1379  0059                     l32:	
+  1380                           ;lib_adc.c: 88:         case 9:
+  1381                           
+  1382                           
+  1383                           ;lib_adc.c: 89:             ADCON0bits.CHS3 = 1;
+  1384  0059  1283               	bcf	3,5	;RP0=0, select bank0
+  1385  005A  1303               	bcf	3,6	;RP1=0, select bank0
+  1386  005B  169F               	bsf	31,5	;volatile
+  1387                           
+  1388                           ;lib_adc.c: 90:             ADCON0bits.CHS2 = 0;
+  1389  005C  121F               	bcf	31,4	;volatile
+  1390                           
+  1391                           ;lib_adc.c: 91:             ADCON0bits.CHS1 = 0;
+  1392  005D  119F               	bcf	31,3	;volatile
+  1393                           
+  1394                           ;lib_adc.c: 92:             ADCON0bits.CHS0 = 1;
+  1395  005E  151F               	bsf	31,2	;volatile
+  1396                           
+  1397                           ;lib_adc.c: 93:             break;
+  1398  005F  28B0               	goto	l37
+  1399  0060                     l33:	
+  1400                           ;lib_adc.c: 94:         case 10:
+  1401                           
+  1402                           
+  1403                           ;lib_adc.c: 95:             ADCON0bits.CHS3 = 1;
+  1404  0060  1283               	bcf	3,5	;RP0=0, select bank0
+  1405  0061  1303               	bcf	3,6	;RP1=0, select bank0
+  1406  0062  169F               	bsf	31,5	;volatile
+  1407                           
+  1408                           ;lib_adc.c: 96:             ADCON0bits.CHS2 = 0;
+  1409  0063  121F               	bcf	31,4	;volatile
+  1410                           
+  1411                           ;lib_adc.c: 97:             ADCON0bits.CHS1 = 1;
+  1412  0064  159F               	bsf	31,3	;volatile
+  1413                           
+  1414                           ;lib_adc.c: 98:             ADCON0bits.CHS0 = 0;
+  1415  0065  111F               	bcf	31,2	;volatile
+  1416                           
+  1417                           ;lib_adc.c: 99:             break;
+  1418  0066  28B0               	goto	l37
+  1419  0067                     l34:	
+  1420                           ;lib_adc.c: 100:         case 11:
+  1421                           
+  1422                           
+  1423                           ;lib_adc.c: 101:             ADCON0bits.CHS3 = 1;
+  1424  0067  1283               	bcf	3,5	;RP0=0, select bank0
+  1425  0068  1303               	bcf	3,6	;RP1=0, select bank0
+  1426  0069  169F               	bsf	31,5	;volatile
+  1427                           
+  1428                           ;lib_adc.c: 102:             ADCON0bits.CHS2 = 0;
+  1429  006A  121F               	bcf	31,4	;volatile
+  1430                           
+  1431                           ;lib_adc.c: 103:             ADCON0bits.CHS1 = 1;
+  1432  006B  159F               	bsf	31,3	;volatile
+  1433                           
+  1434                           ;lib_adc.c: 104:             ADCON0bits.CHS0 = 1;
+  1435  006C  151F               	bsf	31,2	;volatile
+  1436                           
+  1437                           ;lib_adc.c: 105:             break;
+  1438  006D  28B0               	goto	l37
+  1439  006E                     l35:	
+  1440                           ;lib_adc.c: 106:         case 12:
+  1441                           
+  1442                           
+  1443                           ;lib_adc.c: 107:             ADCON0bits.CHS3 = 1;
+  1444  006E  1283               	bcf	3,5	;RP0=0, select bank0
+  1445  006F  1303               	bcf	3,6	;RP1=0, select bank0
+  1446  0070  169F               	bsf	31,5	;volatile
+  1447                           
+  1448                           ;lib_adc.c: 108:             ADCON0bits.CHS2 = 1;
+  1449  0071  161F               	bsf	31,4	;volatile
+  1450                           
+  1451                           ;lib_adc.c: 109:             ADCON0bits.CHS1 = 0;
+  1452  0072  119F               	bcf	31,3	;volatile
+  1453                           
+  1454                           ;lib_adc.c: 110:             ADCON0bits.CHS0 = 0;
+  1455  0073  111F               	bcf	31,2	;volatile
+  1456                           
+  1457                           ;lib_adc.c: 111:             break;
+  1458  0074  28B0               	goto	l37
+  1459  0075                     l36:	
+  1460                           ;lib_adc.c: 112:         case 13:
+  1461                           
   1462                           
-  1463                           ;lib_adc.c: 15:     ADCON1bits.VCFG1 = 0;
-  1464  01C0  129F               	bcf	31,5	;volatile
-  1465                           
-  1466                           ;lib_adc.c: 16:     ADCON1bits.VCFG0 = 0;
-  1467  01C1  121F               	bcf	31,4	;volatile
-  1468  01C2                     l11:	
-  1469  01C2  0008               	return
-  1470  01C3                     __end_of_adcSetup:	
-  1471                           
-  1472                           	psect	text6
-  1473  0179                     __ptext6:	
-  1474 ;; *************** function _adcInterrupt *****************
-  1475 ;; Defined at:
-  1476 ;;		line 19 in file "lib_adc.c"
-  1477 ;; Parameters:    Size  Location     Type
-  1478 ;;  en              1    wreg     unsigned char 
-  1479 ;; Auto vars:     Size  Location     Type
-  1480 ;;  en              1    5[COMMON] unsigned char 
-  1481 ;; Return value:  Size  Location     Type
-  1482 ;;                  1    wreg      void 
-  1483 ;; Registers used:
-  1484 ;;		wreg, fsr0l, fsr0h, status,2, status,0
-  1485 ;; Tracked objects:
-  1486 ;;		On entry : 0/0
-  1487 ;;		On exit  : 0/0
-  1488 ;;		Unchanged: 0/0
-  1489 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1490 ;;      Params:         0       0       0       0       0
-  1491 ;;      Locals:         1       0       0       0       0
-  1492 ;;      Temps:          2       0       0       0       0
-  1493 ;;      Totals:         3       0       0       0       0
-  1494 ;;Total ram usage:        3 bytes
-  1495 ;; Hardware stack levels used:    1
-  1496 ;; Hardware stack levels required when called:    1
-  1497 ;; This function calls:
-  1498 ;;		Nothing
-  1499 ;; This function is called by:
-  1500 ;;		_main
-  1501 ;; This function uses a non-reentrant model
-  1502 ;;
-  1503                           
-  1504                           
-  1505                           ;psect for function _adcInterrupt
-  1506  0179                     _adcInterrupt:	
-  1507                           
-  1508                           ;incstack = 0
-  1509                           ; Regs used in _adcInterrupt: [wreg-fsr0h+status,2+status,0]
-  1510                           ;adcInterrupt@en stored from wreg
-  1511  0179  00F5               	movwf	adcInterrupt@en
-  1512  017A                     l709:	
-  1513                           
-  1514                           ;lib_adc.c: 20:     switch(en){
-  1515  017A  2989               	goto	l713
-  1516  017B                     l15:	
-  1517                           ;lib_adc.c: 21:         case 0:
-  1518                           
-  1519                           
-  1520                           ;lib_adc.c: 22:             PIE1bits.ADIE = 0;
-  1521  017B  1683               	bsf	3,5	;RP0=1, select bank1
-  1522  017C  1303               	bcf	3,6	;RP1=0, select bank1
-  1523  017D  130C               	bcf	12,6	;volatile
-  1524                           
-  1525                           ;lib_adc.c: 23:             PIR1bits.ADIF = 0;
-  1526  017E  1283               	bcf	3,5	;RP0=0, select bank0
-  1527  017F  1303               	bcf	3,6	;RP1=0, select bank0
-  1528  0180  130C               	bcf	12,6	;volatile
-  1529                           
-  1530                           ;lib_adc.c: 24:             break;
-  1531  0181  2999               	goto	l18
-  1532  0182                     l17:	
-  1533                           ;lib_adc.c: 25:         case 1:
-  1534                           
-  1535                           
-  1536                           ;lib_adc.c: 26:             PIE1bits.ADIE = 1;
-  1537  0182  1683               	bsf	3,5	;RP0=1, select bank1
-  1538  0183  1303               	bcf	3,6	;RP1=0, select bank1
-  1539  0184  170C               	bsf	12,6	;volatile
-  1540                           
-  1541                           ;lib_adc.c: 27:             PIR1bits.ADIF = 0;
-  1542  0185  1283               	bcf	3,5	;RP0=0, select bank0
-  1543  0186  1303               	bcf	3,6	;RP1=0, select bank0
-  1544  0187  130C               	bcf	12,6	;volatile
-  1545                           
-  1546                           ;lib_adc.c: 28:             break;
-  1547  0188  2999               	goto	l18
-  1548  0189                     l713:	
-  1549  0189  0875               	movf	adcInterrupt@en,w
-  1550  018A  00F3               	movwf	??_adcInterrupt
-  1551  018B  01F4               	clrf	??_adcInterrupt+1
-  1552                           
-  1553                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+  1463                           ;lib_adc.c: 113:             ADCON0bits.CHS3 = 1;
+  1464  0075  1283               	bcf	3,5	;RP0=0, select bank0
+  1465  0076  1303               	bcf	3,6	;RP1=0, select bank0
+  1466  0077  169F               	bsf	31,5	;volatile
+  1467                           
+  1468                           ;lib_adc.c: 114:             ADCON0bits.CHS2 = 1;
+  1469  0078  161F               	bsf	31,4	;volatile
+  1470                           
+  1471                           ;lib_adc.c: 115:             ADCON0bits.CHS1 = 0;
+  1472  0079  119F               	bcf	31,3	;volatile
+  1473                           
+  1474                           ;lib_adc.c: 116:             ADCON0bits.CHS0 = 1;
+  1475  007A  151F               	bsf	31,2	;volatile
+  1476                           
+  1477                           ;lib_adc.c: 117:             break;
+  1478  007B  28B0               	goto	l37
+  1479  007C                     l795:	
+  1480  007C  0876               	movf	analogInSel@analogIn,w
+  1481  007D  00F4               	movwf	??_analogInSel
+  1482  007E  01F5               	clrf	??_analogInSel+1
+  1483                           
+  1484                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
       +                          itches
-  1554                           ; Switch size 1, requested type "simple"
-  1555                           ; Number of cases is 1, Range of values is 0 to 0
-  1556                           ; switch strategies available:
-  1557                           ; Name         Instructions Cycles
-  1558                           ; simple_byte            4     3 (average)
-  1559                           ; direct_byte           11     8 (fixed)
-  1560                           ; jumptable            260     6 (fixed)
-  1561                           ;	Chosen strategy is simple_byte
-  1562  018C  0874               	movf	??_adcInterrupt+1,w
-  1563  018D  3A00               	xorlw	0	; case 0
-  1564  018E  1903               	skipnz
-  1565  018F  2991               	goto	l857
-  1566  0190  2999               	goto	l18
-  1567  0191                     l857:	
-  1568                           
-  1569                           ; Switch size 1, requested type "simple"
-  1570                           ; Number of cases is 2, Range of values is 0 to 1
-  1571                           ; switch strategies available:
-  1572                           ; Name         Instructions Cycles
-  1573                           ; simple_byte            7     4 (average)
-  1574                           ; direct_byte           14     8 (fixed)
-  1575                           ; jumptable            260     6 (fixed)
-  1576                           ;	Chosen strategy is simple_byte
-  1577  0191  0873               	movf	??_adcInterrupt,w
-  1578  0192  3A00               	xorlw	0	; case 0
-  1579  0193  1903               	skipnz
-  1580  0194  297B               	goto	l15
-  1581  0195  3A01               	xorlw	1	; case 1
-  1582  0196  1903               	skipnz
-  1583  0197  2982               	goto	l17
-  1584  0198  2999               	goto	l18
-  1585  0199                     l18:	
-  1586  0199  0008               	return
-  1587  019A                     __end_of_adcInterrupt:	
+  1485                           ; Switch size 1, requested type "simple"
+  1486                           ; Number of cases is 1, Range of values is 0 to 0
+  1487                           ; switch strategies available:
+  1488                           ; Name         Instructions Cycles
+  1489                           ; simple_byte            4     3 (average)
+  1490                           ; direct_byte           11     8 (fixed)
+  1491                           ; jumptable            260     6 (fixed)
+  1492                           ;	Chosen strategy is simple_byte
+  1493  007F  0875               	movf	??_analogInSel+1,w
+  1494  0080  3A00               	xorlw	0	; case 0
+  1495  0081  1903               	skipnz
+  1496  0082  2884               	goto	l1019
+  1497  0083  28B0               	goto	l37
+  1498  0084                     l1019:	
+  1499                           
+  1500                           ; Switch size 1, requested type "simple"
+  1501                           ; Number of cases is 14, Range of values is 0 to 13
+  1502                           ; switch strategies available:
+  1503                           ; Name         Instructions Cycles
+  1504                           ; simple_byte           43    22 (average)
+  1505                           ; direct_byte           50     8 (fixed)
+  1506                           ; jumptable            260     6 (fixed)
+  1507                           ;	Chosen strategy is simple_byte
+  1508  0084  0874               	movf	??_analogInSel,w
+  1509  0085  3A00               	xorlw	0	; case 0
+  1510  0086  1903               	skipnz
+  1511  0087  281A               	goto	l22
+  1512  0088  3A01               	xorlw	1	; case 1
+  1513  0089  1903               	skipnz
+  1514  008A  2821               	goto	l24
+  1515  008B  3A03               	xorlw	3	; case 2
+  1516  008C  1903               	skipnz
+  1517  008D  2828               	goto	l25
+  1518  008E  3A01               	xorlw	1	; case 3
+  1519  008F  1903               	skipnz
+  1520  0090  282F               	goto	l26
+  1521  0091  3A07               	xorlw	7	; case 4
+  1522  0092  1903               	skipnz
+  1523  0093  2836               	goto	l27
+  1524  0094  3A01               	xorlw	1	; case 5
+  1525  0095  1903               	skipnz
+  1526  0096  283D               	goto	l28
+  1527  0097  3A03               	xorlw	3	; case 6
+  1528  0098  1903               	skipnz
+  1529  0099  2844               	goto	l29
+  1530  009A  3A01               	xorlw	1	; case 7
+  1531  009B  1903               	skipnz
+  1532  009C  284B               	goto	l30
+  1533  009D  3A0F               	xorlw	15	; case 8
+  1534  009E  1903               	skipnz
+  1535  009F  2852               	goto	l31
+  1536  00A0  3A01               	xorlw	1	; case 9
+  1537  00A1  1903               	skipnz
+  1538  00A2  2859               	goto	l32
+  1539  00A3  3A03               	xorlw	3	; case 10
+  1540  00A4  1903               	skipnz
+  1541  00A5  2860               	goto	l33
+  1542  00A6  3A01               	xorlw	1	; case 11
+  1543  00A7  1903               	skipnz
+  1544  00A8  2867               	goto	l34
+  1545  00A9  3A07               	xorlw	7	; case 12
+  1546  00AA  1903               	skipnz
+  1547  00AB  286E               	goto	l35
+  1548  00AC  3A01               	xorlw	1	; case 13
+  1549  00AD  1903               	skipnz
+  1550  00AE  2875               	goto	l36
+  1551  00AF  28B0               	goto	l37
+  1552  00B0                     l37:	
+  1553  00B0  0008               	return
+  1554  00B1                     __end_of_analogInSel:	
+  1555                           
+  1556                           	psect	text5
+  1557  0240                     __ptext5:	
+  1558 ;; *************** function _adcSetup *****************
+  1559 ;; Defined at:
+  1560 ;;		line 12 in file "lib_adc.c"
+  1561 ;; Parameters:    Size  Location     Type
+  1562 ;;		None
+  1563 ;; Auto vars:     Size  Location     Type
+  1564 ;;		None
+  1565 ;; Return value:  Size  Location     Type
+  1566 ;;                  1    wreg      void 
+  1567 ;; Registers used:
+  1568 ;;		None
+  1569 ;; Tracked objects:
+  1570 ;;		On entry : 0/0
+  1571 ;;		On exit  : 0/0
+  1572 ;;		Unchanged: 0/0
+  1573 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1574 ;;      Params:         0       0       0       0       0
+  1575 ;;      Locals:         0       0       0       0       0
+  1576 ;;      Temps:          0       0       0       0       0
+  1577 ;;      Totals:         0       0       0       0       0
+  1578 ;;Total ram usage:        0 bytes
+  1579 ;; Hardware stack levels used:    1
+  1580 ;; Hardware stack levels required when called:    1
+  1581 ;; This function calls:
+  1582 ;;		Nothing
+  1583 ;; This function is called by:
+  1584 ;;		_main
+  1585 ;; This function uses a non-reentrant model
+  1586 ;;
+  1587                           
   1588                           
-  1589                           	psect	text7
-  1590  0154                     __ptext7:	
-  1591 ;; *************** function _adcFoscSel *****************
-  1592 ;; Defined at:
-  1593 ;;		line 122 in file "lib_adc.c"
-  1594 ;; Parameters:    Size  Location     Type
-  1595 ;;  fosc            1    wreg     unsigned char 
-  1596 ;; Auto vars:     Size  Location     Type
-  1597 ;;  fosc            1    5[COMMON] unsigned char 
-  1598 ;; Return value:  Size  Location     Type
-  1599 ;;                  1    wreg      unsigned char 
-  1600 ;; Registers used:
-  1601 ;;		wreg, fsr0l, fsr0h, status,2, status,0
-  1602 ;; Tracked objects:
-  1603 ;;		On entry : 0/0
-  1604 ;;		On exit  : 0/0
-  1605 ;;		Unchanged: 0/0
-  1606 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1607 ;;      Params:         0       0       0       0       0
-  1608 ;;      Locals:         1       0       0       0       0
-  1609 ;;      Temps:          2       0       0       0       0
-  1610 ;;      Totals:         3       0       0       0       0
-  1611 ;;Total ram usage:        3 bytes
-  1612 ;; Hardware stack levels used:    1
-  1613 ;; Hardware stack levels required when called:    1
-  1614 ;; This function calls:
-  1615 ;;		Nothing
-  1616 ;; This function is called by:
-  1617 ;;		_main
-  1618 ;; This function uses a non-reentrant model
-  1619 ;;
-  1620                           
-  1621                           
-  1622                           ;psect for function _adcFoscSel
-  1623  0154                     _adcFoscSel:	
-  1624                           
-  1625                           ;incstack = 0
-  1626                           ; Regs used in _adcFoscSel: [wreg-fsr0h+status,2+status,0]
-  1627                           ;adcFoscSel@fosc stored from wreg
-  1628  0154  00F5               	movwf	adcFoscSel@fosc
-  1629  0155                     l729:	
-  1630                           
-  1631                           ;lib_adc.c: 123:     switch(fosc){
-  1632  0155  2965               	goto	l733
-  1633  0156                     l41:	
-  1634                           ;lib_adc.c: 124:         case 0:
-  1635                           
-  1636                           
-  1637                           ;lib_adc.c: 125:             ADCON0bits.ADCS1 = 0;
-  1638  0156  1283               	bcf	3,5	;RP0=0, select bank0
-  1639  0157  1303               	bcf	3,6	;RP1=0, select bank0
-  1640  0158  139F               	bcf	31,7	;volatile
-  1641                           
-  1642                           ;lib_adc.c: 126:             ADCON0bits.ADCS0 = 0;
-  1643  0159  131F               	bcf	31,6	;volatile
-  1644                           
-  1645                           ;lib_adc.c: 127:             break;
-  1646  015A  2978               	goto	l45
-  1647  015B                     l43:	
-  1648                           ;lib_adc.c: 128:         case 1:
-  1649                           
+  1589                           ;psect for function _adcSetup
+  1590  0240                     _adcSetup:	
+  1591  0240                     l779:	
+  1592                           ;incstack = 0
+  1593                           ; Regs used in _adcSetup: []
+  1594                           
+  1595                           
+  1596                           ;lib_adc.c: 13:     ADCON0bits.ADON = 1;
+  1597  0240  1283               	bcf	3,5	;RP0=0, select bank0
+  1598  0241  1303               	bcf	3,6	;RP1=0, select bank0
+  1599  0242  141F               	bsf	31,0	;volatile
+  1600                           
+  1601                           ;lib_adc.c: 14:     ADCON1bits.ADFM = 0;
+  1602  0243  1683               	bsf	3,5	;RP0=1, select bank1
+  1603  0244  1303               	bcf	3,6	;RP1=0, select bank1
+  1604  0245  139F               	bcf	31,7	;volatile
+  1605                           
+  1606                           ;lib_adc.c: 15:     ADCON1bits.VCFG1 = 0;
+  1607  0246  129F               	bcf	31,5	;volatile
+  1608                           
+  1609                           ;lib_adc.c: 16:     ADCON1bits.VCFG0 = 0;
+  1610  0247  121F               	bcf	31,4	;volatile
+  1611  0248                     l11:	
+  1612  0248  0008               	return
+  1613  0249                     __end_of_adcSetup:	
+  1614                           
+  1615                           	psect	text6
+  1616  01F8                     __ptext6:	
+  1617 ;; *************** function _adcInterrupt *****************
+  1618 ;; Defined at:
+  1619 ;;		line 19 in file "lib_adc.c"
+  1620 ;; Parameters:    Size  Location     Type
+  1621 ;;  en              1    wreg     unsigned char 
+  1622 ;; Auto vars:     Size  Location     Type
+  1623 ;;  en              1    6[COMMON] unsigned char 
+  1624 ;; Return value:  Size  Location     Type
+  1625 ;;                  1    wreg      void 
+  1626 ;; Registers used:
+  1627 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+  1628 ;; Tracked objects:
+  1629 ;;		On entry : 0/0
+  1630 ;;		On exit  : 0/0
+  1631 ;;		Unchanged: 0/0
+  1632 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1633 ;;      Params:         0       0       0       0       0
+  1634 ;;      Locals:         1       0       0       0       0
+  1635 ;;      Temps:          2       0       0       0       0
+  1636 ;;      Totals:         3       0       0       0       0
+  1637 ;;Total ram usage:        3 bytes
+  1638 ;; Hardware stack levels used:    1
+  1639 ;; Hardware stack levels required when called:    1
+  1640 ;; This function calls:
+  1641 ;;		Nothing
+  1642 ;; This function is called by:
+  1643 ;;		_main
+  1644 ;; This function uses a non-reentrant model
+  1645 ;;
+  1646                           
+  1647                           
+  1648                           ;psect for function _adcInterrupt
+  1649  01F8                     _adcInterrupt:	
   1650                           
-  1651                           ;lib_adc.c: 129:             ADCON0bits.ADCS1 = 0;
-  1652  015B  1283               	bcf	3,5	;RP0=0, select bank0
-  1653  015C  1303               	bcf	3,6	;RP1=0, select bank0
-  1654  015D  139F               	bcf	31,7	;volatile
-  1655                           
-  1656                           ;lib_adc.c: 130:             ADCON0bits.ADCS0 = 1;
-  1657  015E  171F               	bsf	31,6	;volatile
-  1658                           
-  1659                           ;lib_adc.c: 131:             break;
-  1660  015F  2978               	goto	l45
-  1661  0160                     l44:	
-  1662                           ;lib_adc.c: 132:         case 3:
-  1663                           
-  1664                           
-  1665                           ;lib_adc.c: 133:             ADCON0bits.ADCS1 = 1;
-  1666  0160  1283               	bcf	3,5	;RP0=0, select bank0
-  1667  0161  1303               	bcf	3,6	;RP1=0, select bank0
-  1668  0162  179F               	bsf	31,7	;volatile
-  1669                           
-  1670                           ;lib_adc.c: 134:             ADCON0bits.ADCS0 = 0;
-  1671  0163  131F               	bcf	31,6	;volatile
+  1651                           ;incstack = 0
+  1652                           ; Regs used in _adcInterrupt: [wreg-fsr0h+status,2+status,0]
+  1653                           ;adcInterrupt@en stored from wreg
+  1654  01F8  00F6               	movwf	adcInterrupt@en
+  1655  01F9                     l781:	
+  1656                           
+  1657                           ;lib_adc.c: 20:     switch(en){
+  1658  01F9  2A08               	goto	l785
+  1659  01FA                     l15:	
+  1660                           ;lib_adc.c: 21:         case 0:
+  1661                           
+  1662                           
+  1663                           ;lib_adc.c: 22:             PIE1bits.ADIE = 0;
+  1664  01FA  1683               	bsf	3,5	;RP0=1, select bank1
+  1665  01FB  1303               	bcf	3,6	;RP1=0, select bank1
+  1666  01FC  130C               	bcf	12,6	;volatile
+  1667                           
+  1668                           ;lib_adc.c: 23:             PIR1bits.ADIF = 0;
+  1669  01FD  1283               	bcf	3,5	;RP0=0, select bank0
+  1670  01FE  1303               	bcf	3,6	;RP1=0, select bank0
+  1671  01FF  130C               	bcf	12,6	;volatile
   1672                           
-  1673                           ;lib_adc.c: 135:             break;
-  1674  0164  2978               	goto	l45
-  1675  0165                     l733:	
-  1676  0165  0875               	movf	adcFoscSel@fosc,w
-  1677  0166  00F3               	movwf	??_adcFoscSel
-  1678  0167  01F4               	clrf	??_adcFoscSel+1
-  1679                           
-  1680                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
-      +                          itches
-  1681                           ; Switch size 1, requested type "simple"
-  1682                           ; Number of cases is 1, Range of values is 0 to 0
-  1683                           ; switch strategies available:
-  1684                           ; Name         Instructions Cycles
-  1685                           ; simple_byte            4     3 (average)
-  1686                           ; direct_byte           11     8 (fixed)
-  1687                           ; jumptable            260     6 (fixed)
-  1688                           ;	Chosen strategy is simple_byte
-  1689  0168  0874               	movf	??_adcFoscSel+1,w
-  1690  0169  3A00               	xorlw	0	; case 0
-  1691  016A  1903               	skipnz
-  1692  016B  296D               	goto	l859
-  1693  016C  2978               	goto	l45
-  1694  016D                     l859:	
+  1673                           ;lib_adc.c: 24:             break;
+  1674  0200  2A18               	goto	l18
+  1675  0201                     l17:	
+  1676                           ;lib_adc.c: 25:         case 1:
+  1677                           
+  1678                           
+  1679                           ;lib_adc.c: 26:             PIE1bits.ADIE = 1;
+  1680  0201  1683               	bsf	3,5	;RP0=1, select bank1
+  1681  0202  1303               	bcf	3,6	;RP1=0, select bank1
+  1682  0203  170C               	bsf	12,6	;volatile
+  1683                           
+  1684                           ;lib_adc.c: 27:             PIR1bits.ADIF = 0;
+  1685  0204  1283               	bcf	3,5	;RP0=0, select bank0
+  1686  0205  1303               	bcf	3,6	;RP1=0, select bank0
+  1687  0206  130C               	bcf	12,6	;volatile
+  1688                           
+  1689                           ;lib_adc.c: 28:             break;
+  1690  0207  2A18               	goto	l18
+  1691  0208                     l785:	
+  1692  0208  0876               	movf	adcInterrupt@en,w
+  1693  0209  00F4               	movwf	??_adcInterrupt
+  1694  020A  01F5               	clrf	??_adcInterrupt+1
   1695                           
-  1696                           ; Switch size 1, requested type "simple"
-  1697                           ; Number of cases is 3, Range of values is 0 to 3
-  1698                           ; switch strategies available:
-  1699                           ; Name         Instructions Cycles
-  1700                           ; simple_byte           10     6 (average)
-  1701                           ; direct_byte           20     8 (fixed)
-  1702                           ; jumptable            260     6 (fixed)
-  1703                           ;	Chosen strategy is simple_byte
-  1704  016D  0873               	movf	??_adcFoscSel,w
-  1705  016E  3A00               	xorlw	0	; case 0
-  1706  016F  1903               	skipnz
-  1707  0170  2956               	goto	l41
-  1708  0171  3A01               	xorlw	1	; case 1
-  1709  0172  1903               	skipnz
-  1710  0173  295B               	goto	l43
-  1711  0174  3A02               	xorlw	2	; case 3
-  1712  0175  1903               	skipnz
-  1713  0176  2960               	goto	l44
-  1714  0177  2978               	goto	l45
-  1715  0178                     l45:	
-  1716  0178  0008               	return
-  1717  0179                     __end_of_adcFoscSel:	
-  1718                           
-  1719                           	psect	text8
-  1720  019A                     __ptext8:	
-  1721 ;; *************** function _isr *****************
-  1722 ;; Defined at:
-  1723 ;;		line 44 in file "Lab5_i2c_slave_pot_v1.c"
-  1724 ;; Parameters:    Size  Location     Type
-  1725 ;;		None
-  1726 ;; Auto vars:     Size  Location     Type
-  1727 ;;		None
-  1728 ;; Return value:  Size  Location     Type
-  1729 ;;                  1    wreg      void 
-  1730 ;; Registers used:
-  1731 ;;		wreg
-  1732 ;; Tracked objects:
-  1733 ;;		On entry : 0/0
-  1734 ;;		On exit  : 0/0
-  1735 ;;		Unchanged: 0/0
-  1736 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1737 ;;      Params:         0       0       0       0       0
-  1738 ;;      Locals:         0       0       0       0       0
-  1739 ;;      Temps:          3       0       0       0       0
-  1740 ;;      Totals:         3       0       0       0       0
-  1741 ;;Total ram usage:        3 bytes
-  1742 ;; Hardware stack levels used:    1
-  1743 ;; This function calls:
-  1744 ;;		Nothing
-  1745 ;; This function is called by:
-  1746 ;;		Interrupt level 1
-  1747 ;; This function uses a non-reentrant model
-  1748 ;;
-  1749                           
-  1750                           
-  1751                           ;psect for function _isr
-  1752  019A                     _isr:	
-  1753  019A                     i1l755:	
-  1754                           
-  1755                           ;Lab5_i2c_slave_pot_v1.c: 45:     if (PIR1bits.ADIF == 1){
-  1756  019A  1283               	bcf	3,5	;RP0=0, select bank0
-  1757  019B  1303               	bcf	3,6	;RP1=0, select bank0
-  1758  019C  1F0C               	btfss	12,6	;volatile
-  1759  019D  299F               	goto	u1_21
-  1760  019E  29A0               	goto	u1_20
-  1761  019F                     u1_21:	
-  1762  019F  29A6               	goto	i1l100
-  1763  01A0                     u1_20:	
-  1764  01A0                     i1l757:	
-  1765                           
-  1766                           ;Lab5_i2c_slave_pot_v1.c: 46:         pot = ADRESH;
-  1767  01A0  081E               	movf	30,w	;volatile
-  1768  01A1  00F0               	movwf	??_isr
-  1769  01A2  0870               	movf	??_isr,w
-  1770  01A3  00F6               	movwf	_pot
-  1771                           
-  1772                           ;Lab5_i2c_slave_pot_v1.c: 47:         PORTB = pot;
-  1773  01A4  0876               	movf	_pot,w
-  1774  01A5  0086               	movwf	6	;volatile
-  1775  01A6                     i1l100:	
-  1776  01A6  0872               	movf	??_isr+2,w
-  1777  01A7  008A               	movwf	10
-  1778  01A8  0E71               	swapf	(??_isr+1)^(0+4294967168),w
-  1779  01A9  0083               	movwf	3
-  1780  01AA  0EFE               	swapf	btemp,f
-  1781  01AB  0E7E               	swapf	btemp,w
-  1782  01AC  0009               	retfie
-  1783  01AD                     __end_of_isr:	
-  1784  007E                     btemp	set	126	;btemp
-  1785  007E                     wtemp0	set	126
-  1786                           
-  1787                           	psect	intentry
-  1788  0004                     __pintentry:	
-  1789                           ;incstack = 0
-  1790                           ; Regs used in _isr: [wreg]
-  1791                           
-  1792  0004                     interrupt_function:	
-  1793  007E                     saved_w	set	btemp
-  1794  0004  00FE               	movwf	btemp
-  1795  0005  0E03               	swapf	3,w
-  1796  0006  00F1               	movwf	??_isr+1
-  1797  0007  080A               	movf	10,w
-  1798  0008  00F2               	movwf	??_isr+2
-  1799  0009  120A  118A  299A   	ljmp	_isr
+  1696                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+      +                          itches
+  1697                           ; Switch size 1, requested type "simple"
+  1698                           ; Number of cases is 1, Range of values is 0 to 0
+  1699                           ; switch strategies available:
+  1700                           ; Name         Instructions Cycles
+  1701                           ; simple_byte            4     3 (average)
+  1702                           ; direct_byte           11     8 (fixed)
+  1703                           ; jumptable            260     6 (fixed)
+  1704                           ;	Chosen strategy is simple_byte
+  1705  020B  0875               	movf	??_adcInterrupt+1,w
+  1706  020C  3A00               	xorlw	0	; case 0
+  1707  020D  1903               	skipnz
+  1708  020E  2A10               	goto	l1021
+  1709  020F  2A18               	goto	l18
+  1710  0210                     l1021:	
+  1711                           
+  1712                           ; Switch size 1, requested type "simple"
+  1713                           ; Number of cases is 2, Range of values is 0 to 1
+  1714                           ; switch strategies available:
+  1715                           ; Name         Instructions Cycles
+  1716                           ; simple_byte            7     4 (average)
+  1717                           ; direct_byte           14     8 (fixed)
+  1718                           ; jumptable            260     6 (fixed)
+  1719                           ;	Chosen strategy is simple_byte
+  1720  0210  0874               	movf	??_adcInterrupt,w
+  1721  0211  3A00               	xorlw	0	; case 0
+  1722  0212  1903               	skipnz
+  1723  0213  29FA               	goto	l15
+  1724  0214  3A01               	xorlw	1	; case 1
+  1725  0215  1903               	skipnz
+  1726  0216  2A01               	goto	l17
+  1727  0217  2A18               	goto	l18
+  1728  0218                     l18:	
+  1729  0218  0008               	return
+  1730  0219                     __end_of_adcInterrupt:	
+  1731                           
+  1732                           	psect	text7
+  1733  01D3                     __ptext7:	
+  1734 ;; *************** function _adcFoscSel *****************
+  1735 ;; Defined at:
+  1736 ;;		line 122 in file "lib_adc.c"
+  1737 ;; Parameters:    Size  Location     Type
+  1738 ;;  fosc            1    wreg     unsigned char 
+  1739 ;; Auto vars:     Size  Location     Type
+  1740 ;;  fosc            1    6[COMMON] unsigned char 
+  1741 ;; Return value:  Size  Location     Type
+  1742 ;;                  1    wreg      unsigned char 
+  1743 ;; Registers used:
+  1744 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+  1745 ;; Tracked objects:
+  1746 ;;		On entry : 0/0
+  1747 ;;		On exit  : 0/0
+  1748 ;;		Unchanged: 0/0
+  1749 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1750 ;;      Params:         0       0       0       0       0
+  1751 ;;      Locals:         1       0       0       0       0
+  1752 ;;      Temps:          2       0       0       0       0
+  1753 ;;      Totals:         3       0       0       0       0
+  1754 ;;Total ram usage:        3 bytes
+  1755 ;; Hardware stack levels used:    1
+  1756 ;; Hardware stack levels required when called:    1
+  1757 ;; This function calls:
+  1758 ;;		Nothing
+  1759 ;; This function is called by:
+  1760 ;;		_main
+  1761 ;; This function uses a non-reentrant model
+  1762 ;;
+  1763                           
+  1764                           
+  1765                           ;psect for function _adcFoscSel
+  1766  01D3                     _adcFoscSel:	
+  1767                           
+  1768                           ;incstack = 0
+  1769                           ; Regs used in _adcFoscSel: [wreg-fsr0h+status,2+status,0]
+  1770                           ;adcFoscSel@fosc stored from wreg
+  1771  01D3  00F6               	movwf	adcFoscSel@fosc
+  1772  01D4                     l801:	
+  1773                           
+  1774                           ;lib_adc.c: 123:     switch(fosc){
+  1775  01D4  29E4               	goto	l805
+  1776  01D5                     l41:	
+  1777                           ;lib_adc.c: 124:         case 0:
+  1778                           
+  1779                           
+  1780                           ;lib_adc.c: 125:             ADCON0bits.ADCS1 = 0;
+  1781  01D5  1283               	bcf	3,5	;RP0=0, select bank0
+  1782  01D6  1303               	bcf	3,6	;RP1=0, select bank0
+  1783  01D7  139F               	bcf	31,7	;volatile
+  1784                           
+  1785                           ;lib_adc.c: 126:             ADCON0bits.ADCS0 = 0;
+  1786  01D8  131F               	bcf	31,6	;volatile
+  1787                           
+  1788                           ;lib_adc.c: 127:             break;
+  1789  01D9  29F7               	goto	l45
+  1790  01DA                     l43:	
+  1791                           ;lib_adc.c: 128:         case 1:
+  1792                           
+  1793                           
+  1794                           ;lib_adc.c: 129:             ADCON0bits.ADCS1 = 0;
+  1795  01DA  1283               	bcf	3,5	;RP0=0, select bank0
+  1796  01DB  1303               	bcf	3,6	;RP1=0, select bank0
+  1797  01DC  139F               	bcf	31,7	;volatile
+  1798                           
+  1799                           ;lib_adc.c: 130:             ADCON0bits.ADCS0 = 1;
+  1800  01DD  171F               	bsf	31,6	;volatile
+  1801                           
+  1802                           ;lib_adc.c: 131:             break;
+  1803  01DE  29F7               	goto	l45
+  1804  01DF                     l44:	
+  1805                           ;lib_adc.c: 132:         case 3:
+  1806                           
+  1807                           
+  1808                           ;lib_adc.c: 133:             ADCON0bits.ADCS1 = 1;
+  1809  01DF  1283               	bcf	3,5	;RP0=0, select bank0
+  1810  01E0  1303               	bcf	3,6	;RP1=0, select bank0
+  1811  01E1  179F               	bsf	31,7	;volatile
+  1812                           
+  1813                           ;lib_adc.c: 134:             ADCON0bits.ADCS0 = 0;
+  1814  01E2  131F               	bcf	31,6	;volatile
+  1815                           
+  1816                           ;lib_adc.c: 135:             break;
+  1817  01E3  29F7               	goto	l45
+  1818  01E4                     l805:	
+  1819  01E4  0876               	movf	adcFoscSel@fosc,w
+  1820  01E5  00F4               	movwf	??_adcFoscSel
+  1821  01E6  01F5               	clrf	??_adcFoscSel+1
+  1822                           
+  1823                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+      +                          itches
+  1824                           ; Switch size 1, requested type "simple"
+  1825                           ; Number of cases is 1, Range of values is 0 to 0
+  1826                           ; switch strategies available:
+  1827                           ; Name         Instructions Cycles
+  1828                           ; simple_byte            4     3 (average)
+  1829                           ; direct_byte           11     8 (fixed)
+  1830                           ; jumptable            260     6 (fixed)
+  1831                           ;	Chosen strategy is simple_byte
+  1832  01E7  0875               	movf	??_adcFoscSel+1,w
+  1833  01E8  3A00               	xorlw	0	; case 0
+  1834  01E9  1903               	skipnz
+  1835  01EA  29EC               	goto	l1023
+  1836  01EB  29F7               	goto	l45
+  1837  01EC                     l1023:	
+  1838                           
+  1839                           ; Switch size 1, requested type "simple"
+  1840                           ; Number of cases is 3, Range of values is 0 to 3
+  1841                           ; switch strategies available:
+  1842                           ; Name         Instructions Cycles
+  1843                           ; simple_byte           10     6 (average)
+  1844                           ; direct_byte           20     8 (fixed)
+  1845                           ; jumptable            260     6 (fixed)
+  1846                           ;	Chosen strategy is simple_byte
+  1847  01EC  0874               	movf	??_adcFoscSel,w
+  1848  01ED  3A00               	xorlw	0	; case 0
+  1849  01EE  1903               	skipnz
+  1850  01EF  29D5               	goto	l41
+  1851  01F0  3A01               	xorlw	1	; case 1
+  1852  01F1  1903               	skipnz
+  1853  01F2  29DA               	goto	l43
+  1854  01F3  3A02               	xorlw	2	; case 3
+  1855  01F4  1903               	skipnz
+  1856  01F5  29DF               	goto	l44
+  1857  01F6  29F7               	goto	l45
+  1858  01F7                     l45:	
+  1859  01F7  0008               	return
+  1860  01F8                     __end_of_adcFoscSel:	
+  1861                           
+  1862                           	psect	text8
+  1863  00B1                     __ptext8:	
+  1864 ;; *************** function _isr *****************
+  1865 ;; Defined at:
+  1866 ;;		line 47 in file "Lab5_i2c_slave_pot_v1.c"
+  1867 ;; Parameters:    Size  Location     Type
+  1868 ;;		None
+  1869 ;; Auto vars:     Size  Location     Type
+  1870 ;;		None
+  1871 ;; Return value:  Size  Location     Type
+  1872 ;;                  1    wreg      void 
+  1873 ;; Registers used:
+  1874 ;;		wreg
+  1875 ;; Tracked objects:
+  1876 ;;		On entry : 0/0
+  1877 ;;		On exit  : 0/0
+  1878 ;;		Unchanged: 0/0
+  1879 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1880 ;;      Params:         0       0       0       0       0
+  1881 ;;      Locals:         0       0       0       0       0
+  1882 ;;      Temps:          4       0       0       0       0
+  1883 ;;      Totals:         4       0       0       0       0
+  1884 ;;Total ram usage:        4 bytes
+  1885 ;; Hardware stack levels used:    1
+  1886 ;; This function calls:
+  1887 ;;		Nothing
+  1888 ;; This function is called by:
+  1889 ;;		Interrupt level 1
+  1890 ;; This function uses a non-reentrant model
+  1891 ;;
+  1892                           
+  1893                           
+  1894                           ;psect for function _isr
+  1895  00B1                     _isr:	
+  1896  00B1                     i1l843:	
+  1897                           
+  1898                           ;Lab5_i2c_slave_pot_v1.c: 48:     if (PIR1bits.ADIF == 1){
+  1899  00B1  1283               	bcf	3,5	;RP0=0, select bank0
+  1900  00B2  1303               	bcf	3,6	;RP1=0, select bank0
+  1901  00B3  1F0C               	btfss	12,6	;volatile
+  1902  00B4  28B6               	goto	u3_21
+  1903  00B5  28B7               	goto	u3_20
+  1904  00B6                     u3_21:	
+  1905  00B6  28BE               	goto	i1l849
+  1906  00B7                     u3_20:	
+  1907  00B7                     i1l845:	
+  1908                           
+  1909                           ;Lab5_i2c_slave_pot_v1.c: 49:         pot = ADRESH;
+  1910  00B7  081E               	movf	30,w	;volatile
+  1911  00B8  00F0               	movwf	??_isr
+  1912  00B9  0870               	movf	??_isr,w
+  1913  00BA  00FB               	movwf	_pot
+  1914                           
+  1915                           ;Lab5_i2c_slave_pot_v1.c: 50:         PORTB = pot;
+  1916  00BB  087B               	movf	_pot,w
+  1917  00BC  0086               	movwf	6	;volatile
+  1918  00BD                     i1l847:	
+  1919                           
+  1920                           ;Lab5_i2c_slave_pot_v1.c: 51:         PIR1bits.ADIF = 0;
+  1921  00BD  130C               	bcf	12,6	;volatile
+  1922  00BE                     i1l849:	
+  1923                           
+  1924                           ;Lab5_i2c_slave_pot_v1.c: 53:     if (PIR1bits.SSPIF == 1){
+  1925  00BE  1D8C               	btfss	12,3	;volatile
+  1926  00BF  28C1               	goto	u4_21
+  1927  00C0  28C2               	goto	u4_20
+  1928  00C1                     u4_21:	
+  1929  00C1  2924               	goto	i1l123
+  1930  00C2                     u4_20:	
+  1931  00C2                     i1l851:	
+  1932                           
+  1933                           ;Lab5_i2c_slave_pot_v1.c: 54:         SSPCONbits.CKP = 0;
+  1934  00C2  1214               	bcf	20,4	;volatile
+  1935                           
+  1936                           ;Lab5_i2c_slave_pot_v1.c: 55:         if (SSPCONbits.WCOL == 1 || SSPCONbits.SSPOV == 1)
+      +                          {
+  1937  00C3  1B94               	btfsc	20,7	;volatile
+  1938  00C4  28C6               	goto	u5_21
+  1939  00C5  28C7               	goto	u5_20
+  1940  00C6                     u5_21:	
+  1941  00C6  28CB               	goto	i1l855
+  1942  00C7                     u5_20:	
+  1943  00C7                     i1l853:	
+  1944  00C7  1F14               	btfss	20,6	;volatile
+  1945  00C8  28CA               	goto	u6_21
+  1946  00C9  28CB               	goto	u6_20
+  1947  00CA                     u6_21:	
+  1948  00CA  28D5               	goto	i1l863
+  1949  00CB                     u6_20:	
+  1950  00CB                     i1l855:	
+  1951                           
+  1952                           ;Lab5_i2c_slave_pot_v1.c: 56:             x = SSPBUF;
+  1953  00CB  0813               	movf	19,w	;volatile
+  1954  00CC  00F0               	movwf	??_isr
+  1955  00CD  01F1               	clrf	??_isr+1
+  1956  00CE  0870               	movf	??_isr,w
+  1957  00CF  00F9               	movwf	_x
+  1958  00D0  0871               	movf	??_isr+1,w
+  1959  00D1  00FA               	movwf	_x+1
+  1960  00D2                     i1l857:	
+  1961                           
+  1962                           ;Lab5_i2c_slave_pot_v1.c: 57:             SSPCONbits.WCOL = 0;
+  1963  00D2  1394               	bcf	20,7	;volatile
+  1964  00D3                     i1l859:	
+  1965                           
+  1966                           ;Lab5_i2c_slave_pot_v1.c: 58:             SSPCONbits.SSPOV = 0;
+  1967  00D3  1314               	bcf	20,6	;volatile
+  1968  00D4                     i1l861:	
+  1969                           
+  1970                           ;Lab5_i2c_slave_pot_v1.c: 59:             SSPCONbits.CKP = 1;
+  1971  00D4  1614               	bsf	20,4	;volatile
+  1972  00D5                     i1l863:	
+  1973                           
+  1974                           ;Lab5_i2c_slave_pot_v1.c: 61:         if(!SSPSTATbits.D_nA && !SSPSTATbits.R_nW){
+  1975  00D5  1683               	bsf	3,5	;RP0=1, select bank1
+  1976  00D6  1303               	bcf	3,6	;RP1=0, select bank1
+  1977  00D7  1A94               	btfsc	20,5	;volatile
+  1978  00D8  28DA               	goto	u7_21
+  1979  00D9  28DB               	goto	u7_20
+  1980  00DA                     u7_21:	
+  1981  00DA  28FE               	goto	i1l114
+  1982  00DB                     u7_20:	
+  1983  00DB                     i1l865:	
+  1984  00DB  1914               	btfsc	20,2	;volatile
+  1985  00DC  28DE               	goto	u8_21
+  1986  00DD  28DF               	goto	u8_20
+  1987  00DE                     u8_21:	
+  1988  00DE  28FE               	goto	i1l114
+  1989  00DF                     u8_20:	
+  1990  00DF                     i1l867:	
+  1991                           
+  1992                           ;Lab5_i2c_slave_pot_v1.c: 62:             x = SSPBUF;
+  1993  00DF  1283               	bcf	3,5	;RP0=0, select bank0
+  1994  00E0  1303               	bcf	3,6	;RP1=0, select bank0
+  1995  00E1  0813               	movf	19,w	;volatile
+  1996  00E2  00F0               	movwf	??_isr
+  1997  00E3  01F1               	clrf	??_isr+1
+  1998  00E4  0870               	movf	??_isr,w
+  1999  00E5  00F9               	movwf	_x
+  2000  00E6  0871               	movf	??_isr+1,w
+  2001  00E7  00FA               	movwf	_x+1
+  2002  00E8                     i1l869:	
+  2003                           
+  2004                           ;Lab5_i2c_slave_pot_v1.c: 64:             PIR1bits.SSPIF = 0;
+  2005  00E8  118C               	bcf	12,3	;volatile
+  2006  00E9                     i1l871:	
+  2007                           
+  2008                           ;Lab5_i2c_slave_pot_v1.c: 65:             SSPCONbits.CKP = 1;
+  2009  00E9  1614               	bsf	20,4	;volatile
+  2010  00EA                     i1l115:	
+  2011                           ;Lab5_i2c_slave_pot_v1.c: 66:             while(!SSPSTATbits.BF);
+  2012                           
+  2013  00EA  1683               	bsf	3,5	;RP0=1, select bank1
+  2014  00EB  1303               	bcf	3,6	;RP1=0, select bank1
+  2015  00EC  1C14               	btfss	20,0	;volatile
+  2016  00ED  28EF               	goto	u9_21
+  2017  00EE  28F0               	goto	u9_20
+  2018  00EF                     u9_21:	
+  2019  00EF  28EA               	goto	i1l115
+  2020  00F0                     u9_20:	
+  2021  00F0                     i1l873:	
+  2022                           
+  2023                           ;Lab5_i2c_slave_pot_v1.c: 67:             x = SSPBUF;
+  2024  00F0  1283               	bcf	3,5	;RP0=0, select bank0
+  2025  00F1  1303               	bcf	3,6	;RP1=0, select bank0
+  2026  00F2  0813               	movf	19,w	;volatile
+  2027  00F3  00F0               	movwf	??_isr
+  2028  00F4  01F1               	clrf	??_isr+1
+  2029  00F5  0870               	movf	??_isr,w
+  2030  00F6  00F9               	movwf	_x
+  2031  00F7  0871               	movf	??_isr+1,w
+  2032  00F8  00FA               	movwf	_x+1
+  2033                           
+  2034                           ;Lab5_i2c_slave_pot_v1.c: 68:             _delay((unsigned long)((250)*(4000000/4000000.
+      +                          0)));
+  2035  00F9  3053               	movlw	83
+  2036  00FA  00F0               	movwf	??_isr
+  2037  00FB                     u16_27:	
+  2038  00FB  0BF0               	decfsz	??_isr,f
+  2039  00FC  28FB               	goto	u16_27
+  2040                           
+  2041                           ;Lab5_i2c_slave_pot_v1.c: 69:         }
+  2042  00FD  2921               	goto	i1l118
+  2043  00FE                     i1l114:	
+  2044                           ;Lab5_i2c_slave_pot_v1.c: 70:         else if (!SSPSTATbits.D_nA && SSPSTATbits.R_nW){
+  2045                           
+  2046  00FE  1A94               	btfsc	20,5	;volatile
+  2047  00FF  2901               	goto	u10_21
+  2048  0100  2902               	goto	u10_20
+  2049  0101                     u10_21:	
+  2050  0101  2921               	goto	i1l118
+  2051  0102                     u10_20:	
+  2052  0102                     i1l875:	
+  2053  0102  1D14               	btfss	20,2	;volatile
+  2054  0103  2905               	goto	u11_21
+  2055  0104  2906               	goto	u11_20
+  2056  0105                     u11_21:	
+  2057  0105  2921               	goto	i1l118
+  2058  0106                     u11_20:	
+  2059  0106                     i1l877:	
+  2060                           
+  2061                           ;Lab5_i2c_slave_pot_v1.c: 71:             x = SSPBUF;
+  2062  0106  1283               	bcf	3,5	;RP0=0, select bank0
+  2063  0107  1303               	bcf	3,6	;RP1=0, select bank0
+  2064  0108  0813               	movf	19,w	;volatile
+  2065  0109  00F0               	movwf	??_isr
+  2066  010A  01F1               	clrf	??_isr+1
+  2067  010B  0870               	movf	??_isr,w
+  2068  010C  00F9               	movwf	_x
+  2069  010D  0871               	movf	??_isr+1,w
+  2070  010E  00FA               	movwf	_x+1
+  2071  010F                     i1l879:	
+  2072                           
+  2073                           ;Lab5_i2c_slave_pot_v1.c: 72:             SSPSTATbits.BF = 0;
+  2074  010F  1683               	bsf	3,5	;RP0=1, select bank1
+  2075  0110  1303               	bcf	3,6	;RP1=0, select bank1
+  2076  0111  1014               	bcf	20,0	;volatile
+  2077                           
+  2078                           ;Lab5_i2c_slave_pot_v1.c: 73:             SSPBUF = pot;
+  2079  0112  087B               	movf	_pot,w
+  2080  0113  1283               	bcf	3,5	;RP0=0, select bank0
+  2081  0114  1303               	bcf	3,6	;RP1=0, select bank0
+  2082  0115  0093               	movwf	19	;volatile
+  2083  0116                     i1l881:	
+  2084                           
+  2085                           ;Lab5_i2c_slave_pot_v1.c: 74:             SSPCONbits.CKP = 1;
+  2086  0116  1614               	bsf	20,4	;volatile
+  2087                           
+  2088                           ;Lab5_i2c_slave_pot_v1.c: 75:             _delay((unsigned long)((250)*(4000000/4000000.
+      +                          0)));
+  2089  0117  3053               	movlw	83
+  2090  0118  00F0               	movwf	??_isr
+  2091  0119                     u17_27:	
+  2092  0119  0BF0               	decfsz	??_isr,f
+  2093  011A  2919               	goto	u17_27
+  2094  011B                     i1l120:	
+  2095                           ;Lab5_i2c_slave_pot_v1.c: 76:             while(SSPSTATbits.BF);
+  2096                           
+  2097  011B  1683               	bsf	3,5	;RP0=1, select bank1
+  2098  011C  1303               	bcf	3,6	;RP1=0, select bank1
+  2099  011D  1814               	btfsc	20,0	;volatile
+  2100  011E  2920               	goto	u12_21
+  2101  011F  2921               	goto	u12_20
+  2102  0120                     u12_21:	
+  2103  0120  291B               	goto	i1l120
+  2104  0121                     u12_20:	
+  2105  0121                     i1l118:	
+  2106                           
+  2107                           ;Lab5_i2c_slave_pot_v1.c: 78:         PIR1bits.SSPIF = 0;
+  2108  0121  1283               	bcf	3,5	;RP0=0, select bank0
+  2109  0122  1303               	bcf	3,6	;RP1=0, select bank0
+  2110  0123  118C               	bcf	12,3	;volatile
+  2111  0124                     i1l123:	
+  2112  0124  0873               	movf	??_isr+3,w
+  2113  0125  008A               	movwf	10
+  2114  0126  0E72               	swapf	(??_isr+2)^(0+4294967168),w
+  2115  0127  0083               	movwf	3
+  2116  0128  0EFE               	swapf	btemp,f
+  2117  0129  0E7E               	swapf	btemp,w
+  2118  012A  0009               	retfie
+  2119  012B                     __end_of_isr:	
+  2120  007E                     btemp	set	126	;btemp
+  2121  007E                     wtemp0	set	126
+  2122                           
+  2123                           	psect	intentry
+  2124  0004                     __pintentry:	
+  2125                           ;incstack = 0
+  2126                           ; Regs used in _isr: [wreg]
+  2127                           
+  2128  0004                     interrupt_function:	
+  2129  007E                     saved_w	set	btemp
+  2130  0004  00FE               	movwf	btemp
+  2131  0005  0E03               	swapf	3,w
+  2132  0006  00F2               	movwf	??_isr+2
+  2133  0007  080A               	movf	10,w
+  2134  0008  00F3               	movwf	??_isr+3
+  2135  0009  120A  118A  28B1   	ljmp	_isr
 
 
 Data Sizes:
     Strings     0
     Constant    0
     Data        0
-    BSS         1
+    BSS         5
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMMON           14      6       7
+    COMMON           14      7      12
     BANK0            80      0       0
     BANK1            80      0       0
     BANK3            96      0       0
@@ -1885,39 +2224,40 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 0     0      0      75
+ (0) _main                                                 0     0      0      90
                          _adcFoscSel
                        _adcInterrupt
                            _adcSetup
                         _analogInSel
-                 _globalAdcIntEnable
+                     _i2c_slave_init
                             _oscInit
                               _setup
  ---------------------------------------------------------------------------------
  (1) _setup                                                0     0      0       0
  ---------------------------------------------------------------------------------
  (1) _oscInit                                              3     3      0      20
-                                              3 COMMON     3     3      0
+                                              4 COMMON     3     3      0
  ---------------------------------------------------------------------------------
- (1) _globalAdcIntEnable                                   0     0      0       0
+ (1) _i2c_slave_init                                       1     1      0      15
+                                              4 COMMON     1     1      0
  ---------------------------------------------------------------------------------
  (1) _analogInSel                                          3     3      0      20
-                                              3 COMMON     3     3      0
+                                              4 COMMON     3     3      0
  ---------------------------------------------------------------------------------
  (1) _adcSetup                                             0     0      0       0
  ---------------------------------------------------------------------------------
  (1) _adcInterrupt                                         3     3      0      15
-                                              3 COMMON     3     3      0
+                                              4 COMMON     3     3      0
  ---------------------------------------------------------------------------------
  (1) _adcFoscSel                                           3     3      0      20
-                                              3 COMMON     3     3      0
+                                              4 COMMON     3     3      0
  ---------------------------------------------------------------------------------
  Estimated maximum stack depth 1
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (2) _isr                                                  3     3      0       0
-                                              0 COMMON     3     3      0
+ (2) _isr                                                  4     4      0       0
+                                              0 COMMON     4     4      0
  ---------------------------------------------------------------------------------
  Estimated maximum stack depth 2
  ---------------------------------------------------------------------------------
@@ -1929,7 +2269,7 @@ Call Graph Tables:
    _adcInterrupt
    _adcSetup
    _analogInSel
-   _globalAdcIntEnable
+   _i2c_slave_init
    _oscInit
    _setup
 
@@ -1941,13 +2281,13 @@ BITCOMMON            E      0       0       0        0.0%
 EEDATA             100      0       0       0        0.0%
 NULL                 0      0       0       0        0.0%
 CODE                 0      0       0       0        0.0%
-COMMON               E      6       7       1       50.0%
+COMMON               E      7       C       1       85.7%
 BITSFR0              0      0       0       1        0.0%
 SFR0                 0      0       0       1        0.0%
 BITSFR1              0      0       0       2        0.0%
 SFR1                 0      0       0       2        0.0%
 STACK                0      0       0       2        0.0%
-ABS                  0      0       7       3        0.0%
+ABS                  0      0       C       3        0.0%
 BITBANK0            50      0       0       4        0.0%
 BITSFR3              0      0       0       4        0.0%
 SFR3                 0      0       0       4        0.0%
@@ -1960,64 +2300,83 @@ BITBANK3            60      0       0       8        0.0%
 BANK3               60      0       0       9        0.0%
 BITBANK2            60      0       0      10        0.0%
 BANK2               60      0       0      11        0.0%
-DATA                 0      0       7      12        0.0%
+DATA                 0      0       C      12        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.10 build 88905656 
-Symbol Table                                                                                   Tue Feb 25 14:59:30 2020
+Symbol Table                                                                                   Sun Mar 01 23:49:15 2020
 
-                __CFG_CP$OFF 0000                           l11 01C2                           l30 0047  
-                         l22 0016                           l15 017B                           l31 004E  
-                         l32 0055                           l24 001D                           l41 0156  
-                         l17 0182                           l33 005C                           l25 0024  
-                         l18 0199                           l34 0063                           l26 002B  
-                         l43 015B                           l35 006A                           l27 0032  
-                         l51 00AF                           l44 0160                           l36 0071  
-                         l28 0039                           l60 0121                           l45 0178  
-                         l29 0040                           l37 00AC                           l53 00B9  
-                         l54 00C3                           l55 00CD                           l56 00D7  
-                         l57 00E1                           l58 00EB                           l59 00F5  
-                         u20 014F                           u21 014E                          l112 01B9  
-                        l115 01C5                          l713 0189                          l707 01BA  
-                        l723 0078                          l733 0165                          l709 017A  
-                        l719 0015                          l743 00FF                          l751 01B3  
-                        l729 0155                          l753 01C3                          l761 0127  
-                        l739 00AE                          l771 014F                          l763 012D  
-                        l853 0107                          l749 01AD                          l765 013E  
-                        l855 0080                          l767 0143                          l759 0122  
-                        l857 0191                          l769 0149                          l859 016D  
-               __CFG_CPD$OFF 0000                 _adcInterrupt 0179                          _isr 019A  
-                        _pot 0076          analogInSel@analogIn 0075                 __CFG_LVP$OFF 0000  
-                       ?_isr 0070                         u1_20 01A0                         u1_21 019F  
-               __CFG_WRT$OFF 0000                         _main 0122                         btemp 007E  
-                       start 000C                __CFG_IESO$OFF 0000                        ??_isr 0070  
-                      ?_main 0070                __CFG_WDTE$OFF 0000                        i1l100 01A6  
-                      i1l755 019A                        i1l757 01A0                        _PORTA 0005  
-                      _PORTB 0006                        _TRISA 0085               __CFG_FCMEN$OFF 0000  
-                      _setup 01AD              __end_of_oscInit 0122               __CFG_BOREN$OFF 0000  
-                      pclath 000A                        status 0003                        wtemp0 007E  
-       __size_of_analogInSel 0099               __CFG_MCLRE$OFF 0000              __initialization 000F  
-               __end_of_main 0154                       ??_main 0076   __end_of_globalAdcIntEnable 01C6  
-                     _ADRESH 001E                       ?_setup 0070             __end_of_adcSetup 01C3  
-             __CFG_PWRTE$OFF 0000                    ??_oscInit 0073                       saved_w 007E  
-                 _adcFoscSel 0154      __end_of__initialization 0010               __pcstackCOMMON 0070  
-              __end_of_setup 01BA                  oscInit@freq 0075                      ??_setup 0073  
-                 __pmaintext 0122                   __pintentry 0004                    ?_adcSetup 0070  
-                ?_adcFoscSel 0070                   ??_adcSetup 0073                    _ANSELbits 0188  
-                    __ptext1 01AD                      __ptext2 00AD                      __ptext3 01C3  
-                    __ptext4 0014                      __ptext5 01BA                      __ptext6 0179  
-                    __ptext7 0154                      __ptext8 019A                 __size_of_isr 0013  
-                    _oscInit 00AD                ??_analogInSel 0073         end_of_initialization 0010  
-         _globalAdcIntEnable 01C3          ?_globalAdcIntEnable 0070          __size_of_adcFoscSel 0025  
-                  _TRISEbits 0089         ??_globalAdcIntEnable 0073          __end_of_analogInSel 00AD  
-             adcFoscSel@fosc 0075                ?_adcInterrupt 0070          start_initialization 000F  
-                __end_of_isr 01AD     __CFG_FOSC$INTRC_NOCLKOUT 0000               ??_adcInterrupt 0073  
-          __size_of_adcSetup 0009                  __pbssCOMMON 0076                    ___latbits 0002  
-                _analogInSel 0014                 ??_adcFoscSel 0073           __end_of_adcFoscSel 0179  
-                   ?_oscInit 0070               __size_of_setup 000D            interrupt_function 0004  
-                   _PIE1bits 008C                     _PIR1bits 000C               adcInterrupt@en 0075  
-                 _ADCON0bits 001F                   _ADCON1bits 009F         __end_of_adcInterrupt 019A  
-                   _adcSetup 01BA             __size_of_oscInit 0075            __CFG_BOR4V$BOR40V 0000  
-__size_of_globalAdcIntEnable 0003                __size_of_main 0032                   _INTCONbits 000B  
-                   intlevel1 0000                 ?_analogInSel 0070                   _OSCCONbits 008F  
-      __size_of_adcInterrupt 0021  
+                       _x 0079                         _z 0077               __CFG_CP$OFF 0000  
+             _SSPSTATbits 0094                        l11 0248                        l30 004B  
+                      l22 001A                        l15 01FA                        l31 0052  
+                      l32 0059                        l24 0021                        l41 01D5  
+                      l17 0201                        l33 0060                        l25 0028  
+                      l18 0218                        l34 0067                        l26 002F  
+                      l43 01DA                        l35 006E                        l27 0036  
+                      l51 012D                        l44 01DF                        l36 0075  
+                      l28 003D                        l60 019F                        l45 01F7  
+                      l29 0044                        l37 00B0                        l53 0137  
+                      l54 0141                        l55 014B                        l56 0155  
+                      l57 015F                        l58 0169                        l59 0173  
+                     l135 023F                       l187 0232                       l801 01D4  
+                     l811 012C                       l805 01E4                       l821 0233  
+                     l831 022A                       l815 017D                       l823 0239  
+                     l833 022B                       l825 021A                       l835 022C  
+                     l827 0228                       l781 01F9                       l837 022F  
+                     l829 0229                       l791 0019                       l785 0208  
+                     l779 0240                       l795 007C                       l891 01C8  
+                     l883 01A0                       l893 01CE                       l885 01A5  
+                     l887 01AB                       l889 01C2                       u130 01CE  
+                     u131 01CD              __CFG_CPD$OFF 0000              _adcInterrupt 01F8  
+                     _isr 00B1                       _pot 007B       analogInSel@analogIn 0076  
+            __CFG_LVP$OFF 0000                      l1021 0210                      l1023 01EC  
+                    l1017 0185                      l1019 0084                      ?_isr 0070  
+                    u3_20 00B7                      u3_21 00B6                      u4_20 00C2  
+                    u4_21 00C1                      u5_20 00C7                      u5_21 00C6  
+                    u6_20 00CB                      u6_21 00CA                      u7_20 00DB  
+                    u7_21 00DA                      u8_20 00DF                      u8_21 00DE  
+                    u9_20 00F0                      u9_21 00EF              __CFG_WRT$OFF 0000  
+                    _main 01A0                      btemp 007E                      start 000C  
+           __CFG_IESO$OFF 0000                     ??_isr 0070                     ?_main 0070  
+           __CFG_WDTE$OFF 0000                     i1l120 011B                     i1l114 00FE  
+                   i1l115 00EA                     i1l123 0124                     i1l118 0121  
+                   i1l851 00C2                     i1l843 00B1                     i1l861 00D4  
+                   i1l853 00C7                     i1l845 00B7                     i1l871 00E9  
+                   i1l863 00D5                     i1l855 00CB                     i1l847 00BD  
+                   i1l881 0116                     i1l873 00F0                     i1l865 00DB  
+                   i1l857 00D2                     i1l849 00BE                     i1l875 0102  
+                   i1l867 00DF                     i1l859 00D3                     i1l877 0106  
+                   i1l869 00E8                     i1l879 010F                     u10_20 0102  
+                   u10_21 0101                     u11_20 0106                     u11_21 0105  
+                   u12_20 0121                     u12_21 0120                     u16_27 00FB  
+                   u17_27 0119                     _PORTB 0006                     _TRISB 0086  
+          __CFG_FCMEN$OFF 0000                     _setup 0233           __end_of_oscInit 01A0  
+          __CFG_BOREN$OFF 0000                     pclath 000A                     status 0003  
+                   wtemp0 007E      __size_of_analogInSel 0099            __CFG_MCLRE$OFF 0000  
+         __initialization 000F              __end_of_main 01D3                    ??_main 0077  
+          _i2c_slave_init 0219                    _ADRESH 001E                    ?_setup 0070  
+        __end_of_adcSetup 0249                    _SSPADD 0093                    _SSPBUF 0013  
+                  _SSPCON 0014            __CFG_PWRTE$OFF 0000    __end_of_i2c_slave_init 0233  
+               ??_oscInit 0074                    saved_w 007E                _adcFoscSel 01D3  
+ __end_of__initialization 0014            __pcstackCOMMON 0070             __end_of_setup 0240  
+         ?_i2c_slave_init 0070               oscInit@freq 0076                   ??_setup 0074  
+              __pmaintext 01A0                __pintentry 0004                 ?_adcSetup 0070  
+                 _SSPCON2 0091                   _SSPSTAT 0094               ?_adcFoscSel 0070  
+              ??_adcSetup 0074                 _ANSELbits 0188                   __ptext1 0233  
+                 __ptext2 012B                   __ptext3 0219                   __ptext4 0018  
+                 __ptext5 0240                   __ptext6 01F8                   __ptext7 01D3  
+                 __ptext8 00B1              __size_of_isr 007A                   _oscInit 012B  
+   i2c_slave_init@address 0074             ??_analogInSel 0074      end_of_initialization 0014  
+     __size_of_adcFoscSel 0025                 _TRISCbits 0087                 _TRISEbits 0089  
+     __end_of_analogInSel 00B1          ??_i2c_slave_init 0074            adcFoscSel@fosc 0076  
+           ?_adcInterrupt 0070       start_initialization 000F               __end_of_isr 012B  
+__CFG_FOSC$INTRC_NOCLKOUT 0000            ??_adcInterrupt 0074         __size_of_adcSetup 0009  
+             __pbssCOMMON 0077                 ___latbits 0002               _analogInSel 0018  
+            ??_adcFoscSel 0074        __end_of_adcFoscSel 01F8                  ?_oscInit 0070  
+          __size_of_setup 000D         interrupt_function 0004                  _PIE1bits 008C  
+                _PIR1bits 000C            adcInterrupt@en 0076                _ADCON0bits 001F  
+              _ADCON1bits 009F      __end_of_adcInterrupt 0219                  _adcSetup 0240  
+        __size_of_oscInit 0075         __CFG_BOR4V$BOR40V 0000             __size_of_main 0033  
+              _INTCONbits 000B                  intlevel1 0000              ?_analogInSel 0070  
+              _OSCCONbits 008F   __size_of_i2c_slave_init 001A               _SSPCON2bits 0091  
+   __size_of_adcInterrupt 0021                _SSPCONbits 0014  

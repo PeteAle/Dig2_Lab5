@@ -2747,44 +2747,103 @@ typedef int16_t intptr_t;
 typedef uint16_t uintptr_t;
 # 33 "Lab5_i2c_slave_count.c" 2
 
+# 1 "./I2C.h" 1
+# 35 "./I2C.h"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 1 3
+# 35 "./I2C.h" 2
+
+
+
+
+
+
+void i2c_master_init(const unsigned long c);
+void i2c_masterWait(void);
+void i2c_masterStart(void);
+void i2c_masterRStart(void);
+void i2c_masterStop(void);
+void i2c_masterWrite(unsigned data);
+unsigned short i2c_masterRead(unsigned short a);
+void i2c_slave_init(uint8_t address);
+# 34 "Lab5_i2c_slave_count.c" 2
+
 
 unsigned char i = 0;
 unsigned char j = 0;
+short x = 0;
+short z = 0;
 
 void setup(void);
 
+void __attribute__((picinterrupt(("")))) isr(){
+    (INTCONbits.GIE = 0);
+    if (PIR1bits.SSPIF == 1){
+            SSPCONbits.CKP = 0;
+            if (SSPCONbits.WCOL == 1 || SSPCONbits.SSPOV == 1){
+                x = SSPBUF;
+                SSPCONbits.WCOL = 0;
+                SSPCONbits.SSPOV = 0;
+                SSPCONbits.CKP = 1;
+            }
+            if(!SSPSTATbits.D_nA && !SSPSTATbits.R_nW){
+                x = SSPBUF;
+                while(!SSPSTATbits.BF);
+                z = SSPBUF;
+                SSPCONbits.CKP = 1;
+            }
+            else if (!SSPSTATbits.D_nA && SSPSTATbits.R_nW){
+                x = SSPBUF;
+                SSPSTATbits.BF = 0;
+                SSPBUF = PORTB;
+                SSPCONbits.CKP = 1;
+                _delay((unsigned long)((300)*(4000000/4000000.0)));
+                while(SSPSTATbits.BF);
+            }
+            PIR1bits.SSPIF = 0;
+        }
+    (INTCONbits.GIE = 1);
+}
+
 void main(void) {
     setup();
+    i2c_slave_init(0x20);
     while(1){
-        if (PORTEbits.RE0 == 1){
+        while (PORTDbits.RD2 == 1){
+            (INTCONbits.GIE = 0);
             i = 1;
-            if (PORTEbits.RE0 == 0 && i == 1){
-                PORTA += PORTA;
-                i = 0;
-                if (PORTA == 16){
-                    PORTA = 0;
+            if (PORTDbits.RD2 == 0 && i == 1){
+                PORTB++;
+                i = 1;
+                if (PORTB > 15){
+                    PORTB = 0;
                 }
             }
+            (INTCONbits.GIE = 1);
         }
-        else if (PORTEbits.RE1 == 1){
+        while (PORTDbits.RD1 == 1){
+            (INTCONbits.GIE = 0);
             j = 1;
-            if (PORTEbits.RE1 == 0 && j == 1){
-                PORTA -= PORTA;
-                j = 0;
+            if (PORTDbits.RD1 == 0 && j == 1){
+                if (PORTB == 0){
+                    j = 0;
+                }
+                else{
+                    PORTB--;
+                    j = 0;
+                }
             }
-            else if (PORTA == 0){
-                j = 0;
-            }
+            (INTCONbits.GIE = 1);
         }
     }
     return;
 }
 
 void setup(void){
-    TRISEbits.TRISE0 = 1;
-    TRISEbits.TRISE1 = 1;
-    TRISA = 0xFF;
+    TRISDbits.TRISD2 = 1;
+    TRISDbits.TRISD1 = 1;
+    PORTD = 0;
+    TRISB = 0x00;
     ANSEL = 0;
     ANSELH = 0;
-    PORTA = 0;
+    PORTB = 0;
 }

@@ -38,6 +38,7 @@
 #define _XTAL_FREQ 4000000
 
 short x = 0;
+short z = 0;
 unsigned char pot = 0;
 
 void setup(void);
@@ -47,6 +48,34 @@ void __interrupt() isr(){
     if (PIR1bits.ADIF == 1){
         pot = ADRESH;
         PORTB = pot;
+        PIR1bits.ADIF = 0;
+    }
+    if (PIR1bits.SSPIF == 1){
+        SSPCONbits.CKP = 0;
+        if (SSPCONbits.WCOL == 1 || SSPCONbits.SSPOV == 1){
+            x = SSPBUF;
+            SSPCONbits.WCOL = 0;
+            SSPCONbits.SSPOV = 0;
+            SSPCONbits.CKP = 1;
+        }
+        if(!SSPSTATbits.D_nA && !SSPSTATbits.R_nW){
+            x = SSPBUF;                 // Lectura del SSBUF para limpiar el buffer y la bandera BF
+            //__delay_us(2);
+            PIR1bits.SSPIF = 0;         // Limpia bandera de interrupción recepción/transmisión SSP
+            SSPCONbits.CKP = 1;         // Habilita entrada de pulsos de reloj SCL
+            while(!SSPSTATbits.BF);     // Esperar a que la recepción se complete
+            x = SSPBUF;             // Guardar en el PORTD el valor del buffer de recepción
+            __delay_us(250);
+        }
+        else if (!SSPSTATbits.D_nA && SSPSTATbits.R_nW){
+            x = SSPBUF;
+            SSPSTATbits.BF = 0;
+            SSPBUF = pot;
+            SSPCONbits.CKP = 1;
+            __delay_us(250);
+            while(SSPSTATbits.BF);
+        }
+        PIR1bits.SSPIF = 0;
     }
 }
 
@@ -56,14 +85,12 @@ void main(void) {
     adcSetup();
     analogInSel(5);
     adcFoscSel(1);
-    globalAdcIntEnable();
     adcInterrupt(1);
     i2c_slave_init(0x10);
     while(1){
         if (ADCON0bits.GO_DONE == 0){
             ADCON0bits.GO_DONE = 1;
         }
-        if (SSPIF ==)
     }
     return;
 }
@@ -71,8 +98,8 @@ void main(void) {
 void setup(void){
     TRISEbits.TRISE0 = 1;
     ANSELbits.ANS5 = 1;
-    TRISA = 0;
-    PORTA = 0;
+    TRISB = 0;
+    PORTB = 0;
 }
 
 void globalAdcIntEnable(void){

@@ -23,6 +23,8 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>lib_osccon.c</itemPath>
+    <itemPath>lib_osccon.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>

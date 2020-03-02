@@ -31,19 +31,41 @@
 #include <xc.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "lib_osccon.h"
 #include "LCDv1.h"
 #include "I2C.h"
 
+#define _XTAL_FREQ 4000000
+
 float temp_pot1 = 0;
-uint16_t centenas = 0, decenas = 0, unidades = 0;
+uint16_t centenas = 0, decenas = 0, unidades = 0, counter = 0;
 
 void setup(void);
 
 void main(void) {
     setup();
-    lcd8_init();
     i2c_master_init(100000);
+    lcd8_init();
     while(1){
+        //--------------------- Para los datos del pot --------------------
+        i2c_masterStart();
+        i2c_masterWrite(0x11);
+        temp_pot1 = i2c_masterRead(0);
+        i2c_masterStop();
+        __delay_ms(1);
+        //------------------ Para recibir contador ------------------------
+        i2c_masterStart();
+        i2c_masterWrite(0x21);
+        counter = i2c_masterRead(0);
+        i2c_masterStop();
+        __delay_ms(1);
+        //------------------- Cálculos del voltaje ------------------------
+        temp_pot1 = (temp_pot1*5.0)/255.0;
+        temp_pot1 = temp_pot1*100;
+        centenas = temp_pot1/100;
+        temp_pot1 = temp_pot1 - (centenas*100);
+        decenas = temp_pot1/10;
+        unidades = temp_pot1 - (decenas*10);
         //--------------------- Set el LCD --------------------------------
         lcd8_setCursor(1,1);
         delay_1ms();
@@ -57,17 +79,6 @@ void main(void) {
         delay_1ms();
         lcd8_dispChar("S3:");
         delay_1ms();
-        //--------------------- Para los datos del pot --------------------
-        i2c_masterStart();
-        i2c_masterWrite(0x11);
-        temp_pot1 = i2c_masterRead(1);
-        i2c_masterStop();
-        temp_pot1 = (temp_pot1*5.0)/255.0;
-        temp_pot1 = temp_pot1*100;
-        centenas = temp_pot1/100;
-        temp_pot1 = temp_pot1 - (centenas*100);
-        decenas = temp_pot1/10;
-        unidades = temp_pot1 - (decenas*10);
         //-------------------- Desplegar datos del Pot en LCD -------------
         lcd8_setCursor(2,1);
         delay_1ms();
@@ -78,13 +89,22 @@ void main(void) {
         lcd8_dispNum(decenas);
         delay_1ms();
         lcd8_dispNum(unidades);
+        delay_1ms();
+        //-------------------- Desplegar el contador en LCD ---------------
+        lcd8_setCursor(2,6);
+        delay_1ms();
+        lcd8_dispNum(counter);
+        delay_1ms();
     }
     return;
 }
 
 void setup(void){
     TRISA = 0x00;
-    TRISE = 0xFF;
+    TRISEbits.TRISE0 = 0;
+    TRISEbits.TRISE1 = 0;
+    TRISEbits.TRISE2 = 0;
     ANSEL = 0x00;
     ANSELH = 0x00;
+    PORTA = 0x00;
 }

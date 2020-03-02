@@ -35,31 +35,69 @@
 
 unsigned char i = 0;
 unsigned char j = 0;
+short x = 0;
+short z = 0;
 
 void setup(void);
 
+void __interrupt() isr(){
+    di();
+    if (PIR1bits.SSPIF == 1){
+            SSPCONbits.CKP = 0;
+            if (SSPCONbits.WCOL == 1 || SSPCONbits.SSPOV == 1){
+                x = SSPBUF;
+                SSPCONbits.WCOL = 0;
+                SSPCONbits.SSPOV = 0;
+                SSPCONbits.CKP = 1;
+            }
+            if(!SSPSTATbits.D_nA && !SSPSTATbits.R_nW){
+                x = SSPBUF;
+                while(!SSPSTATbits.BF);
+                z = SSPBUF;
+                SSPCONbits.CKP = 1;
+            }
+            else if (!SSPSTATbits.D_nA && SSPSTATbits.R_nW){
+                x = SSPBUF;
+                SSPSTATbits.BF = 0;
+                SSPBUF = PORTB;
+                SSPCONbits.CKP = 1;
+                __delay_us(300);
+                while(SSPSTATbits.BF);
+            }
+            PIR1bits.SSPIF = 0;
+        }
+    ei();
+}
+
 void main(void) {
     setup();
+    i2c_slave_init(0x20);
     while(1){
-        if (PORTDbits.RD2 == 1){
+        while (PORTDbits.RD2 == 1){
+            di();
             i = 1;
             if (PORTDbits.RD2 == 0 && i == 1){
-                PORTB += PORTB;
-                i = 0;
-                if (PORTB >= 16){
+                PORTB++;
+                i = 1;
+                if (PORTB > 15){
                     PORTB = 0;
                 }
             }
+            ei();
         }
-        else if (PORTDbits.RD1 == 1){
+        while (PORTDbits.RD1 == 1){
+            di();
             j = 1;
             if (PORTDbits.RD1 == 0 && j == 1){
-                PORTB -= PORTB;
-                j = 0;
+                if (PORTB == 0){
+                    j = 0;
+                }
+                else{
+                    PORTB--;
+                    j = 0;   
+                }
             }
-            else if (PORTB == 0){
-                j = 0;
-            }
+            ei();
         }
     }
     return;
@@ -68,6 +106,7 @@ void main(void) {
 void setup(void){
     TRISDbits.TRISD2 = 1;
     TRISDbits.TRISD1 = 1;
+    PORTD = 0;
     TRISB = 0x00;
     ANSEL = 0;
     ANSELH = 0;

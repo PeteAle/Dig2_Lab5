@@ -1,4 +1,4 @@
-# 1 "Lab5_i2c_slave_pot_v1.c"
+# 1 "lib_osccon.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,22 +6,9 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "Lab5_i2c_slave_pot_v1.c" 2
-# 13 "Lab5_i2c_slave_pot_v1.c"
-#pragma config FOSC = INTRC_NOCLKOUT
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = OFF
-#pragma config IESO = OFF
-#pragma config FCMEN = OFF
-#pragma config LVP = OFF
+# 1 "lib_osccon.c" 2
 
 
-#pragma config BOR4V = BOR40V
-#pragma config WRT = OFF
 
 
 
@@ -2511,344 +2498,88 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 31 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 1 3
-
-
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\__size_t.h" 1 3
-
-
-
-typedef unsigned size_t;
-# 4 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 2 3
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\__null.h" 1 3
-# 5 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 2 3
-
-
-
-
-
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdarg.h" 1 3
-
-
-
-
-
-
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-# 11 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 2 3
-# 43 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 3
-struct __prbuf
-{
- char * ptr;
- void (* func)(char);
-};
-# 85 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 3
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\conio.h" 1 3
-
-
-
-
-
-
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\errno.h" 1 3
-# 29 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\errno.h" 3
-extern int errno;
-# 8 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\conio.h" 2 3
-
-
-
-
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-
-
-extern char * cgets(char *);
-extern void cputs(const char *);
-# 85 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 2 3
-
-
-
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-# 180 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdio.h" 3
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-# 32 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 1 3
-# 13 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int8_t;
-
-
-
-
-
-
-typedef signed int int16_t;
-
-
-
-
-
-
-
-typedef __int24 int24_t;
-
-
-
-
-
-
-
-typedef signed long int int32_t;
-# 52 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint8_t;
-
-
-
-
-
-typedef unsigned int uint16_t;
-
-
-
-
-
-
-typedef __uint24 uint24_t;
-
-
-
-
-
-
-typedef unsigned long int uint32_t;
-# 88 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_least8_t;
-
-
-
-
-
-
-
-typedef signed int int_least16_t;
-# 109 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_least24_t;
-# 118 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef signed long int int_least32_t;
-# 136 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_least8_t;
-
-
-
-
-
-
-typedef unsigned int uint_least16_t;
-# 154 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_least24_t;
-
-
-
-
-
-
-
-typedef unsigned long int uint_least32_t;
-# 181 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_fast8_t;
-
-
-
-
-
-
-typedef signed int int_fast16_t;
-# 200 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_fast24_t;
-
-
-
-
-
-
-
-typedef signed long int int_fast32_t;
-# 224 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_fast8_t;
-
-
-
-
-
-typedef unsigned int uint_fast16_t;
-# 240 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_fast24_t;
-
-
-
-
-
-
-typedef unsigned long int uint_fast32_t;
-# 268 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef int32_t intmax_t;
-# 282 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 3
-typedef uint32_t uintmax_t;
-
-
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-# 33 "Lab5_i2c_slave_pot_v1.c" 2
+# 8 "lib_osccon.c" 2
 
 # 1 "./lib_osccon.h" 1
 # 36 "./lib_osccon.h"
 unsigned char oscInit(unsigned char freq);
-# 34 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "./lib_adc.h" 1
-# 36 "./lib_adc.h"
-void adcSetup(void);
-void adcInterrupt(unsigned char en);
-unsigned char analogInSel(unsigned char analogIn);
-unsigned char adcFoscSel(unsigned char fosc);
-# 35 "Lab5_i2c_slave_pot_v1.c" 2
-
-# 1 "./I2C.h" 1
-# 35 "./I2C.h"
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdint.h" 1 3
-# 35 "./I2C.h" 2
+# 9 "lib_osccon.c" 2
 
 
-
-
-
-
-void i2c_master_init(const unsigned long c);
-void i2c_masterWait(void);
-void i2c_masterStart(void);
-void i2c_masterRStart(void);
-void i2c_masterStop(void);
-void i2c_masterWrite(unsigned data);
-unsigned short i2c_masterRead(unsigned short a);
-void i2c_slave_init(uint8_t address);
-# 36 "Lab5_i2c_slave_pot_v1.c" 2
-
-
-
-
-short x = 0;
-short z = 0;
-unsigned char pot = 0;
-
-void setup(void);
-void globalAdcIntEnable(void);
-
-void __attribute__((picinterrupt(("")))) isr(){
-    if (PIR1bits.ADIF == 1){
-        pot = ADRESH;
-        PORTB = pot;
-        PIR1bits.ADIF = 0;
+unsigned char oscInit(unsigned char freq) {
+    switch(freq){
+        case 0:
+            OSCCONbits.IRCF2 = 1;
+            OSCCONbits.IRCF1 = 1;
+            OSCCONbits.IRCF0 = 1;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 1:
+            OSCCONbits.IRCF2 = 1;
+            OSCCONbits.IRCF1 = 1;
+            OSCCONbits.IRCF0 = 0;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 2:
+            OSCCONbits.IRCF2 = 1;
+            OSCCONbits.IRCF1 = 0;
+            OSCCONbits.IRCF0 = 1;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 3:
+            OSCCONbits.IRCF2 = 1;
+            OSCCONbits.IRCF1 = 0;
+            OSCCONbits.IRCF0 = 0;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 4:
+            OSCCONbits.IRCF2 = 0;
+            OSCCONbits.IRCF1 = 1;
+            OSCCONbits.IRCF0 = 1;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 5:
+            OSCCONbits.IRCF2 = 0;
+            OSCCONbits.IRCF1 = 1;
+            OSCCONbits.IRCF0 = 0;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 6:
+            OSCCONbits.IRCF2 = 0;
+            OSCCONbits.IRCF1 = 0;
+            OSCCONbits.IRCF0 = 1;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 1;
+            OSCCONbits.LTS = 0;
+            OSCCONbits.SCS = 1;
+            break;
+        case 7:
+            OSCCONbits.IRCF2 = 0;
+            OSCCONbits.IRCF1 = 0;
+            OSCCONbits.IRCF0 = 0;
+            OSCCONbits.OSTS = 0;
+            OSCCONbits.HTS = 0;
+            OSCCONbits.LTS = 1;
+            OSCCONbits.SCS = 1;
+            break;
     }
-    if (PIR1bits.SSPIF == 1){
-        SSPCONbits.CKP = 0;
-        if (SSPCONbits.WCOL == 1 || SSPCONbits.SSPOV == 1){
-            x = SSPBUF;
-            SSPCONbits.WCOL = 0;
-            SSPCONbits.SSPOV = 0;
-            SSPCONbits.CKP = 1;
-        }
-        if(!SSPSTATbits.D_nA && !SSPSTATbits.R_nW){
-            x = SSPBUF;
-
-            PIR1bits.SSPIF = 0;
-            SSPCONbits.CKP = 1;
-            while(!SSPSTATbits.BF);
-            x = SSPBUF;
-            _delay((unsigned long)((250)*(4000000/4000000.0)));
-        }
-        else if (!SSPSTATbits.D_nA && SSPSTATbits.R_nW){
-            x = SSPBUF;
-            SSPSTATbits.BF = 0;
-            SSPBUF = pot;
-            SSPCONbits.CKP = 1;
-            _delay((unsigned long)((250)*(4000000/4000000.0)));
-            while(SSPSTATbits.BF);
-        }
-        PIR1bits.SSPIF = 0;
-    }
-}
-
-void main(void) {
-    setup();
-    oscInit(1);
-    adcSetup();
-    analogInSel(5);
-    adcFoscSel(1);
-    adcInterrupt(1);
-    i2c_slave_init(0x10);
-    while(1){
-        if (ADCON0bits.GO_DONE == 0){
-            ADCON0bits.GO_DONE = 1;
-        }
-    }
-    return;
-}
-
-void setup(void){
-    TRISEbits.TRISE0 = 1;
-    ANSELbits.ANS5 = 1;
-    TRISB = 0;
-    PORTB = 0;
-}
-
-void globalAdcIntEnable(void){
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
+    return(freq);
 }
